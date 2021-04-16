@@ -8,7 +8,7 @@ class WinsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (this.items == null || this.items.isEmpty) {
-      return null;
+      return Container();
     }
 
     return Container(

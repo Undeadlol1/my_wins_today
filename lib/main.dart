@@ -4,7 +4,7 @@ import 'package:my_wins_today/TestButton.dart';
 import 'package:my_wins_today/widgets/WinsList.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
-import 'CreateWinScreen.dart';
+import 'screens/CreateWinScreen.dart';
 import 'entities/Win.dart';
 
 final List<Win> wins = [
@@ -30,7 +30,12 @@ class MyApp extends StatelessWidget {
           ],
         ),
         children: [
-          Story.simple(name: 'Create win screen', child: CreateWinScreen()),
+          Story.simple(
+            name: 'CreateWinScreen',
+            child: CreateWinScreen(
+              wins: wins,
+            ),
+          ),
           Story.simple(name: 'WinsList', child: WinsList(items: wins)),
           Story(
             section: 'Buttons',

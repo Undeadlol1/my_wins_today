@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:my_wins_today/TestButton.dart';
 import 'package:my_wins_today/screens/MainScreen.dart';
+import 'package:my_wins_today/widgets/CreateWinForm.dart';
 import 'package:my_wins_today/widgets/WinsList.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           Story.simple(name: 'WinsList', child: WinsList(items: wins)),
+          Story.simple(name: 'CreateWinForm', child: CreateWinForm()),
           Story(
             section: 'Buttons',
             name: 'Flat button',

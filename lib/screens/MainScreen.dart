@@ -14,7 +14,9 @@ class MainScreen extends StatelessWidget {
       children: <Widget>[
         Expanded(
           flex: 1,
-          child: Center(child: WinsList(items: this.wins)),
+          child: Center(
+            child: WinsList(items: this.wins),
+          ),
         ),
       ],
     );

@@ -13,6 +13,31 @@ class StoriesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Storybook(
+      children: [
+        Story.simple(
+          name: 'MainScreen',
+          child: MainScreen(myWinsToday: _wins),
+        ),
+        Story.simple(
+          name: 'CreateWinScreen',
+          child: CreateWinScreen(wins: _wins),
+        ),
+        Story(
+          section: 'Wins',
+          name: 'CreateWinForm',
+          builder: (_, k) => CreateWinForm(
+            myWinsToday: k.options(
+              label: 'List values',
+              initial: _wins,
+              options: [
+                Option('Empty', []),
+                Option('With data', _wins),
+              ],
+            ),
+          ),
+        ),
+        Story.simple(name: 'WinsList', child: WinsList(items: _wins)),
+      ],
       storyWrapperBuilder: (context, story, child) => Stack(
         children: [
           Container(
@@ -22,80 +47,23 @@ class StoriesList extends StatelessWidget {
           ),
         ],
       ),
-      children: [
-        Story.simple(
-          name: 'MainScreen',
-          child: MainScreen(
-            myWinsToday: _wins,
-          ),
-        ),
-        Story.simple(
-          name: 'CreateWinScreen',
-          child: CreateWinScreen(wins: _wins),
-        ),
-        Story.simple(name: 'WinsList', child: WinsList(items: _wins)),
-        Story.simple(
-          name: 'CreateWinForm',
-          child: CreateWinForm(
-            myWinsToday: [],
-          ),
-        ),
-        Story(
-          section: 'CreateWinForm',
-          name: 'Flat button',
-          builder: (_, k) => CreateWinForm(
-            myWinsToday: _wins,
-            // onPressed:
-            //     k.boolean(label: 'Enabled', initial: true) ? () {} : null,
-          ),
-        ),
-        // Story(
-        //   section: 'Buttons',
-        //   name: 'Raised button',
-        //   // ignore: deprecated_member_use
-        //   builder: (_, k) => RaisedButton(
-        //     onPressed:
-        //         k.boolean(label: 'Enabled', initial: true) ? () {} : null,
-        //     color: k.options(
-        //       label: 'Color',
-        //       initial: Colors.deepOrange,
-        //       options: const [
-        //         Option('Red', Colors.deepOrange),
-        //         Option('Green', Colors.teal),
-        //       ],
-        //     ),
-        //     mouseCursor: k.options(
-        //       label: 'Mouse Cursor',
-        //       initial: null,
-        //       options: const [
-        //         Option('Basic', SystemMouseCursors.basic),
-        //         Option('Click', SystemMouseCursors.click),
-        //         Option('Forbidden', SystemMouseCursors.forbidden),
-        //       ],
-        //     ),
-        //     elevation: k.slider(label: 'Elevation', initial: 0, max: 20),
-        //     textColor: Colors.white,
-        //     child: Text(k.text(label: 'Text', initial: 'Raised button')),
-        //   ),
-        // ),
-      ],
     );
   }
 
   final List<Win> _wins = [
     Win(
-      title: 'Поздравил Деда',
       id: '321',
       userId: '123',
       updatedAt: 123,
       createdAt: 123,
+      title: 'Поздравил Деда',
     ),
     Win(
-      title: 'Отправил документы',
       id: '123',
       userId: '123',
       updatedAt: 123,
       createdAt: 123,
+      title: 'Отправил документы',
     ),
   ];
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:my_wins_today/TestButton.dart';
+import 'package:my_wins_today/screens/MainScreen.dart';
 import 'package:my_wins_today/widgets/WinsList.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
@@ -30,6 +31,12 @@ class MyApp extends StatelessWidget {
           ],
         ),
         children: [
+          Story.simple(
+            name: 'MainScreen',
+            child: MainScreen(
+              wins: wins,
+            ),
+          ),
           Story.simple(
             name: 'CreateWinScreen',
             child: CreateWinScreen(

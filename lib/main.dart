@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:my_wins_today/TestButton.dart';
+import 'package:my_wins_today/widgets/WinsList.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
+
+import 'CreateWinScreen.dart';
+import 'entities/Win.dart';
+
+final List<Win> wins = [
+  new Win(title: 'Cleaned dishes', id: '321'),
+  new Win(title: 'Got worked on the project', id: '123'),
+];
 
 void main() => runApp(const MyApp());
 
@@ -15,22 +24,14 @@ class MyApp extends StatelessWidget {
           children: [
             Container(
               padding: story.padding,
-              color: Theme.of(context).canvasColor,
               child: Center(child: child),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Text(
-                  story.name,
-                  style: const TextStyle(fontStyle: FontStyle.italic),
-                ),
-              ),
+              color: Theme.of(context).canvasColor,
             ),
           ],
         ),
         children: [
+          Story.simple(name: 'Create win screen', child: CreateWinScreen()),
+          Story.simple(name: 'WinsList', child: WinsList(items: wins)),
           Story(
             section: 'Buttons',
             name: 'Flat button',

@@ -8,15 +8,15 @@ import 'screens/CreateWinScreen.dart';
 import 'entities/Win.dart';
 
 final List<Win> wins = [
-  new Win(
-    title: 'Cleaned dishes',
+  Win(
+    title: 'Поздравил Деда',
     id: '321',
     userId: '123',
     updatedAt: 123,
     createdAt: 123,
   ),
-  new Win(
-    title: 'Worked on the project',
+  Win(
+    title: 'Отправил документы',
     id: '123',
     userId: '123',
     updatedAt: 123,
@@ -54,14 +54,19 @@ class MyApp extends StatelessWidget {
             ),
           ),
           Story.simple(name: 'WinsList', child: WinsList(items: wins)),
-          Story.simple(name: 'CreateWinForm', child: CreateWinForm()),
+          Story.simple(
+              name: 'CreateWinForm',
+              child: CreateWinForm(
+                myWinsToday: [],
+              )),
           Story(
             section: 'CreateWinForm',
             name: 'Flat button',
             builder: (_, k) => CreateWinForm(
-                // onPressed:
-                //     k.boolean(label: 'Enabled', initial: true) ? () {} : null,
-                ),
+              myWinsToday: wins,
+              // onPressed:
+              //     k.boolean(label: 'Enabled', initial: true) ? () {} : null,
+            ),
           ),
           // Story(
           //   section: 'Buttons',

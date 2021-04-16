@@ -7,20 +7,18 @@ class WinsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (this.items.isEmpty) {
+    if (items.isEmpty) {
       return Container();
     }
 
-    return Container(
-      child: ListView.builder(
-        itemCount: this.items.length,
-        itemBuilder: (BuildContext context, int index) {
-          final item = this.items[index];
-          return ListTile(
-            title: Text(item.title),
-          );
-        },
-      ),
+    return ListView.builder(
+      itemCount: this.items.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ListTile(
+          title: Text(items[index].title),
+          leading: Text((index + 1).toString() + ') '),
+        );
+      },
     );
   }
 }

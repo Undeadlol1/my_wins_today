@@ -15,7 +15,7 @@ class CreateWinScreen extends StatelessWidget {
         Expanded(
           flex: 1,
           child: Center(
-            child: CreateWinForm(),
+            child: CreateWinForm(myWinsToday: this.wins),
           ),
         ),
       ],

@@ -34,7 +34,6 @@ class _CreateWinFormState extends State<CreateWinForm> {
                   child: TextFormField(
                     validator: _textValidator,
                     decoration: InputDecoration(
-                      // prefix: _numberOfWins(),
                       labelText: 'Введите название победы',
                     ),
                   ),

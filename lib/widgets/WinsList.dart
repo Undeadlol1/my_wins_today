@@ -3,11 +3,11 @@ import 'package:my_wins_today/entities/Win.dart';
 
 class WinsList extends StatelessWidget {
   final List<Win> items;
-  const WinsList({Key key, @required this.items}) : super(key: key);
+  const WinsList({Key? key, required this.items}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (this.items == null || this.items.isEmpty) {
+    if (this.items.isEmpty) {
       return Container();
     }
 

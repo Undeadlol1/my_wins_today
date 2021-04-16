@@ -5,7 +5,7 @@ import '../entities/Win.dart';
 
 class CreateWinScreen extends StatelessWidget {
   final List<Win> wins;
-  const CreateWinScreen({Key key, @required this.wins}) : super(key: key);
+  const CreateWinScreen({Key? key, required this.wins}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

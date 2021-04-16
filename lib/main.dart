@@ -10,15 +10,26 @@ import 'screens/CreateWinScreen.dart';
 import 'entities/Win.dart';
 
 final List<Win> wins = [
-  new Win(title: 'Cleaned dishes', id: '321'),
-  new Win(title: 'Got worked on the project', id: '123'),
+  new Win(
+    title: 'Cleaned dishes',
+    id: '321',
+    userId: '123',
+    updatedAt: 123,
+    createdAt: 123,
+  ),
+  new Win(
+    title: 'Got worked on the project',
+    id: '123',
+    userId: '123',
+    updatedAt: 123,
+    createdAt: 123,
+  ),
 ];
 
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  // const MyApp({Key? key}) : super(key: key);
-  const MyApp({Key key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Storybook(

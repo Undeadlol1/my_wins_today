@@ -24,11 +24,11 @@ class _CreateWinFormState extends State<CreateWinForm> {
             ),
           ),
           Container(
-            alignment: Alignment.center,
             child: ElevatedButton(
               child: Text('Сохранить'),
               onPressed: _displaySnackbar,
             ),
+            alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(vertical: 16.0),
           ),
         ],
@@ -38,8 +38,11 @@ class _CreateWinFormState extends State<CreateWinForm> {
 
   void _displaySnackbar() {
     if (_form.currentState!.validate()) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Шота делоим')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Шота делоим'),
+        ),
+      );
     }
   }
 

@@ -7,6 +7,11 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 import 'screens/CreateWinScreen.dart';
 import 'entities/Win.dart';
 
+class StorybookSection {
+  static const String Wins = 'Wins';
+  static const String Screens = 'Screens';
+}
+
 class StoriesList extends StatelessWidget {
   StoriesList({Key? key}) : super(key: key);
 
@@ -23,7 +28,7 @@ class StoriesList extends StatelessWidget {
           child: CreateWinScreen(wins: _wins),
         ),
         Story(
-          section: 'Wins',
+          section: StorybookSection.Wins,
           name: 'CreateWinForm',
           builder: (_, k) => CreateWinForm(
             myWinsToday: k.options(

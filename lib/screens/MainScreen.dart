@@ -9,16 +9,6 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Expanded(
-          flex: 1,
-          child: Center(
-            child: WinsList(items: this.wins),
-          ),
-        ),
-      ],
-    );
+    return WinsList(items: this.wins);
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_wins_today/TestButton.dart';
 import 'package:my_wins_today/screens/MainScreen.dart';
 import 'package:my_wins_today/widgets/CreateWinForm.dart';
 import 'package:my_wins_today/widgets/WinsList.dart';
@@ -57,13 +56,12 @@ class MyApp extends StatelessWidget {
           Story.simple(name: 'WinsList', child: WinsList(items: wins)),
           Story.simple(name: 'CreateWinForm', child: CreateWinForm()),
           Story(
-            section: 'Buttons',
+            section: 'CreateWinForm',
             name: 'Flat button',
-            builder: (_, k) => MaterialButton(
-              onPressed:
-                  k.boolean(label: 'Enabled', initial: true) ? () {} : null,
-              child: Text(k.text(label: 'Text', initial: 'Flat button')),
-            ),
+            builder: (_, k) => CreateWinForm(
+                // onPressed:
+                //     k.boolean(label: 'Enabled', initial: true) ? () {} : null,
+                ),
           ),
           // Story(
           //   section: 'Buttons',
@@ -94,16 +92,6 @@ class MyApp extends StatelessWidget {
           //     child: Text(k.text(label: 'Text', initial: 'Raised button')),
           //   ),
           // ),
-          Story.simple(name: 'Button for testing', child: const TestButton()),
-          Story.simple(
-            name: 'Input field',
-            child: const TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Input field',
-              ),
-            ),
-          ),
         ],
       );
 }

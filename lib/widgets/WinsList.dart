@@ -7,10 +7,6 @@ class WinsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (items.isEmpty) {
-      return Container();
-    }
-
     return ListView.builder(
       itemCount: this.items.length,
       itemBuilder: (BuildContext context, int index) {

@@ -26,21 +26,20 @@ class StoriesList extends StatelessWidget {
         Story.simple(
           name: 'MainScreen',
           child: MainScreen(
-            wins: _wins,
+            myWinsToday: _wins,
           ),
         ),
         Story.simple(
           name: 'CreateWinScreen',
-          child: CreateWinScreen(
-            wins: _wins,
-          ),
+          child: CreateWinScreen(wins: _wins),
         ),
         Story.simple(name: 'WinsList', child: WinsList(items: _wins)),
         Story.simple(
-            name: 'CreateWinForm',
-            child: CreateWinForm(
-              myWinsToday: [],
-            )),
+          name: 'CreateWinForm',
+          child: CreateWinForm(
+            myWinsToday: [],
+          ),
+        ),
         Story(
           section: 'CreateWinForm',
           name: 'Flat button',

@@ -9,6 +9,8 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WinsList(wins: this.myWinsToday);
+    return Scaffold(
+        appBar: AppBar(title: Text('123')),
+        body: WinsList(wins: this.myWinsToday));
   }
 }

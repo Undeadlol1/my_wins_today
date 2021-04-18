@@ -19,17 +19,24 @@ class StoriesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Storybook(
       children: [
-        Story.simple(
+        Story(
           name: 'MainScreen',
-          child: MainScreen(myWinsToday: _wins),
-        ),
-        Story.simple(
-          name: 'CreateWinScreen',
-          child: CreateWinScreen(wins: _wins),
+          section: StorybookSection.Screens,
+          builder: (_, k) => MainScreen(myWinsToday: _wins),
         ),
         Story(
+          name: 'CreateWinScreen',
+          section: StorybookSection.Screens,
+          builder: (_, k) => CreateWinScreen(wins: _wins),
+        ),
+        Story(
+          name: 'WinsList',
           section: StorybookSection.Wins,
+          builder: (_, k) => WinsList(wins: _wins),
+        ),
+        Story(
           name: 'CreateWinForm',
+          section: StorybookSection.Wins,
           builder: (_, k) => CreateWinForm(
             myWinsToday: k.options(
               label: 'List values',
@@ -41,7 +48,6 @@ class StoriesList extends StatelessWidget {
             ),
           ),
         ),
-        Story.simple(name: 'WinsList', child: WinsList(wins: _wins)),
       ],
       storyWrapperBuilder: (context, story, child) => Stack(
         children: [

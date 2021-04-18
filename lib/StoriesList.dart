@@ -41,7 +41,7 @@ class StoriesList extends StatelessWidget {
             ),
           ),
         ),
-        Story.simple(name: 'WinsList', child: WinsList(items: _wins)),
+        Story.simple(name: 'WinsList', child: WinsList(wins: _wins)),
       ],
       storyWrapperBuilder: (context, story, child) => Stack(
         children: [

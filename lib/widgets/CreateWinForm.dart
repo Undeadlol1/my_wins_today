@@ -24,7 +24,7 @@ class _CreateWinFormState extends State<CreateWinForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Flexible(
-            child: WinsList(items: widget.myWinsToday),
+            child: WinsList(wins: widget.myWinsToday),
           ),
           Flexible(
             child: Row(

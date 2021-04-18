@@ -32,7 +32,16 @@ class StoriesList extends StatelessWidget {
         Story(
           name: 'WinsList',
           section: StorybookSection.Wins,
-          builder: (_, k) => WinsList(wins: _wins),
+          builder: (_, k) => WinsList(
+            wins: k.options(
+              label: 'List values',
+              initial: _wins,
+              options: [
+                Option('Empty', []),
+                Option('With data', _wins),
+              ],
+            ),
+          ),
         ),
         Story(
           name: 'CreateWinForm',

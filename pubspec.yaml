@@ -29,6 +29,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   storybook_flutter: ^0.5.0
+  empty_widget: ^0.0.2
 
 dev_dependencies:
   flutter_test:
@@ -45,10 +46,10 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    # This image needed by "empty_widget" package.
+    # https://pub.dev/packages/empty_widget
+    - assets/images/userIcon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

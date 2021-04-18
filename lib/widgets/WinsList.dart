@@ -3,10 +3,21 @@ import 'package:my_wins_today/entities/Win.dart';
 
 class WinsList extends StatelessWidget {
   final List<Win> wins;
-  const WinsList({Key? key, required this.wins}) : super(key: key);
+  final bool isLoading;
+  const WinsList({
+    Key? key,
+    required this.wins,
+    this.isLoading = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return _loadingWIdget();
+    }
+    if (this.wins.isEmpty) {
+      return _emptyTextWidget();
+    }
     return ListView.builder(
       itemCount: this.wins.length,
       itemBuilder: (BuildContext context, int index) {
@@ -14,4 +25,19 @@ class WinsList extends StatelessWidget {
       },
     );
   }
+}
+
+Widget _emptyTextWidget() {
+  return Center(
+    child: Text(
+      'Список пуст',
+      style: TextStyle(fontStyle: FontStyle.italic),
+    ),
+  );
+}
+
+Widget _loadingWIdget() {
+  return Center(
+    child: CircularProgressIndicator(),
+  );
 }

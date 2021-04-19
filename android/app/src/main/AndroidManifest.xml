@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.my_wins_today">
+    package="com.palei.my_wins_today">
    <application
         android:label="my_wins_today"
         android:icon="@mipmap/ic_launcher">

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_wins_today/screens/MainScreen.dart';
+import 'package:my_wins_today/screens/sign_in_screen.dart';
 import 'package:my_wins_today/widgets/CreateWinForm.dart';
 import 'package:my_wins_today/widgets/WinsList.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
@@ -28,6 +29,11 @@ class StoriesList extends StatelessWidget {
           name: 'CreateWinScreen',
           section: StorybookSection.Screens,
           builder: (_, k) => CreateWinScreen(wins: _wins),
+        ),
+        Story(
+          name: 'SignInScreen',
+          section: StorybookSection.Screens,
+          builder: (_, k) => SignInScreen(),
         ),
         Story(
           name: 'WinsList',
@@ -69,8 +75,8 @@ class StoriesList extends StatelessWidget {
       storyWrapperBuilder: (context, story, child) => Stack(
         children: [
           Container(
+            child: child,
             padding: story.padding,
-            child: Center(child: child),
             color: Theme.of(context).canvasColor,
           ),
         ],

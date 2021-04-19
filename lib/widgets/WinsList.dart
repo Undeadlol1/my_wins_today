@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_wins_today/entities/Win.dart';
 
+import 'animamted_list_placeholder.dart';
+
 class WinsList extends StatelessWidget {
   final List<Win> wins;
   final bool isLoading;
@@ -13,7 +15,7 @@ class WinsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
-      return _loadingWIdget();
+      return AnimatedListPlaceHolder();
     }
     if (this.wins.isEmpty) {
       return _emptyTextWidget();
@@ -33,11 +35,5 @@ Widget _emptyTextWidget() {
       'Список пуст',
       style: TextStyle(fontStyle: FontStyle.italic),
     ),
-  );
-}
-
-Widget _loadingWIdget() {
-  return Center(
-    child: CircularProgressIndicator(),
   );
 }

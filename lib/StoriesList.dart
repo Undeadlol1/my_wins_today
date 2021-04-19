@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_wins_today/screens/MainScreen.dart';
 import 'package:my_wins_today/widgets/CreateWinForm.dart';
 import 'package:my_wins_today/widgets/WinsList.dart';
+import 'package:my_wins_today/widgets/animamted_list_placeholder.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
 import 'screens/CreateWinScreen.dart';
@@ -58,6 +59,20 @@ class StoriesList extends StatelessWidget {
           section: StorybookSection.Layout,
           builder: (_, k) => Layout(
               title: 'Example of a title', body: Text('Example of body')),
+        ),
+        Story(
+          name: 'Animated List',
+          section: StorybookSection.Layout,
+          builder: (_, k) => AnimatedListPlaceHolder(
+            itemCount: k
+                .slider(
+                  min: 1,
+                  max: 20,
+                  initial: 5,
+                  label: 'Items count',
+                )
+                .toInt(),
+          ),
         ),
         Story(
           name: 'CreateWinForm',

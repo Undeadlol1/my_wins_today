@@ -69,9 +69,9 @@ class StoriesList extends StatelessWidget {
       storyWrapperBuilder: (context, story, child) => Stack(
         children: [
           Container(
+            color: Colors.black54,
             padding: story.padding,
             child: Center(child: child),
-            color: Theme.of(context).canvasColor,
           ),
         ],
       ),

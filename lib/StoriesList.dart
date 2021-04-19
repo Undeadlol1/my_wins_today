@@ -7,10 +7,12 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 
 import 'screens/CreateWinScreen.dart';
 import 'entities/Win.dart';
+import 'widgets/layout.dart';
 
 class StorybookSection {
   static const String Wins = 'Wins';
   static const String Screens = 'Screens';
+  static const String Layout = 'Layout and UI';
 }
 
 class StoriesList extends StatelessWidget {
@@ -56,6 +58,12 @@ class StoriesList extends StatelessWidget {
               ],
             ),
           ),
+        ),
+        Story(
+          name: 'Layout',
+          section: StorybookSection.Layout,
+          builder: (_, k) => Layout(
+              title: 'Example of a title', body: Text('Example of body')),
         ),
         Story(
           name: 'CreateWinForm',

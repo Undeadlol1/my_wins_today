@@ -32,7 +32,7 @@ class WinsList extends StatelessWidget {
 Widget _emptyTextWidget() {
   return Center(
     child: Text(
-      'Список пуст',
+      'Список побед пуст',
       style: TextStyle(fontStyle: FontStyle.italic),
     ),
   );

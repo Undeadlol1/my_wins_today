@@ -29,7 +29,10 @@ class Layout extends StatelessWidget {
           title: TextButton(
             onPressed: () {},
             child: ListTile(
-              title: Text('Войти'),
+              title: Text(
+                'Войти',
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         )

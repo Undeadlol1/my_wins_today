@@ -3,6 +3,7 @@ import 'package:my_wins_today/screens/MainScreen.dart';
 import 'package:my_wins_today/screens/sign_in_screen.dart';
 import 'package:my_wins_today/widgets/CreateWinForm.dart';
 import 'package:my_wins_today/widgets/WinsList.dart';
+import 'package:my_wins_today/widgets/sign_in_with_google_button.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
 import 'screens/CreateWinScreen.dart';
@@ -12,6 +13,7 @@ import 'widgets/layout.dart';
 class StorybookSection {
   static const String Wins = 'Wins';
   static const String Screens = 'Screens';
+  static const String Auth = 'Authentication';
   static const String Layout = 'Layout and UI';
 }
 
@@ -36,6 +38,11 @@ class StoriesList extends StatelessWidget {
           name: 'SignInScreen',
           section: StorybookSection.Screens,
           builder: (_, k) => SignInScreen(),
+        ),
+        Story(
+          name: 'Login with Google button',
+          section: StorybookSection.Auth,
+          builder: (_, k) => SignInWithGoogleButton(),
         ),
         Story(
           name: 'WinsList',

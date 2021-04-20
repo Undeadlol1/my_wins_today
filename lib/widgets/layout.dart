@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_wins_today/screens/sign_in_screen.dart';
 
 class Layout extends StatelessWidget {
   final String title;
@@ -16,7 +17,7 @@ class Layout extends StatelessWidget {
         title: Text(this.title),
       ),
       drawer: Drawer(
-        child: _linksList(),
+        child: _linksList(context),
       ),
       body: Padding(
         child: this.body,
@@ -28,13 +29,17 @@ class Layout extends StatelessWidget {
     );
   }
 
-  Widget _linksList() {
+  Widget _linksList(BuildContext context) {
     return ListView(
       children: [
         ListTile(
           title: TextButton(
             onPressed: () {},
             child: ListTile(
+              onTap: () => Navigator.pushNamed(
+                context,
+                SignInScreen.path,
+              ),
               title: Text(
                 'Войти',
                 textAlign: TextAlign.center,

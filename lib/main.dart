@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:my_wins_today/screens/MainScreen.dart';
 
 import 'StoriesList.dart';
+import 'screens/sign_in_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,6 +37,9 @@ class Application extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
             home: MainScreen(myWinsToday: []),
+            routes: {
+              SignInScreen.path: (context) => SignInScreen(),
+            },
           );
         }
 

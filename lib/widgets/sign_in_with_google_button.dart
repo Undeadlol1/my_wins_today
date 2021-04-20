@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_wins_today/screens/MainScreen.dart';
 import 'package:my_wins_today/use_cases/sign_in_with_google.dart';
 
 class SignInWithGoogleButton extends StatefulWidget {
@@ -35,6 +36,7 @@ class _SignInWithGoogleButtonState extends State<SignInWithGoogleButton> {
     setState(() => _isDisabled = true);
     try {
       await signInWithGoogle();
+      Navigator.of(context).pushNamed(MainScreen.path);
     } on Exception catch (error) {
       print('Something went wrong during google sign in.');
       print(error);

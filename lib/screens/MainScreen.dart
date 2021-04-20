@@ -6,6 +6,8 @@ import '../widgets/layout.dart';
 import '../widgets/WinsList.dart';
 
 class MainScreen extends StatelessWidget {
+  static const path = '/';
+
   final List<Win> myWinsToday;
   const MainScreen({Key? key, required this.myWinsToday}) : super(key: key);
 

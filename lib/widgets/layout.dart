@@ -15,9 +15,15 @@ class Layout extends StatelessWidget {
       appBar: AppBar(
         title: Text(this.title),
       ),
-      body: this.body,
       drawer: Drawer(
         child: _linksList(),
+      ),
+      body: Padding(
+        child: this.body,
+        padding: EdgeInsets.symmetric(
+          vertical: 20,
+          horizontal: 15,
+        ),
       ),
     );
   }

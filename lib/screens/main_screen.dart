@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_wins_today/screens/create_win_screen.dart';
 import 'package:my_wins_today/streams/viewer_stream.dart';
 
 import '../entities/Win.dart';
@@ -25,6 +26,11 @@ class MainScreen extends StatelessWidget {
             body: WinsList(
               wins: this.myWinsToday,
               isLoading: isAuthLoading,
+            ),
+            floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () =>
+                  Navigator.of(context).pushNamed(CreateWinScreen.path),
             ),
           );
         });

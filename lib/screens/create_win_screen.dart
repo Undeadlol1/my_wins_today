@@ -5,6 +5,8 @@ import 'package:my_wins_today/widgets/layout.dart';
 import '../entities/Win.dart';
 
 class CreateWinScreen extends StatelessWidget {
+  static const path = '/add_win';
+
   final List<Win> wins;
   const CreateWinScreen({Key? key, required this.wins}) : super(key: key);
 

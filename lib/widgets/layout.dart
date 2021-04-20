@@ -7,10 +7,12 @@ import 'package:my_wins_today/use_cases/log_out.dart';
 class Layout extends StatelessWidget {
   final String title;
   final Widget body;
+  final Widget? floatingActionButton;
   const Layout({
     Key? key,
     required this.title,
     required this.body,
+    this.floatingActionButton,
   }) : super(key: key);
 
   @override
@@ -29,6 +31,7 @@ class Layout extends StatelessWidget {
           horizontal: 15,
         ),
       ),
+      floatingActionButton: this.floatingActionButton,
     );
   }
 

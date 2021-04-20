@@ -32,6 +32,7 @@ class _CreateWinFormState extends State<CreateWinForm> {
                 _numberOfWins(),
                 Expanded(
                   child: TextFormField(
+                    autofocus: true,
                     validator: _textValidator,
                     decoration: InputDecoration(
                       labelText: 'Введите название победы',
@@ -69,10 +70,10 @@ class _CreateWinFormState extends State<CreateWinForm> {
     }
   }
 
-  String _textValidator(String? value) {
+  String? _textValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'Введите текст';
     }
-    return '';
+    return null;
   }
 }

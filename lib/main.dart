@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:my_wins_today/screens/create_win_screen.dart';
 import 'package:my_wins_today/screens/main_screen.dart';
 
 import 'StoriesList.dart';
@@ -39,6 +40,7 @@ class Application extends StatelessWidget {
             home: MainScreen(myWinsToday: []),
             routes: {
               SignInScreen.path: (context) => SignInScreen(),
+              CreateWinScreen.path: (context) => CreateWinScreen(wins: []),
             },
           );
         }

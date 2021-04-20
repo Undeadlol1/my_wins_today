@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_wins_today/widgets/layout.dart';
 import 'package:my_wins_today/widgets/sign_in_with_google_button.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -6,8 +7,11 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SignInWithGoogleButton(),
+    return Layout(
+      title: 'Войти',
+      body: Center(
+        child: SignInWithGoogleButton(),
+      ),
     );
   }
 }

@@ -39,6 +39,7 @@ class MainScreen extends StatelessWidget {
       print('User is currently signed out!');
     } else {
       print('User is signed in!');
+      print('Name of current user is: ' + auth.displayName.toString());
     }
   }
 }

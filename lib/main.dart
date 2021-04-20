@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:my_wins_today/screens/MainScreen.dart';
 
 import 'StoriesList.dart';
-import 'screens/MainScreen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +14,7 @@ class Application extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const _isStorybookEnabled = true;
+    const _isStorybookEnabled = false;
     if (_isStorybookEnabled) {
       return StoriesList();
     }

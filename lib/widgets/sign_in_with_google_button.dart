@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_wins_today/use_cases/sign_in_with_google.dart';
 
 class SignInWithGoogleButton extends StatefulWidget {
   const SignInWithGoogleButton({Key? key}) : super(key: key);
@@ -8,6 +9,7 @@ class SignInWithGoogleButton extends StatefulWidget {
 }
 
 class _SignInWithGoogleButtonState extends State<SignInWithGoogleButton> {
+  String _errorText = '';
   bool _isDisabled = false;
 
   @override
@@ -20,13 +22,30 @@ class _SignInWithGoogleButtonState extends State<SignInWithGoogleButton> {
           children: [
             Icon(Icons.login),
             SizedBox(width: 20),
-            Text(
-              _isDisabled ? 'Подождите...' : 'Войти через Google',
-            ),
+            Text(_getButtonText()),
           ],
         ),
       ),
-      onPressed: _isDisabled ? null : () => setState(() => _isDisabled = true),
+      onPressed: _signInAndHandleErrors,
     );
+  }
+
+  _signInAndHandleErrors() async {
+    if (_isDisabled) return null;
+    setState(() => _isDisabled = true);
+    try {
+      await signInWithGoogle();
+    } on Exception catch (error) {
+      print('Something went wrong during google sign in.');
+      print(error);
+      setState(() => _errorText = 'Произошла ошибка');
+    }
+  }
+
+  String _getButtonText() {
+    if (_errorText.isNotEmpty) {
+      return _errorText;
+    }
+    return _isDisabled ? 'Подождите...' : 'Войти через Google';
   }
 }

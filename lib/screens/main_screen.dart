@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_wins_today/streams/viewer_stream.dart';
 
 import '../entities/Win.dart';
 import '../widgets/layout.dart';
@@ -14,13 +15,10 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
-        stream: _stream(),
+        stream: viewerStream(),
         builder: (_, snapshot) {
-          final auth = snapshot.data;
           final isAuthLoading =
               snapshot.connectionState == ConnectionState.waiting;
-
-          _printAuthInfo(auth);
 
           return Layout(
             title: 'Список побед',
@@ -30,18 +28,5 @@ class MainScreen extends StatelessWidget {
             ),
           );
         });
-  }
-
-  Stream<User?> _stream() {
-    return FirebaseAuth.instance.authStateChanges();
-  }
-
-  void _printAuthInfo(User? user) {
-    if (user == null) {
-      print('User is currently signed out!');
-    } else {
-      print('User is signed in!');
-      print('Name of current user is: ' + user.displayName.toString());
-    }
   }
 }

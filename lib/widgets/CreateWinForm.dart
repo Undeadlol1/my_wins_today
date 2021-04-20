@@ -4,10 +4,7 @@ import 'package:my_wins_today/widgets/WinsList.dart';
 
 class CreateWinForm extends StatefulWidget {
   final List<Win> myWinsToday;
-  const CreateWinForm({
-    Key? key,
-    required this.myWinsToday,
-  }) : super(key: key);
+  const CreateWinForm({Key? key, required this.myWinsToday}) : super(key: key);
 
   @override
   _CreateWinFormState createState() => _CreateWinFormState();
@@ -29,7 +26,7 @@ class _CreateWinFormState extends State<CreateWinForm> {
           Flexible(
             child: Row(
               children: [
-                _numberOfWins(),
+                _numberOfWinsText(),
                 Expanded(
                   child: TextFormField(
                     autofocus: true,
@@ -57,7 +54,7 @@ class _CreateWinFormState extends State<CreateWinForm> {
     );
   }
 
-  Text _numberOfWins() =>
+  Text _numberOfWinsText() =>
       Text((widget.myWinsToday.length + 1).toString() + ') ');
 
   void _displaySnackbar() {

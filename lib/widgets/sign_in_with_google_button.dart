@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_wins_today/screens/MainScreen.dart';
+import 'package:my_wins_today/screens/main_screen.dart';
 import 'package:my_wins_today/use_cases/sign_in_with_google.dart';
 
 class SignInWithGoogleButton extends StatefulWidget {

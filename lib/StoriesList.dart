@@ -4,10 +4,10 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 import 'entities/Win.dart';
 import 'widgets/layout.dart';
 import 'widgets/WinsList.dart';
-import 'screens/MainScreen.dart';
+import 'screens/main_screen.dart';
 import 'widgets/CreateWinForm.dart';
 import 'screens/sign_in_screen.dart';
-import 'screens/CreateWinScreen.dart';
+import 'screens/create_win_screen.dart';
 import 'widgets/sign_in_with_google_button.dart';
 import 'widgets/animamted_list_placeholder.dart';
 

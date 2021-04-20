@@ -36,12 +36,12 @@ class MainScreen extends StatelessWidget {
     return FirebaseAuth.instance.authStateChanges();
   }
 
-  void _printAuthInfo(User? auth) {
-    if (auth == null) {
+  void _printAuthInfo(User? user) {
+    if (user == null) {
       print('User is currently signed out!');
     } else {
       print('User is signed in!');
-      print('Name of current user is: ' + auth.displayName.toString());
+      print('Name of current user is: ' + user.displayName.toString());
     }
   }
 }

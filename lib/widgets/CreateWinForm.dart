@@ -34,6 +34,7 @@ class _CreateWinFormState extends State<CreateWinForm> {
                     decoration: InputDecoration(
                       labelText: 'Введите название победы',
                     ),
+                    onEditingComplete: _displaySnackbar,
                   ),
                 ),
               ],

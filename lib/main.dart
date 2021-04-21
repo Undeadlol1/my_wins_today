@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:my_wins_today/screens/create_win_screen.dart';
 import 'package:my_wins_today/screens/main_screen.dart';
 
@@ -27,7 +28,7 @@ class Application extends StatelessWidget {
         if (snapshot.hasError) {
           print('Something were thrown during Firebase initialisation.');
           print(snapshot.error);
-          return MaterialApp(
+          return GetMaterialApp(
             home: Center(
               child: Text('Firebase Error.'),
             ),
@@ -36,7 +37,7 @@ class Application extends StatelessWidget {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          return MaterialApp(
+          return GetMaterialApp(
             home: MainScreen(myWinsToday: []),
             routes: {
               SignInScreen.path: (context) => SignInScreen(),
@@ -45,7 +46,7 @@ class Application extends StatelessWidget {
           );
         }
 
-        return MaterialApp(
+        return GetMaterialApp(
           home: Center(
             child: CircularProgressIndicator(),
           ),

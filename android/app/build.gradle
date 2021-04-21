@@ -35,6 +35,8 @@ android {
     }
 
     defaultConfig {
+        // https://stackoverflow.com/a/55592039/4380989
+        multiDexEnabled true
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.palei.my_wins_today"
         minSdkVersion 16
@@ -58,4 +60,7 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    // https://stackoverflow.com/a/55592039/4380989
+    implementation 'androidx.multidex:multidex:2.0.1'
+
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:my_wins_today/screens/create_win_screen.dart';
 import 'package:my_wins_today/streams/viewer_stream.dart';
+import 'package:my_wins_today/screens/create_win_screen.dart';
 
 import '../entities/Win.dart';
 import '../widgets/layout.dart';

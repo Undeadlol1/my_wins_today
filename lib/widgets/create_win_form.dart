@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:my_wins_today/entities/Win.dart';
 import 'package:my_wins_today/widgets/wins_list.dart';
 
+String _titleInputText = '';
+
 class CreateWinForm extends StatefulWidget {
   final List<Win> myWinsToday;
-  const CreateWinForm({Key? key, required this.myWinsToday}) : super(key: key);
+  final void Function({String title}) onSubmit;
+  const CreateWinForm({
+    Key? key,
+    required this.onSubmit,
+    required this.myWinsToday,
+  }) : super(key: key);
 
   @override
   _CreateWinFormState createState() => _CreateWinFormState();
@@ -31,6 +38,7 @@ class _CreateWinFormState extends State<CreateWinForm> {
                   child: TextFormField(
                     autofocus: true,
                     validator: _textValidator,
+                    onChanged: (value) => _titleInputText = value,
                     decoration: InputDecoration(
                       labelText: 'Введите название победы',
                     ),
@@ -62,9 +70,12 @@ class _CreateWinFormState extends State<CreateWinForm> {
     if (_form.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Шота делоим'),
+          content: Text('Введенный текст: ' + _titleInputText),
         ),
       );
+      widget.onSubmit(title: _titleInputText);
+      print('_titleInputText: ' + _titleInputText);
+      // _resetForm();
     }
   }
 
@@ -74,4 +85,9 @@ class _CreateWinFormState extends State<CreateWinForm> {
     }
     return null;
   }
+
+  // void _resetForm() {
+  //   _titleInputText = '';
+  //   _form.currentState?.reset();
+  // }
 }

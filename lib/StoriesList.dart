@@ -91,6 +91,7 @@ class StoriesList extends StatelessWidget {
           name: 'CreateWinForm',
           section: StorybookSection.Wins,
           builder: (_, k) => CreateWinForm(
+            onSubmit: ({String title = ''}) => {},
             myWinsToday: k.options(
               label: 'List values',
               initial: _wins,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_wins_today/widgets/layout.dart';
-import 'package:my_wins_today/widgets/CreateWinForm.dart';
+import 'package:my_wins_today/widgets/create_win_form.dart';
 
 import '../entities/Win.dart';
 

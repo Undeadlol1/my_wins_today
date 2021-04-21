@@ -3,9 +3,9 @@ import 'package:storybook_flutter/storybook_flutter.dart';
 
 import 'entities/Win.dart';
 import 'widgets/layout.dart';
-import 'widgets/WinsList.dart';
+import 'widgets/wins_list.dart';
 import 'screens/main_screen.dart';
-import 'widgets/CreateWinForm.dart';
+import 'widgets/create_win_form.dart';
 import 'screens/sign_in_screen.dart';
 import 'screens/create_win_screen.dart';
 import 'widgets/sign_in_with_google_button.dart';

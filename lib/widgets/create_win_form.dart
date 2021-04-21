@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_wins_today/entities/Win.dart';
-import 'package:my_wins_today/widgets/WinsList.dart';
+import 'package:my_wins_today/widgets/wins_list.dart';
 
 class CreateWinForm extends StatefulWidget {
   final List<Win> myWinsToday;

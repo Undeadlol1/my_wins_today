@@ -5,7 +5,7 @@ import 'package:my_wins_today/screens/create_win_screen.dart';
 
 import '../entities/Win.dart';
 import '../widgets/layout.dart';
-import '../widgets/WinsList.dart';
+import '../widgets/wins_list.dart';
 
 class MainScreen extends StatelessWidget {
   static const path = '/';

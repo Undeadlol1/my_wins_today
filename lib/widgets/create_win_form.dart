@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_wins_today/entities/Win.dart';
+import 'package:my_wins_today/screens/main_screen.dart';
 import 'package:my_wins_today/widgets/wins_list.dart';
 
 String _titleInputText = '';
@@ -68,13 +69,13 @@ class _CreateWinFormState extends State<CreateWinForm> {
 
   void _displaySnackbar() {
     if (_form.currentState!.validate()) {
+      widget.onSubmit(title: _titleInputText);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Введенный текст: ' + _titleInputText),
         ),
       );
-      widget.onSubmit(title: _titleInputText);
-      print('_titleInputText: ' + _titleInputText);
+      // Navigator.of(context).pushNamed(MainScreen.path);
       // _resetForm();
     }
   }

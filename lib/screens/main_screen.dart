@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:my_wins_today/streams/viewer_stream.dart';
 import 'package:my_wins_today/screens/create_win_screen.dart';
+import 'package:my_wins_today/use_cases/subscribe_to_wins_stream.dart';
 
 import '../entities/Win.dart';
 import '../widgets/layout.dart';
@@ -15,17 +14,17 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-        stream: viewerStream(),
-        builder: (_, snapshot) {
-          final isAuthLoading =
-              snapshot.connectionState == ConnectionState.waiting;
+    return StreamBuilder<List<Win>>(
+        initialData: [],
+        stream: subscribeToWinsStream(),
+        builder: (_, AsyncSnapshot<List<Win>> snapshot) {
+          final isLoading = snapshot.connectionState == ConnectionState.waiting;
 
           return Layout(
             title: 'Список побед',
             body: WinsList(
-              wins: this.myWinsToday,
-              isLoading: isAuthLoading,
+              isLoading: isLoading,
+              wins: snapshot.data!.toList(),
             ),
             floatingActionButton: FloatingActionButton(
               child: Icon(Icons.add),

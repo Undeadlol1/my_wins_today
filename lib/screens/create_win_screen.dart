@@ -1,6 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../entities/Win.dart';
 import '../widgets/layout.dart';
@@ -25,7 +25,7 @@ class CreateWinScreen extends StatelessWidget {
         String? userId = authSnapshot.data?.uid;
         return StreamBuilder<List<Win>>(
           initialData: [],
-          stream: subscribeToWinsStream(),
+          stream: subscribeToTodaysWinsStream(),
           builder:
               (BuildContext context, AsyncSnapshot<List<Win>> winsSnapshot) =>
                   Layout(

@@ -1,17 +1,14 @@
-import 'package:my_wins_today/entities/Win.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:my_wins_today/entities/Win.dart';
 import 'package:my_wins_today/states/wins_list_state.dart';
 
 Stream<List<Win>> subscribeToTodaysWinsStream() {
-  final today = DateTime.now();
   final yesterday = DateTime.now().subtract(Duration(days: 1));
-  print('print: ' + today.toString());
-  print('print: ' + yesterday.toString());
+
   return FirebaseFirestore.instance
       .collection('wins')
-      .where('createdAt', isLessThan: today.millisecondsSinceEpoch)
       .where('createdAt', isGreaterThan: yesterday.millisecondsSinceEpoch)
-      .snapshots(includeMetadataChanges: false)
+      .snapshots()
       .map((snapshot) {
     final wins = _convertFirebaseDocumentsToWins(snapshot);
     WinsListState().set(wins);

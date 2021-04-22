@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_wins_today/entities/Win.dart';
-import 'package:my_wins_today/screens/main_screen.dart';
 import 'package:my_wins_today/widgets/wins_list.dart';
 
 String _titleInputText = '';

@@ -25,7 +25,8 @@ class CreateWinScreen extends StatelessWidget {
         String? userId = authSnapshot.data?.uid;
         return StreamBuilder<List<Win>>(
           initialData: [],
-          stream: subscribeToTodaysWinsStream(),
+          stream:
+              subscribeToTodaysWinsStream(userId: userId == null ? '' : userId),
           builder:
               (BuildContext context, AsyncSnapshot<List<Win>> winsSnapshot) =>
                   Layout(

@@ -1,20 +1,30 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_wins_today/entities/Win.dart';
 import 'package:my_wins_today/states/wins_list_state.dart';
 
-Stream<List<Win>> subscribeToTodaysWinsStream() {
-  final yesterday = DateTime.now().subtract(Duration(days: 1));
+Stream<List<Win>> subscribeToTodaysWinsStream({required String? userId}) {
+  log('subscribeToTodaysWinsStream is called.');
+  log('userId: $userId');
 
-  return FirebaseFirestore.instance
-      .collection('wins')
-      .where('createdAt', isGreaterThan: yesterday.millisecondsSinceEpoch)
-      .snapshots()
-      .map((snapshot) {
-    final wins = _convertFirebaseDocumentsToWins(snapshot);
-    WinsListState().set(wins);
-    wins.sort(_sortFromNewestToOldest);
-    return wins;
-  });
+  if (userId == null || userId.isEmpty) {
+    return Stream.empty();
+  } else {
+    final yesterday = DateTime.now().subtract(Duration(days: 1));
+
+    return FirebaseFirestore.instance
+        .collection('wins')
+        .where('userId', isEqualTo: userId)
+        .where('createdAt', isGreaterThan: yesterday.millisecondsSinceEpoch)
+        .snapshots()
+        .map((snapshot) {
+      final wins = _convertFirebaseDocumentsToWins(snapshot);
+      WinsListState().set(wins);
+      wins.sort(_sortFromNewestToOldest);
+      return wins;
+    });
+  }
 }
 
 List<Win> _convertFirebaseDocumentsToWins(QuerySnapshot snapshot) {

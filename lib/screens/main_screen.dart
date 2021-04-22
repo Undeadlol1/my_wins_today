@@ -22,7 +22,10 @@ class MainScreen extends StatelessWidget {
         builder: (_, AsyncSnapshot<User?> viewerSnapshot) {
           return StreamBuilder<List<Win>>(
               initialData: [],
-              stream: subscribeToTodaysWinsStream(),
+              stream: viewerSnapshot.data == null
+                  ? null
+                  : subscribeToTodaysWinsStream(
+                      userId: viewerSnapshot.data!.uid),
               builder: (_, AsyncSnapshot<List<Win>> winsSnapshot) {
                 final isLoading =
                     winsSnapshot.connectionState == ConnectionState.waiting;

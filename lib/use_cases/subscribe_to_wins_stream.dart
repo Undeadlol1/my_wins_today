@@ -6,19 +6,19 @@ Stream<List<Win>> subscribeToWinsStream() {
   return FirebaseFirestore.instance
       .collection('wins')
       .snapshots(includeMetadataChanges: false)
-      .map((event) {
-    final wins = _convertFirebaseDocumentsToWins(event);
+      .map((snapshot) {
+    final wins = _convertFirebaseDocumentsToWins(snapshot);
     WinsListState().set(wins);
     wins.sort(_sortFromNewestToOldest);
     return wins;
   });
 }
 
-List<Win> _convertFirebaseDocumentsToWins(QuerySnapshot event) {
+List<Win> _convertFirebaseDocumentsToWins(QuerySnapshot snapshot) {
   List<Win> list = [];
 
-  event.docs.toList().forEach((element) {
-    var data = element.data();
+  snapshot.docs.toList().forEach((document) {
+    var data = document.data();
     list.add(Win(
       id: data['id'],
       title: data['title'],

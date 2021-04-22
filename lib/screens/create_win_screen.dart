@@ -2,14 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../DTOs/win_create_dto.dart';
-import '../states/wins_list_state.dart';
-import '../streams/viewer_stream.dart';
-import '../use_cases/create_win.dart';
-import '../use_cases/subscribe_to_wins_stream.dart';
-import '../widgets/create_win_form.dart';
-import '../widgets/layout.dart';
 import '../entities/Win.dart';
+import '../widgets/layout.dart';
+import '../DTOs/win_create_dto.dart';
+import '../use_cases/create_win.dart';
+import '../streams/viewer_stream.dart';
+import '../states/wins_list_state.dart';
+import '../widgets/create_win_form.dart';
+import '../use_cases/subscribe_to_wins_stream.dart';
 
 class CreateWinScreen extends StatelessWidget {
   static const path = '/add_win';

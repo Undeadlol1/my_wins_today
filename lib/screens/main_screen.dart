@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_wins_today/streams/viewer_stream.dart';
+import 'package:my_wins_today/screens/sign_in_screen.dart';
 import 'package:my_wins_today/screens/create_win_screen.dart';
 import 'package:my_wins_today/use_cases/subscribe_to_wins_stream.dart';
 
@@ -14,24 +17,34 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<Win>>(
-        initialData: [],
-        stream: subscribeToWinsStream(),
-        builder: (_, AsyncSnapshot<List<Win>> snapshot) {
-          final isLoading = snapshot.connectionState == ConnectionState.waiting;
+    return StreamBuilder<User?>(
+        stream: viewerStream(),
+        builder: (_, AsyncSnapshot<User?> viewerSnapshot) {
+          return StreamBuilder<List<Win>>(
+              initialData: [],
+              stream: subscribeToTodaysWinsStream(),
+              builder: (_, AsyncSnapshot<List<Win>> winsSnapshot) {
+                final isLoading =
+                    winsSnapshot.connectionState == ConnectionState.waiting;
 
-          return Layout(
-            title: 'Список побед',
-            body: WinsList(
-              isLoading: isLoading,
-              wins: snapshot.data!.toList(),
-            ),
-            floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () =>
-                  Navigator.of(context).pushNamed(CreateWinScreen.path),
-            ),
-          );
+                return Layout(
+                  title: 'Список побед',
+                  body: WinsList(
+                    isLoading: isLoading,
+                    wins: winsSnapshot.data!.toList(),
+                  ),
+                  floatingActionButton: FloatingActionButton(
+                    child: Icon(Icons.add),
+                    onPressed: () {
+                      if (viewerSnapshot.data == null) {
+                        Navigator.of(context).pushNamed(SignInScreen.path);
+                      } else {
+                        Navigator.of(context).pushNamed(CreateWinScreen.path);
+                      }
+                    },
+                  ),
+                );
+              });
         });
   }
 }

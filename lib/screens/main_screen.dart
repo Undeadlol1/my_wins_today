@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:my_wins_today/streams/viewer_stream.dart';
-import 'package:my_wins_today/screens/sign_in_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:my_wins_today/screens/create_win_screen.dart';
-import 'package:my_wins_today/use_cases/subscribe_to_wins_stream.dart';
+import 'package:my_wins_today/screens/sign_in_screen.dart';
+import 'package:my_wins_today/streams/viewer_stream.dart';
+import 'package:my_wins_today/use_cases/subscribe_to_friends_todays_wins.dart';
 
 import '../entities/Win.dart';
 import '../widgets/layout.dart';
@@ -24,7 +24,7 @@ class MainScreen extends StatelessWidget {
               initialData: [],
               stream: viewerSnapshot.data == null
                   ? null
-                  : subscribeToTodaysWinsStream(
+                  : subscribeToFriendsTodaysWins(
                       userId: viewerSnapshot.data!.uid),
               builder: (_, AsyncSnapshot<List<Win>> winsSnapshot) {
                 final isLoading =

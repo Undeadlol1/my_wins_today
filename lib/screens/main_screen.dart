@@ -1,13 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_wins_today/screens/create_win_screen.dart';
-import 'package:my_wins_today/screens/sign_in_screen.dart';
-import 'package:my_wins_today/streams/viewer_stream.dart';
-import 'package:my_wins_today/use_cases/subscribe_to_friends_todays_wins.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-import '../entities/Win.dart';
-import '../widgets/layout.dart';
-import '../widgets/wins_list.dart';
+import 'package:my_wins_today/entities/Win.dart';
+import 'package:my_wins_today/widgets/layout.dart';
+import 'package:my_wins_today/widgets/wins_list.dart';
+import 'package:my_wins_today/streams/viewer_stream.dart';
+import 'package:my_wins_today/screens/sign_in_screen.dart';
+import 'package:my_wins_today/screens/create_win_screen.dart';
+import 'package:my_wins_today/use_cases/subscribe_to_friends_todays_wins.dart';
 
 class MainScreen extends StatelessWidget {
   static const path = '/';
@@ -25,7 +25,8 @@ class MainScreen extends StatelessWidget {
               stream: viewerSnapshot.data == null
                   ? null
                   : subscribeToFriendsTodaysWins(
-                      userId: viewerSnapshot.data!.uid),
+                      userId: viewerSnapshot.data!.uid,
+                    ),
               builder: (_, AsyncSnapshot<List<Win>> winsSnapshot) {
                 final isLoading =
                     winsSnapshot.connectionState == ConnectionState.waiting;

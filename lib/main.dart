@@ -20,10 +20,10 @@ class Application extends StatelessWidget {
       return StoriesList();
     }
 
-    return GetMaterialApp(
-      routes: _buildRoutes(),
-      home: GlobalDependencies(
-        child: MainScreenContainer(),
+    return GlobalDependencies(
+      child: GetMaterialApp(
+        routes: _buildRoutes(),
+        home: MainScreenContainer(),
       ),
     );
   }

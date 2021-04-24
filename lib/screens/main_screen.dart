@@ -6,15 +6,15 @@ import 'package:my_wins_today/widgets/wins_list.dart';
 class MainScreen extends StatelessWidget {
   static const path = '/';
 
-  final List<Win> myWinsToday;
   final bool isLoading;
+  final List<Win> myWinsToday;
   final void Function() onFABPress;
 
   const MainScreen({
     Key? key,
-    required this.myWinsToday,
-    required this.onFABPress,
     this.isLoading = false,
+    required this.onFABPress,
+    required this.myWinsToday,
   }) : super(key: key);
 
   @override

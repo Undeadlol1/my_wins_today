@@ -1,21 +1,19 @@
 import 'dart:developer';
 
-import 'package:my_wins_today/DTOs/win_create_dto.dart';
-import 'package:uuid/uuid.dart';
-import 'package:my_wins_today/entities/Win.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-final uuid = Uuid();
+import 'package:my_wins_today/entities/Win.dart';
+import 'package:my_wins_today/DTOs/win_create_dto.dart';
+import 'package:my_wins_today/utilities/generateId.dart';
 
 Future<Win> createWinRepository(WinCreateDTO winPayload) async {
   log('createWinRepository() is called.');
 
+  final currentTimeInMilliseconds = DateTime.now().millisecondsSinceEpoch;
   final CollectionReference winsCollection =
       FirebaseFirestore.instance.collection('wins');
-  final currentTimeInMilliseconds = DateTime.now().millisecondsSinceEpoch;
 
   final Win winToBeCreated = Win(
-    id: uuid.v4(),
+    id: generateId(),
     title: winPayload.title,
     userId: winPayload.userId,
     createdAt: currentTimeInMilliseconds,

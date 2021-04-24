@@ -6,7 +6,7 @@ import 'package:get/route_manager.dart';
 import 'package:my_wins_today/screens/create_win_screen.dart';
 import 'package:my_wins_today/screens/main_screen.dart';
 
-import 'StoriesList.dart';
+import 'stories_list.dart';
 import 'screens/sign_in_screen.dart';
 
 void main() {

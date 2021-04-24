@@ -18,7 +18,7 @@ class WinsList extends StatelessWidget {
       return AnimatedListPlaceHolder();
     }
     if (this.wins.isEmpty) {
-      return _emptyTextWidget();
+      return _emptyStateWidget();
     }
     return ListView.builder(
       itemCount: this.wins.length,
@@ -29,7 +29,7 @@ class WinsList extends StatelessWidget {
   }
 }
 
-Widget _emptyTextWidget() {
+Widget _emptyStateWidget() {
   return Center(
     child: Text(
       'Список побед пуст',

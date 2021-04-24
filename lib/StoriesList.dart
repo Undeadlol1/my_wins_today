@@ -28,7 +28,11 @@ class StoriesList extends StatelessWidget {
         Story(
           name: 'MainScreen',
           section: StorybookSection.Screens,
-          builder: (_, k) => MainScreen(myWinsToday: _wins),
+          builder: (_, k) => MainScreen(
+            myWinsToday: _wins,
+            onFABPress: () => {},
+            isLoading: k.boolean(label: 'Is loading'),
+          ),
         ),
         Story(
           name: 'CreateWinScreen',
@@ -41,8 +45,8 @@ class StoriesList extends StatelessWidget {
           builder: (_, k) => SignInScreen(),
         ),
         Story(
-          name: 'Login with Google button',
           section: StorybookSection.Auth,
+          name: 'Login with Google button',
           builder: (_, k) => SignInWithGoogleButton(),
         ),
         Story(

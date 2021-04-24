@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
@@ -22,36 +24,40 @@ class Application extends StatelessWidget {
       return StoriesList();
     }
 
-    return FutureBuilder(
-      future: _initialization,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          print('Something were thrown during Firebase initialisation.');
-          print(snapshot.error);
-          return GetMaterialApp(
-            home: Center(
-              child: Text('Firebase Error.'),
-            ),
-          );
-        }
+    return GetMaterialApp(
+      routes: _buildRoutes(),
+      home: FutureBuilder(
+        future: _initialization,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return _logAndDisplayErrorText(snapshot);
+          }
 
-        // Once complete, show your application
-        if (snapshot.connectionState == ConnectionState.done) {
-          return GetMaterialApp(
-            home: MainScreen(myWinsToday: []),
-            routes: {
-              SignInScreen.path: (context) => SignInScreen(),
-              CreateWinScreen.path: (context) => CreateWinScreen(wins: []),
-            },
-          );
-        }
+          if (snapshot.connectionState == ConnectionState.done) {
+            return MainScreen(
+              myWinsToday: [],
+              onFABPress: () {},
+            );
+          }
 
-        return GetMaterialApp(
-          home: Center(
+          return Center(
             child: CircularProgressIndicator(),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
+  }
+
+  Map<String, Widget Function(BuildContext)> _buildRoutes() {
+    return {
+      SignInScreen.path: (context) => SignInScreen(),
+      CreateWinScreen.path: (context) => CreateWinScreen(wins: []),
+    };
+  }
+
+  Widget _logAndDisplayErrorText(AsyncSnapshot<Object?> snapshot) {
+    log('Something were thrown during Firebase initialization.');
+    log(snapshot.error.toString());
+    return Center(child: Text('Firebase Error.'));
   }
 }

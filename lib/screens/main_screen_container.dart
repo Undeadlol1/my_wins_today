@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_wins_today/entities/Win.dart';
@@ -24,9 +26,11 @@ class MainScreenContainer extends StatelessWidget {
                       userId: viewerSnapshot.data!.uid,
                     ),
               builder: (_, AsyncSnapshot<List<Win>> winsSnapshot) {
-                final isLoading =
-                    winsSnapshot.connectionState == ConnectionState.waiting;
+                final isLoading = winsSnapshot.connectionState ==
+                        ConnectionState.waiting ||
+                    viewerSnapshot.connectionState == ConnectionState.waiting;
 
+                log('MainScreenContainer > isLoading: $isLoading');
                 return MainScreen(
                   isLoading: isLoading,
                   myWinsToday: winsSnapshot.data!.toList(),

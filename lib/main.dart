@@ -4,10 +4,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:my_wins_today/screens/create_win_screen.dart';
-import 'package:my_wins_today/screens/main_screen.dart';
+import 'package:my_wins_today/screens/main_screen_container.dart';
 
-import 'stories_list.dart';
 import 'screens/sign_in_screen.dart';
+import 'stories_list.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,10 +34,7 @@ class Application extends StatelessWidget {
           }
 
           if (snapshot.connectionState == ConnectionState.done) {
-            return MainScreen(
-              myWinsToday: [],
-              onFABPress: () {},
-            );
+            return MainScreenContainer();
           }
 
           return Center(

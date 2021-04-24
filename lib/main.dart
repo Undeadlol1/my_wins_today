@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:async_builder/async_builder.dart';
 import 'package:my_wins_today/screens/create_win_screen.dart';
 import 'package:my_wins_today/screens/main_screen_container.dart';
 
@@ -26,21 +27,11 @@ class Application extends StatelessWidget {
 
     return GetMaterialApp(
       routes: _buildRoutes(),
-      home: FutureBuilder(
+      home: AsyncBuilder<FirebaseApp>(
         future: _initialization,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return _logAndDisplayErrorText(snapshot);
-          }
-
-          if (snapshot.connectionState == ConnectionState.done) {
-            return MainScreenContainer();
-          }
-
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+        builder: (context, value) => MainScreenContainer(),
+        waiting: (context) => Center(child: CircularProgressIndicator()),
+        error: (context, error, stackTrace) => _logAndDisplayErrorText(error),
       ),
     );
   }
@@ -52,9 +43,9 @@ class Application extends StatelessWidget {
     };
   }
 
-  Widget _logAndDisplayErrorText(AsyncSnapshot<Object?> snapshot) {
+  Widget _logAndDisplayErrorText(Object error) {
     log('Something were thrown during Firebase initialization.');
-    log(snapshot.error.toString());
+    log(error.toString());
     return Center(child: Text('Firebase Error.'));
   }
 }

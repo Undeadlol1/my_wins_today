@@ -22,11 +22,10 @@ class CreateWinScreen extends StatelessWidget {
     return StreamBuilder<User?>(
       stream: viewerStream(),
       builder: (context, authSnapshot) {
-        String? userId = authSnapshot.data?.uid;
+        String userId = authSnapshot.data?.uid ?? '';
         return StreamBuilder<List<Win>>(
           initialData: [],
-          stream:
-              subscribeToTodaysWinsStream(userId: userId == null ? '' : userId),
+          stream: subscribeToTodaysWinsStream(userId: userId),
           builder:
               (BuildContext context, AsyncSnapshot<List<Win>> winsSnapshot) =>
                   Layout(
@@ -43,7 +42,7 @@ class CreateWinScreen extends StatelessWidget {
                         myWinsToday: winsSnapshot.data!.toList(),
                         onSubmit: ({String title = ''}) => _onSubmit(
                           title: title,
-                          userId: userId == null ? '' : userId,
+                          userId: userId,
                         ),
                       ),
                     ),

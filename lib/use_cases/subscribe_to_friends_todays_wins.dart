@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:get/get.dart';
 import 'package:my_wins_today/entities/Win.dart';
 import 'package:my_wins_today/repositories/subscribe_to_wins_repository.dart';
 import 'package:my_wins_today/states/wins_list_state.dart';
@@ -11,17 +12,21 @@ Stream<List<Win>> subscribeToFriendsTodaysWins({required String? userId}) {
   log('subscribeToFriendsTodaysWins is called.');
   log('userId: $userId');
 
+  final winsListState = Get.put(WinsListState());
+
   if (userId == null || userId.isEmpty) {
-    return Stream.empty();
-  } else {
-    return subscribeToWinsRepository(
-      userId: userId == mishasId ? ritasId : mishasId,
-    ).map((wins) {
-      wins.sort(_sortFromNewestToOldest);
-      WinsListState().set(wins);
-      return wins;
-    });
+    return Stream.value([]);
   }
+
+  winsListState.setLoading(true);
+  return subscribeToWinsRepository(
+    userId: userId == mishasId ? ritasId : mishasId,
+  ).map((wins) {
+    wins.sort(_sortFromNewestToOldest);
+    winsListState.setFriendsWins(wins);
+    winsListState.setLoading(false);
+    return wins;
+  });
 }
 
 int _sortFromNewestToOldest(first, second) {

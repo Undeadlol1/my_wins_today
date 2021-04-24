@@ -23,7 +23,10 @@ class WinsList extends StatelessWidget {
     return ListView.builder(
       itemCount: this.wins.length,
       itemBuilder: (BuildContext context, int index) {
-        return Text((index + 1).toString() + ') ' + wins[index].title);
+        return Text(
+          (index + 1).toString() + ') ' + wins[index].title,
+          style: Theme.of(context).textTheme.headline6,
+        );
       },
     );
   }

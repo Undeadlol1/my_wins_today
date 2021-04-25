@@ -46,7 +46,7 @@ class _CreateWinFormState extends State<CreateWinForm> {
             decoration: InputDecoration(
               labelText: 'Введите название победы',
             ),
-            onEditingComplete: _saveAndDisplaySnackbar,
+            onEditingComplete: _saveAndResetForm,
             onChanged: (value) => _titleInputText = value,
           ),
         ),
@@ -58,20 +58,17 @@ class _CreateWinFormState extends State<CreateWinForm> {
     return Container(
       child: ElevatedButton(
         child: Text('Сохранить'),
-        onPressed: _saveAndDisplaySnackbar,
+        onPressed: _saveAndResetForm,
       ),
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(vertical: 16.0),
     );
   }
 
-  void _saveAndDisplaySnackbar() {
+  void _saveAndResetForm() {
     if (_form.currentState!.validate()) {
       widget.onSubmit(title: _titleInputText);
       _resetForm();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Сохранено')),
-      );
     }
   }
 

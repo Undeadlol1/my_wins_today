@@ -26,7 +26,7 @@ class CreateWinScreen extends StatelessWidget {
         final winsListState = Get.put(WinsListState());
         return StreamBuilder<List<Win>>(
           initialData: [],
-          stream: subscribeToTodaysWinsStream(userId: userId),
+          stream: subscribeToMyOwnTodaysWins(userId: userId),
           builder:
               (BuildContext context, AsyncSnapshot<List<Win>> winsSnapshot) =>
                   Layout(

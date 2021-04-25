@@ -27,22 +27,20 @@ class _CreateWinFormState extends State<CreateWinForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Flexible(
-            child: WinsList(wins: widget.myWinsToday),
-          ),
+          Flexible(child: WinsList(wins: widget.myWinsToday)),
           Flexible(
             child: Row(
               children: [
-                _numberOfWinsText(),
+                _numberOfWinsPrefix(),
                 Expanded(
                   child: TextFormField(
                     autofocus: true,
                     validator: _textValidator,
-                    onChanged: (value) => _titleInputText = value,
                     decoration: InputDecoration(
                       labelText: 'Введите название победы',
                     ),
-                    onEditingComplete: _displaySnackbar,
+                    onEditingComplete: _saveAndDisplaySnackbar,
+                    onChanged: (value) => _titleInputText = value,
                   ),
                 ),
               ],
@@ -52,7 +50,7 @@ class _CreateWinFormState extends State<CreateWinForm> {
             child: Container(
               child: ElevatedButton(
                 child: Text('Сохранить'),
-                onPressed: _displaySnackbar,
+                onPressed: _saveAndDisplaySnackbar,
               ),
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -63,19 +61,16 @@ class _CreateWinFormState extends State<CreateWinForm> {
     );
   }
 
-  Text _numberOfWinsText() =>
+  Text _numberOfWinsPrefix() =>
       Text((widget.myWinsToday.length + 1).toString() + ') ');
 
-  void _displaySnackbar() {
+  void _saveAndDisplaySnackbar() {
     if (_form.currentState!.validate()) {
       widget.onSubmit(title: _titleInputText);
+      _resetForm();
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Введенный текст: ' + _titleInputText),
-        ),
+        SnackBar(content: Text('Сохранено')),
       );
-      // Navigator.of(context).pushNamed(MainScreen.path);
-      // _resetForm();
     }
   }
 
@@ -86,8 +81,8 @@ class _CreateWinFormState extends State<CreateWinForm> {
     return null;
   }
 
-  // void _resetForm() {
-  //   _titleInputText = '';
-  //   _form.currentState?.reset();
-  // }
+  void _resetForm() {
+    _titleInputText = '';
+    _form.currentState?.reset();
+  }
 }

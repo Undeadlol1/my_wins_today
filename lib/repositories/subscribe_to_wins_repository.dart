@@ -2,17 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_wins_today/entities/Win.dart';
 
 Stream<List<Win>> subscribeToWinsRepository({required String userId}) {
-  final yesterday = DateTime.now().subtract(Duration(days: 1));
+  final lastSixteenHours =
+      DateTime.now().subtract(Duration(hours: 16)).millisecondsSinceEpoch;
 
   return FirebaseFirestore.instance
       .collection('wins')
       .where('userId', isEqualTo: userId)
-      .where('createdAt', isGreaterThan: yesterday.millisecondsSinceEpoch)
+      .where('createdAt', isGreaterThan: lastSixteenHours)
       .snapshots()
-      .map((snapshot) {
-    final wins = _convertFirebaseDocumentsToWins(snapshot);
-    return wins;
-  });
+      .map(_convertFirebaseDocumentsToWins);
 }
 
 List<Win> _convertFirebaseDocumentsToWins(QuerySnapshot snapshot) {

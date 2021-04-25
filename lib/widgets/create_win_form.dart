@@ -48,6 +48,7 @@ class _CreateWinFormState extends State<CreateWinForm> {
             ),
             onEditingComplete: _saveAndResetForm,
             onChanged: (value) => _titleInputText = value,
+            textCapitalization: TextCapitalization.sentences,
           ),
         ),
       ],

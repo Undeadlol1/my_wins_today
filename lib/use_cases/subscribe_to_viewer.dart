@@ -9,7 +9,7 @@ Stream<void> subscribeToViewer() {
   final viewerState = Get.put(ViewerState());
 
   return FirebaseAuth.instance.authStateChanges().map((user) {
-    log('user is logged in: ' + (user == null).toString());
+    log('user is logged in: ' + (user != null).toString());
     if (user != null) {
       viewerState.login(user);
     }

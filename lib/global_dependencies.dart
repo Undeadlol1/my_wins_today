@@ -1,29 +1,49 @@
 import 'dart:developer';
 
-import 'package:async_builder/async_builder.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_wins_today/use_cases/subscribe_to_viewer.dart';
 
-class GlobalDependencies extends StatelessWidget {
+class GlobalDependencies extends StatefulWidget {
   final Widget child;
 
-  GlobalDependencies({
-    Key? key,
-    required this.child,
-  }) : super(key: key);
-  final _initialization = Firebase.initializeApp();
+  GlobalDependencies({Key? key, required this.child}) : super(key: key);
+
+  @override
+  _GlobalDependenciesState createState() => _GlobalDependenciesState();
+}
+
+class _GlobalDependenciesState extends State<GlobalDependencies> {
+  late Future<FirebaseApp> _firebaseInitialization = Firebase.initializeApp();
+
+  @override
+  void initState() {
+    super.initState();
+    /*
+     Make sure only single future is created to
+     avoid redirection during hot reload.
+     https://github.com/flutter/flutter/issues/60709#issuecomment-749778081
+    */
+    _firebaseInitialization = Firebase.initializeApp();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return AsyncBuilder<void>(
-      future: _initialization,
-      builder: (context, value) => StreamBuilder<void>(
-        stream: subscribeToViewer(),
-        builder: (context, _) => this.child,
-      ),
-      waiting: (context) => Center(child: CircularProgressIndicator()),
-      error: (context, error, stackTrace) => _logAndDisplayErrorText(error),
+    return FutureBuilder(
+      future: _firebaseInitialization,
+      builder: (context, AsyncSnapshot<FirebaseApp> snapshot) {
+        log('snapshot: ' + snapshot.toString());
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        }
+        if (snapshot.error != null) {
+          return _logAndDisplayErrorText(snapshot.error ?? {});
+        }
+        return StreamBuilder<void>(
+          stream: subscribeToViewer(),
+          builder: (context, _) => this.widget.child,
+        );
+      },
     );
   }
 

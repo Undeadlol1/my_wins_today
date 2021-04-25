@@ -28,41 +28,42 @@ class _CreateWinFormState extends State<CreateWinForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Flexible(child: WinsList(wins: widget.myWinsToday)),
-          Flexible(
-            child: Row(
-              children: [
-                _numberOfWinsPrefix(),
-                Expanded(
-                  child: TextFormField(
-                    autofocus: true,
-                    validator: _textValidator,
-                    decoration: InputDecoration(
-                      labelText: 'Введите название победы',
-                    ),
-                    onEditingComplete: _saveAndDisplaySnackbar,
-                    onChanged: (value) => _titleInputText = value,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Flexible(
-            child: Container(
-              child: ElevatedButton(
-                child: Text('Сохранить'),
-                onPressed: _saveAndDisplaySnackbar,
-              ),
-              alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-            ),
-          ),
+          Flexible(child: _buildInputForm()),
+          Flexible(child: _buildSubmitButton()),
         ],
       ),
     );
   }
 
-  Text _numberOfWinsPrefix() =>
-      Text((widget.myWinsToday.length + 1).toString() + ') ');
+  Widget _buildInputForm() {
+    return Row(
+      children: [
+        _numberOfWinsPrefix(),
+        Expanded(
+          child: TextFormField(
+            autofocus: true,
+            validator: _textValidator,
+            decoration: InputDecoration(
+              labelText: 'Введите название победы',
+            ),
+            onEditingComplete: _saveAndDisplaySnackbar,
+            onChanged: (value) => _titleInputText = value,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSubmitButton() {
+    return Container(
+      child: ElevatedButton(
+        child: Text('Сохранить'),
+        onPressed: _saveAndDisplaySnackbar,
+      ),
+      alignment: Alignment.center,
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
+    );
+  }
 
   void _saveAndDisplaySnackbar() {
     if (_form.currentState!.validate()) {
@@ -85,4 +86,7 @@ class _CreateWinFormState extends State<CreateWinForm> {
     _titleInputText = '';
     _form.currentState?.reset();
   }
+
+  Text _numberOfWinsPrefix() =>
+      Text((widget.myWinsToday.length + 1).toString() + ') ');
 }

@@ -18,13 +18,13 @@ class _GlobalDependenciesState extends State<GlobalDependencies> {
 
   @override
   void initState() {
-    super.initState();
     /*
      Make sure only single future is created to
      avoid redirection during hot reload.
      https://github.com/flutter/flutter/issues/60709#issuecomment-749778081
     */
     _firebaseInitialization = Firebase.initializeApp();
+    super.initState();
   }
 
   @override
@@ -33,19 +33,34 @@ class _GlobalDependenciesState extends State<GlobalDependencies> {
       future: _firebaseInitialization,
       builder: (context, AsyncSnapshot<FirebaseApp> snapshot) {
         log('snapshot: ' + snapshot.toString());
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        }
         if (snapshot.error != null) {
           return _logAndDisplayErrorText(snapshot.error ?? {});
         }
-        return StreamBuilder<void>(
-          stream: subscribeToViewer(),
-          builder: (context, _) => this.widget.child,
-        );
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          return StreamBuilder(
+            stream: subscribeToViewer(),
+            builder: (context, viewerSnapshot) {
+              log('viewerSnapshot: ' + viewerSnapshot.toString());
+              if (_isViewerLoading(viewerSnapshot)) {
+                return _buildLoadingIndicator();
+              }
+              return this.widget.child;
+            },
+          );
+        }
+
+        return _buildLoadingIndicator();
       },
     );
   }
+
+  bool _isViewerLoading(AsyncSnapshot<Object?> viewerSnapshot) {
+    return viewerSnapshot.connectionState == ConnectionState.none ||
+        viewerSnapshot.connectionState == ConnectionState.waiting;
+  }
+
+  Center _buildLoadingIndicator() => Center(child: CircularProgressIndicator());
 
   Widget _logAndDisplayErrorText(Object error) {
     log('Something were thrown during Firebase initialization.');

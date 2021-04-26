@@ -8,6 +8,7 @@ import 'package:my_wins_today/states/viewer_state.dart';
 import 'package:my_wins_today/screens/sign_in_screen.dart';
 import 'package:my_wins_today/states/wins_list_state.dart';
 import 'package:my_wins_today/use_cases/subscribe_to_friends_todays_wins.dart';
+import 'package:my_wins_today/use_cases/subscribe_to_viewer.dart';
 
 import 'create_win_screen.dart';
 
@@ -17,12 +18,12 @@ class MainScreenContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ViewerState>(builder: (viewerState) {
+      log('ViewerState: ' + viewerState.toString());
       final winsListState = Get.put(WinsListState());
-
       return StreamBuilder<List<Win>>(
           initialData: [],
           stream: subscribeToFriendsTodaysWins(
-            userId: viewerState.viewer?.uid ?? '',
+            userId: viewerState.userId,
           ),
           builder: (_, AsyncSnapshot<List<Win>> winsSnapshot) {
             final isLoading = winsListState.isLoading || viewerState.isLoading;

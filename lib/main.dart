@@ -1,10 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:my_wins_today/global_dependencies.dart';
 import 'package:my_wins_today/screens/create_win_screen.dart';
 import 'package:my_wins_today/screens/main_screen.dart';
 import 'package:my_wins_today/screens/main_screen_container.dart';
+import 'package:my_wins_today/use_cases/subscribe_to_viewer.dart';
 
+import 'firebase_initializer.dart';
 import 'screens/sign_in_screen.dart';
 import 'stories_list.dart';
 
@@ -20,13 +24,35 @@ class Application extends StatelessWidget {
     if (_isStorybookEnabled) {
       return StoriesList();
     }
-
-    return GlobalDependencies(
-      child: GetMaterialApp(
-        routes: _buildRoutes(),
-        initialRoute: MainScreen.path,
+    return FirebaseInitializer(
+      onError: (_, __) => Text('123'),
+      onLoading: (loadingContext) => Center(
+        child: Container(
+          height: 100.0,
+          width: 100.0,
+          child: CircularProgressIndicator(),
+        ),
       ),
+      onDidInitilize: (didInitContext, _) {
+        log('onDidInitilize is called.');
+        return StreamBuilder<void>(
+          stream: subscribeToViewer(),
+          builder: (context, snapshot) {
+            return GetMaterialApp(
+              routes: _buildRoutes(),
+              initialRoute: MainScreen.path,
+            );
+          },
+        );
+      },
     );
+
+    // return GlobalDependencies(
+    //   child: MaterialApp(
+    //     routes: _buildRoutes(),
+    //     initialRoute: MainScreen.path,
+    //   ),
+    // );
   }
 
   Map<String, Widget Function(BuildContext)> _buildRoutes() {

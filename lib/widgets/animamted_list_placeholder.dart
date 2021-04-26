@@ -19,8 +19,8 @@ class AnimatedListPlaceHolder extends StatelessWidget {
           Expanded(
             child: Shimmer.fromColors(
               enabled: true,
-              baseColor: Colors.black12,
-              highlightColor: Colors.black26,
+              baseColor: Theme.of(context).backgroundColor,
+              highlightColor: Theme.of(context).highlightColor,
               child: ListView.builder(
                 itemCount: itemCount,
                 itemBuilder: (_, __) => Padding(

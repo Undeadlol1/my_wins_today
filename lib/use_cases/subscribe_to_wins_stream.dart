@@ -6,10 +6,10 @@ import 'package:my_wins_today/states/wins_list_state.dart';
 import 'package:my_wins_today/repositories/subscribe_to_wins_repository.dart';
 
 Stream<List<Win>> subscribeToMyOwnTodaysWins({required String? userId}) {
-  log('subscribeToTodaysWinsStream is called.');
-  log('userId: $userId');
+  // log('subscribeToTodaysWinsStream is called.');
+  // log('userId: $userId');
 
-  WinsListState winsListState = Get.put(WinsListState());
+  WinsListState winsListState = Get.find<WinsListState>();
 
   if (userId == null || userId.isEmpty) {
     return Stream.empty();

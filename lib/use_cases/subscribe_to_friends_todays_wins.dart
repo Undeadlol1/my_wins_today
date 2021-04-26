@@ -8,25 +8,28 @@ import 'package:my_wins_today/states/wins_list_state.dart';
 const mishasId = 'TVwWONM7LVgCI6NnBiT4bIpbRFZ2';
 const ritasId = 'TAco9JE8NXeooQsVDPsMIHAugpk1';
 
+final winsListState = Get.find<WinsListState>();
+
 Stream<List<Win>> subscribeToFriendsTodaysWins({required String? userId}) {
   log('subscribeToFriendsTodaysWins is called.');
   log('userId: $userId');
 
-  final winsListState = Get.put(WinsListState());
+  log('winsListState: ' + winsListState.isLoading.toString());
 
-  if (userId == null || userId.isEmpty) {
-    return Stream.value([]);
-  }
+  // if (userId == null || userId.isEmpty) {
+  //   return Stream.value([]);
+  // }
 
   winsListState.setLoading(true);
-  return subscribeToWinsRepository(
-    userId: userId == mishasId ? ritasId : mishasId,
-  ).map((wins) {
-    wins.sort(_sortFromNewestToOldest);
-    winsListState.setFriendsWins(wins);
-    winsListState.setLoading(false);
-    return wins;
-  });
+  return Stream.value([]);
+  // return subscribeToWinsRepository(
+  //   userId: userId == mishasId ? ritasId : mishasId,
+  // ).map((wins) {
+  //   wins.sort(_sortFromNewestToOldest);
+  //   winsListState.setFriendsWins(wins);
+  //   winsListState.setLoading(false);
+  //   return wins;
+  // });
 }
 
 int _sortFromNewestToOldest(first, second) {

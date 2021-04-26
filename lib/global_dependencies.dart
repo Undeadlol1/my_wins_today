@@ -2,6 +2,9 @@ import 'dart:developer';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_wins_today/states/viewer_state.dart';
+import 'package:my_wins_today/states/wins_list_state.dart';
 import 'package:my_wins_today/use_cases/subscribe_to_viewer.dart';
 
 class GlobalDependencies extends StatefulWidget {
@@ -14,34 +17,39 @@ class GlobalDependencies extends StatefulWidget {
 }
 
 class _GlobalDependenciesState extends State<GlobalDependencies> {
-  late Future<FirebaseApp> _firebaseInitialization = Firebase.initializeApp();
+  late Future<FirebaseApp> _firebaseInitialization;
 
   @override
   void initState() {
+    super.initState();
     /*
      Make sure only single future is created to
      avoid redirection during hot reload.
      https://github.com/flutter/flutter/issues/60709#issuecomment-749778081
     */
+    log('GLOBAL DEPS INIT STATE IS RUNNING.');
     _firebaseInitialization = Firebase.initializeApp();
-    super.initState();
+    Get.put(ViewerState());
+    Get.put(WinsListState());
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: _firebaseInitialization,
-      builder: (context, AsyncSnapshot<FirebaseApp> snapshot) {
-        log('snapshot: ' + snapshot.toString());
-        if (snapshot.error != null) {
-          return _logAndDisplayErrorText(snapshot.error ?? {});
+      builder: (context, AsyncSnapshot<FirebaseApp> firebaseSnapshot) {
+        log('firebaseSnapshot status: ' +
+            firebaseSnapshot.connectionState.toString());
+        if (firebaseSnapshot.error != null) {
+          return _logAndDisplayErrorText(firebaseSnapshot.error ?? {});
         }
 
-        if (snapshot.connectionState == ConnectionState.done) {
+        if (firebaseSnapshot.connectionState == ConnectionState.done) {
           return StreamBuilder(
             stream: subscribeToViewer(),
             builder: (context, viewerSnapshot) {
-              log('viewerSnapshot: ' + viewerSnapshot.toString());
+              log('viewerSnapshot status: ' +
+                  viewerSnapshot.connectionState.toString());
               if (_isViewerLoading(viewerSnapshot)) {
                 return _buildLoadingIndicator();
               }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:my_wins_today/entities/Win.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
@@ -17,7 +19,10 @@ class WinsListState extends GetxController {
   }
 
   void setLoading(bool value) {
-    this.isLoading = value;
-    update();
+    log('setLoading is called: ' + value.toString());
+    if (value != this.isLoading) {
+      this.isLoading = value;
+      update();
+    }
   }
 }

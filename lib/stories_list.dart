@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:my_wins_today/widgets/create_win_form_story.dart';
+import 'package:my_wins_today/widgets/wins_list_story.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
 import 'entities/Win.dart';
-import 'widgets/layout.dart';
-import 'widgets/wins_list.dart';
-import 'screens/main_screen.dart';
-import 'widgets/create_win_form.dart';
-import 'screens/sign_in_screen.dart';
 import 'screens/create_win_screen.dart';
-import 'widgets/sign_in_with_google_button.dart';
+import 'screens/main_screen.dart';
+import 'screens/sign_in_screen.dart';
 import 'widgets/animamted_list_placeholder.dart';
+import 'widgets/layout.dart';
+import 'widgets/sign_in_with_google_button.dart';
 
 class StorybookSection {
   static const String Wins = 'Wins';
@@ -25,6 +25,8 @@ class StoriesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Storybook(
       children: [
+        winsListStory,
+        createWinFormStory,
         Story(
           name: 'MainScreen',
           section: StorybookSection.Screens,
@@ -50,28 +52,6 @@ class StoriesList extends StatelessWidget {
           builder: (_, k) => SignInWithGoogleButton(),
         ),
         Story(
-          name: 'WinsList',
-          section: StorybookSection.Wins,
-          builder: (_, k) => WinsList(
-            wins: k.options(
-              label: 'List values',
-              initial: _wins,
-              options: [
-                Option('Empty', []),
-                Option('With data', _wins),
-              ],
-            ),
-            isLoading: k.options(
-              label: 'Is loading',
-              initial: false,
-              options: [
-                Option('True', true),
-                Option('False', false),
-              ],
-            ),
-          ),
-        ),
-        Story(
           name: 'Layout',
           section: StorybookSection.Layout,
           builder: (_, k) => Layout(
@@ -89,21 +69,6 @@ class StoriesList extends StatelessWidget {
                   label: 'Items count',
                 )
                 .toInt(),
-          ),
-        ),
-        Story(
-          name: 'CreateWinForm',
-          section: StorybookSection.Wins,
-          builder: (_, k) => CreateWinForm(
-            onSubmit: ({String title = ''}) => {},
-            myWinsToday: k.options(
-              label: 'List values',
-              initial: _wins,
-              options: [
-                Option('Empty', []),
-                Option('With data', _wins),
-              ],
-            ),
           ),
         ),
       ],

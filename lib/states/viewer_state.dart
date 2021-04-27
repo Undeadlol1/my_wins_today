@@ -7,11 +7,14 @@ class ViewerState extends GetxController {
   User? viewer;
   String? userId = '';
   bool isLoading = true;
+  // TODO better name?
+  bool hasBeenRequested = false;
 
   void login(User user) {
     log('viewer.login is called.');
     viewer = user;
     isLoading = false;
+    hasBeenRequested = true;
     userId = user.uid;
     update();
   }
@@ -24,8 +27,10 @@ class ViewerState extends GetxController {
     update();
   }
 
-  void setIsLoading(bool state) {
-    this.isLoading = state;
-    update();
+  void setIsLoading(bool value) {
+    if (value != this.isLoading) {
+      this.isLoading = value;
+      update();
+    }
   }
 }

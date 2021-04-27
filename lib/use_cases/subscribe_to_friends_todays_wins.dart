@@ -9,21 +9,19 @@ import 'package:my_wins_today/states/wins_list_state.dart';
 const mishasId = 'TVwWONM7LVgCI6NnBiT4bIpbRFZ2';
 const ritasId = 'TAco9JE8NXeooQsVDPsMIHAugpk1';
 
-final winsListState = Get.find<WinsListState>();
 final viewerState = Get.find<ViewerState>();
+final winsListState = Get.find<WinsListState>();
 
 Stream<List<Win>> subscribeToFriendsTodaysWins() {
-  final userId = viewerState.userId;
-
   log('subscribeToFriendsTodaysWins is called.');
-  log('userId: $userId');
-  log('winsListState: ' + winsListState.isLoading.toString());
+
+  final userId = viewerState.userId;
 
   if (userId == null || userId.isEmpty) {
     return Stream.value([]);
   }
 
-  winsListState.setLoading(false);
+  winsListState.setLoading(true);
   return subscribeToWinsRepository(
     userId: userId == mishasId ? ritasId : mishasId,
   ).map((wins) {

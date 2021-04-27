@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:my_wins_today/states/viewer_state.dart';
@@ -14,20 +16,23 @@ class GlobalDependencies extends StatefulWidget {
 }
 
 class _GlobalDependenciesState extends State<GlobalDependencies> {
+  var viewerStream;
   @override
   void initState() {
     super.initState();
     Get.put(ViewerState());
     Get.put(WinsListState());
+    viewerStream = subscribeToViewer().listen((event) {});
+  }
+
+  @override
+  void dispose() {
+    viewerStream.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<void>(
-      stream: subscribeToViewer(),
-      builder: (context, snapshot) {
-        return this.widget.child;
-      },
-    );
+    return this.widget.child;
   }
 }

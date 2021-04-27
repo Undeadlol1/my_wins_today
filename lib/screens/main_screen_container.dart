@@ -18,40 +18,45 @@ class MainScreenContainer extends StatefulWidget {
 }
 
 class _MainScreenContainerState extends State<MainScreenContainer> {
-  @override
-  void initState() {
-    super.initState();
-    // subscribeToFriendsTodaysWins();
-  }
+  bool _isSubscrbeFunctionInitiated = false;
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ViewerState>(
       // init: ViewerState(),
-      builder: (viewerState) {
-        log('viewerState.isLoading: ' + viewerState.isLoading.toString());
-        log('viewerState.userId: ' + viewerState.userId.toString());
-        // log('viewerState.viwer: ' + viewerState.viewer.toString());
-        final winsListState = Get.find<WinsListState>();
+      builder: (viewerState) => GetBuilder<WinsListState>(
+        // init: ViewerState(),
+        builder: (winsListState) {
+          final isLoading = winsListState.isLoading || viewerState.isLoading;
 
-        final isLoading = winsListState.isLoading || viewerState.isLoading;
-
-        return StreamBuilder<void>(
-            stream: subscribeToFriendsTodaysWins(),
-            builder: (context, snapshot) {
-              return MainScreen(
-                isLoading: isLoading,
-                myWinsToday: winsListState.friendsWins,
-                onFABPress: () {
-                  if (viewerState.viewer == null) {
-                    Navigator.of(context).popAndPushNamed(SignInScreen.path);
-                  } else {
-                    Navigator.of(context).popAndPushNamed(CreateWinScreen.path);
-                  }
-                },
-              );
+          if (_shouldVidwerSubscribeToFriends(viewerState)) {
+            log('About to subscribe to friends wins.');
+            Future.microtask(() {
+              setState(() => _isSubscrbeFunctionInitiated = true);
+              subscribeToFriendsTodaysWins().listen((_) => {});
             });
-      },
+          }
+
+          return MainScreen(
+            isLoading: isLoading,
+            myWinsToday: winsListState.friendsWins,
+            onFABPress: () {
+              if (viewerState.viewer == null) {
+                Navigator.of(context).popAndPushNamed(SignInScreen.path);
+              } else {
+                Navigator.of(context).popAndPushNamed(CreateWinScreen.path);
+              }
+            },
+          );
+        },
+      ),
     );
+  }
+
+  bool _shouldVidwerSubscribeToFriends(ViewerState viewerState) {
+    return !_isSubscrbeFunctionInitiated &&
+        viewerState.hasBeenRequested &&
+        !viewerState.isLoading &&
+        viewerState.userId != null;
   }
 }

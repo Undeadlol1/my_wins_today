@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:my_wins_today/states/viewer_state.dart';
@@ -10,45 +12,54 @@ import '../states/wins_list_state.dart';
 import '../widgets/create_win_form.dart';
 import '../use_cases/subscribe_to_wins_stream.dart';
 
-class CreateWinScreen extends StatelessWidget {
+class CreateWinScreen extends StatefulWidget {
   static const path = '/add_win';
 
   final List<Win> wins;
   const CreateWinScreen({Key? key, required this.wins}) : super(key: key);
 
   @override
+  _CreateWinScreenState createState() => _CreateWinScreenState();
+}
+
+class _CreateWinScreenState extends State<CreateWinScreen> {
+  bool _isSubscrbeFunctionInitiated = false;
+  @override
   Widget build(BuildContext context) {
     return GetBuilder<ViewerState>(
       builder: (viewerState) {
         String userId = viewerState.userId ?? '';
         final winsListState = Get.find<WinsListState>();
-        return StreamBuilder<List<Win>>(
-          initialData: [],
-          stream: subscribeToMyOwnTodaysWins(userId: userId),
-          builder:
-              (BuildContext context, AsyncSnapshot<List<Win>> winsSnapshot) =>
-                  Layout(
-            title: 'Добавьте победу',
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                  flex: 1,
-                  child: Center(
-                    child: GetBuilder<WinsListState>(
-                      init: WinsListState(),
-                      builder: (winsState) => CreateWinForm(
-                        myWinsToday: winsListState.myWins,
-                        onSubmit: ({String title = ''}) => _onSubmit(
-                          title: title,
-                          userId: userId,
-                        ),
+
+        if (_shouldVidwerSubscribeToHisWins(viewerState)) {
+          log('About to subscribe to my wins.');
+          Future.microtask(() {
+            setState(() => _isSubscrbeFunctionInitiated = true);
+            subscribeToMyOwnTodaysWins().listen((_) => {});
+          });
+        }
+
+        return Layout(
+          title: 'Добавьте победу',
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: Center(
+                  child: GetBuilder<WinsListState>(
+                    init: WinsListState(),
+                    builder: (winsState) => CreateWinForm(
+                      myWinsToday: winsListState.myWins,
+                      onSubmit: ({String title = ''}) => _onSubmit(
+                        title: title,
+                        userId: userId,
                       ),
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },
@@ -56,11 +67,19 @@ class CreateWinScreen extends StatelessWidget {
   }
 
   void _onSubmit({String title = '', String userId = ''}) {
+    // TODO: pick userId inside a use_case.
     if (userId.isNotEmpty) {
       createWin(WinCreateDTO(
         title: title,
         userId: userId,
       ));
     }
+  }
+
+  bool _shouldVidwerSubscribeToHisWins(ViewerState viewerState) {
+    return !_isSubscrbeFunctionInitiated &&
+        viewerState.hasBeenRequested &&
+        !viewerState.isLoading &&
+        viewerState.userId != null;
   }
 }

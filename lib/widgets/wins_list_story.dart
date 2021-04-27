@@ -25,6 +25,14 @@ final Story winsListStory = Story(
         Option('False', false),
       ],
     ),
+    isReversed: k.options(
+      label: 'Is list reversed',
+      initial: false,
+      options: [
+        Option('True', true),
+        Option('False', false),
+      ],
+    ),
   ),
 );
 

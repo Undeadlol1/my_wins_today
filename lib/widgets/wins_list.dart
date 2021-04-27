@@ -6,10 +6,12 @@ import 'animamted_list_placeholder.dart';
 class WinsList extends StatelessWidget {
   final List<Win> wins;
   final bool isLoading;
+  final bool isReversed;
   const WinsList({
     Key? key,
     required this.wins,
     this.isLoading = false,
+    this.isReversed = false,
   }) : super(key: key);
 
   @override
@@ -20,11 +22,15 @@ class WinsList extends StatelessWidget {
     if (this.wins.isEmpty) {
       return _emptyStateWidget();
     }
+
     return ListView.builder(
       itemCount: this.wins.length,
       itemBuilder: (BuildContext context, int index) {
+        final win = isReversed ? wins.reversed.toList()[index] : wins[index];
+        String textPrefix = (wins.indexOf(win) + 1).toString() + ') ';
+
         return Text(
-          (index + 1).toString() + ') ' + wins[index].title,
+          textPrefix + win.title,
           style: Theme.of(context).textTheme.headline6,
         );
       },

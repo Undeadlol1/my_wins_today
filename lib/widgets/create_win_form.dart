@@ -29,7 +29,11 @@ class _CreateWinFormState extends State<CreateWinForm> {
         children: <Widget>[
           _buildInputForm(),
           _buildSubmitButton(),
-          Expanded(child: WinsList(wins: widget.myWinsToday)),
+          Expanded(
+              child: WinsList(
+            isReversed: true,
+            wins: widget.myWinsToday,
+          )),
         ],
       ),
     );

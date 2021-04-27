@@ -16,11 +16,11 @@ Stream<List<Win>> subscribeToFriendsTodaysWins({required String? userId}) {
 
   log('winsListState: ' + winsListState.isLoading.toString());
 
-  // if (userId == null || userId.isEmpty) {
-  //   return Stream.value([]);
-  // }
+  if (userId == null || userId.isEmpty) {
+    return Stream.value([]);
+  }
 
-  winsListState.setLoading(true);
+  winsListState.setLoading(false);
   return Stream.value([]);
   // return subscribeToWinsRepository(
   //   userId: userId == mishasId ? ritasId : mishasId,

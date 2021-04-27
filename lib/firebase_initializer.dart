@@ -1,19 +1,16 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:my_wins_today/states/viewer_state.dart';
-import 'package:my_wins_today/states/wins_list_state.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class FirebaseInitializer extends StatefulWidget {
-  final Widget Function(BuildContext, FirebaseApp?) onDidInitilize;
   final Widget Function(BuildContext) onLoading;
   final Widget Function(BuildContext, Object?) onError;
+  final Widget Function(BuildContext, FirebaseApp?) onDidInitilize;
 
   const FirebaseInitializer({
     Key? key,
-    required this.onDidInitilize,
-    required this.onLoading,
     required this.onError,
+    required this.onLoading,
+    required this.onDidInitilize,
   }) : super(key: key);
 
   @override
@@ -26,8 +23,11 @@ class _FirebaseInitializerState extends State<FirebaseInitializer> {
   @override
   void initState() {
     super.initState();
-    Get.put(ViewerState());
-    Get.put(WinsListState());
+    /*
+     Make sure only single future is created to
+     avoid redirection during hot reload.
+     https://github.com/flutter/flutter/issues/60709#issuecomment-749778081
+    */
     initialization = Firebase.initializeApp();
   }
 
@@ -37,12 +37,9 @@ class _FirebaseInitializerState extends State<FirebaseInitializer> {
       future: initialization,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          print('error ${snapshot.error.toString()}');
           return widget.onError(context, snapshot.error);
         }
-        // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          print('ok');
           return widget.onDidInitilize(context, snapshot.data);
         }
         return widget.onLoading(context);

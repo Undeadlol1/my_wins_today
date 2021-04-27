@@ -6,7 +6,6 @@ import 'package:my_wins_today/global_dependencies.dart';
 import 'package:my_wins_today/screens/create_win_screen.dart';
 import 'package:my_wins_today/screens/main_screen.dart';
 import 'package:my_wins_today/screens/main_screen_container.dart';
-import 'package:my_wins_today/use_cases/subscribe_to_viewer.dart';
 
 import 'firebase_initializer.dart';
 import 'screens/sign_in_screen.dart';
@@ -26,33 +25,17 @@ class Application extends StatelessWidget {
     }
 
     return FirebaseInitializer(
-      onError: (_, __) => Text('123'),
-      onLoading: (loadingContext) => Center(
-        child: Container(
-          width: 100.0,
-          height: 100.0,
-          child: CircularProgressIndicator(),
-        ),
-      ),
-      onDidInitilize: (didInitContext, _) {
-        return StreamBuilder<void>(
-          stream: subscribeToViewer(),
-          builder: (context, snapshot) {
-            return GetMaterialApp(
-              routes: _buildRoutes(),
-              initialRoute: MainScreen.path,
-            );
-          },
+      onLoading: _buildLoadingIndicator,
+      onError: (_, error) => _logAndDisplayErrorText(error),
+      onDidInitilize: (_, __) {
+        return GlobalDependencies(
+          child: GetMaterialApp(
+            routes: _buildRoutes(),
+            initialRoute: MainScreen.path,
+          ),
         );
       },
     );
-
-    // return GlobalDependencies(
-    //   child: MaterialApp(
-    //     routes: _buildRoutes(),
-    //     initialRoute: MainScreen.path,
-    //   ),
-    // );
   }
 
   Map<String, Widget Function(BuildContext)> _buildRoutes() {
@@ -61,5 +44,19 @@ class Application extends StatelessWidget {
       SignInScreen.path: (context) => SignInScreen(),
       CreateWinScreen.path: (context) => CreateWinScreen(wins: []),
     };
+  }
+
+  Widget _buildLoadingIndicator(BuildContext context) {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget _logAndDisplayErrorText(Object? error) {
+    log('Something were thrown during Firebase initialization.');
+    log(error.toString());
+    return Center(
+      child: Text('Firebase Error.'),
+    );
   }
 }

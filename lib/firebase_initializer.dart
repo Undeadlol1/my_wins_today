@@ -38,20 +38,14 @@ class _FirebaseInitializerState extends State<FirebaseInitializer> {
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           print('error ${snapshot.error.toString()}');
-          return (widget.onError != null)
-              ? widget.onError(context, snapshot.error)
-              : SizedBox.shrink();
+          return widget.onError(context, snapshot.error);
         }
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           print('ok');
           return widget.onDidInitilize(context, snapshot.data);
         }
-        // Otherwise, show something whilst waiting for initialization to complete
-        print('loading');
-        return (widget.onLoading != null)
-            ? widget.onLoading(context)
-            : SizedBox.shrink();
+        return widget.onLoading(context);
       },
     );
   }

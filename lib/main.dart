@@ -24,17 +24,17 @@ class Application extends StatelessWidget {
     if (_isStorybookEnabled) {
       return StoriesList();
     }
+
     return FirebaseInitializer(
       onError: (_, __) => Text('123'),
       onLoading: (loadingContext) => Center(
         child: Container(
-          height: 100.0,
           width: 100.0,
+          height: 100.0,
           child: CircularProgressIndicator(),
         ),
       ),
       onDidInitilize: (didInitContext, _) {
-        log('onDidInitilize is called.');
         return StreamBuilder<void>(
           stream: subscribeToViewer(),
           builder: (context, snapshot) {

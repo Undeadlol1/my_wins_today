@@ -27,9 +27,9 @@ class _CreateWinFormState extends State<CreateWinForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Flexible(child: WinsList(wins: widget.myWinsToday)),
-          Flexible(child: _buildInputForm()),
-          Flexible(child: _buildSubmitButton()),
+          _buildInputForm(),
+          _buildSubmitButton(),
+          Expanded(child: WinsList(wins: widget.myWinsToday)),
         ],
       ),
     );
@@ -41,7 +41,7 @@ class _CreateWinFormState extends State<CreateWinForm> {
         _numberOfWinsPrefix(),
         Expanded(
           child: TextFormField(
-            autofocus: true,
+            // autofocus: true,
             validator: _textValidator,
             decoration: InputDecoration(
               labelText: 'Введите название победы',

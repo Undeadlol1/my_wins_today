@@ -1,8 +1,5 @@
-import 'dart:developer';
-
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:my_wins_today/states/viewer_state.dart';
 import 'package:my_wins_today/states/wins_list_state.dart';
 import 'package:my_wins_today/use_cases/subscribe_to_viewer.dart';
@@ -17,8 +14,6 @@ class GlobalDependencies extends StatefulWidget {
 }
 
 class _GlobalDependenciesState extends State<GlobalDependencies> {
-  late Future<FirebaseApp> _firebaseInitialization;
-
   @override
   void initState() {
     super.initState();
@@ -29,9 +24,10 @@ class _GlobalDependenciesState extends State<GlobalDependencies> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<void>(
-        stream: subscribeToViewer(),
-        builder: (context, snapshot) {
-          return this.widget.child;
-        });
+      stream: subscribeToViewer(),
+      builder: (context, snapshot) {
+        return this.widget.child;
+      },
+    );
   }
 }

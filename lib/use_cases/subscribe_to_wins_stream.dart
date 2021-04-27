@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:my_wins_today/entities/Win.dart';
 import 'package:my_wins_today/states/wins_list_state.dart';

@@ -1,11 +1,16 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_wins_today/entities/Win.dart';
 
+final firestore = FirebaseFirestore.instance;
+
 Stream<List<Win>> subscribeToWinsRepository({required String userId}) {
+  log('subscribeToWinsRepository is called.');
   final lastSixteenHours =
       DateTime.now().subtract(Duration(hours: 16)).millisecondsSinceEpoch;
 
-  return FirebaseFirestore.instance
+  return firestore
       .collection('wins')
       .where('userId', isEqualTo: userId)
       .where('createdAt', isGreaterThan: lastSixteenHours)

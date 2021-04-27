@@ -1,12 +1,11 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_wins_today/states/viewer_state.dart';
 
 import '../entities/Win.dart';
 import '../widgets/layout.dart';
 import '../DTOs/win_create_dto.dart';
 import '../use_cases/create_win.dart';
-import '../streams/viewer_stream.dart';
 import '../states/wins_list_state.dart';
 import '../widgets/create_win_form.dart';
 import '../use_cases/subscribe_to_wins_stream.dart';
@@ -19,10 +18,9 @@ class CreateWinScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: viewerStream(),
-      builder: (context, authSnapshot) {
-        String userId = authSnapshot.data?.uid ?? '';
+    return GetBuilder<ViewerState>(
+      builder: (viewerState) {
+        String userId = viewerState.userId ?? '';
         final winsListState = Get.find<WinsListState>();
         return StreamBuilder<List<Win>>(
           initialData: [],

@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_wins_today/entities/Win.dart';
 import 'package:my_wins_today/screens/main_screen.dart';
 import 'package:my_wins_today/screens/sign_in_screen.dart';
 import 'package:my_wins_today/states/viewer_state.dart';
@@ -11,8 +10,19 @@ import 'package:my_wins_today/use_cases/subscribe_to_friends_todays_wins.dart';
 
 import 'create_win_screen.dart';
 
-class MainScreenContainer extends StatelessWidget {
+class MainScreenContainer extends StatefulWidget {
   const MainScreenContainer({Key? key}) : super(key: key);
+
+  @override
+  _MainScreenContainerState createState() => _MainScreenContainerState();
+}
+
+class _MainScreenContainerState extends State<MainScreenContainer> {
+  @override
+  void initState() {
+    super.initState();
+    // subscribeToFriendsTodaysWins();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,23 +34,19 @@ class MainScreenContainer extends StatelessWidget {
         // log('viewerState.viwer: ' + viewerState.viewer.toString());
         final winsListState = Get.find<WinsListState>();
 
-        return StreamBuilder<List<Win>>(
-            initialData: [],
-            stream: subscribeToFriendsTodaysWins(
-              userId: viewerState.userId,
-            ),
-            builder: (_, AsyncSnapshot<List<Win>> winsSnapshot) {
-              final isLoading =
-                  winsListState.isLoading || viewerState.isLoading;
+        final isLoading = winsListState.isLoading || viewerState.isLoading;
 
+        return StreamBuilder<void>(
+            stream: subscribeToFriendsTodaysWins(),
+            builder: (context, snapshot) {
               return MainScreen(
                 isLoading: isLoading,
                 myWinsToday: winsListState.friendsWins,
                 onFABPress: () {
                   if (viewerState.viewer == null) {
-                    Navigator.of(context).pushNamed(SignInScreen.path);
+                    Navigator.of(context).popAndPushNamed(SignInScreen.path);
                   } else {
-                    Navigator.of(context).pushNamed(CreateWinScreen.path);
+                    Navigator.of(context).popAndPushNamed(CreateWinScreen.path);
                   }
                 },
               );

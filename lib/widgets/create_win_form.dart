@@ -41,7 +41,7 @@ class _CreateWinFormState extends State<CreateWinForm> {
         _numberOfWinsPrefix(),
         Expanded(
           child: TextFormField(
-            // autofocus: true,
+            autofocus: true,
             validator: _textValidator,
             decoration: InputDecoration(
               labelText: 'Введите название победы',
@@ -70,6 +70,11 @@ class _CreateWinFormState extends State<CreateWinForm> {
     if (_form.currentState!.validate()) {
       widget.onSubmit(title: _titleInputText);
       _resetForm();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Сохранено.'),
+        ),
+      );
     }
   }
 

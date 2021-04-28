@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>372259941478-97li4aki7hnlq4petmb9nmdmpsog0qj6.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.372259941478-97li4aki7hnlq4petmb9nmdmpsog0qj6</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>372259941478-tft5lqe0da70updmsa1rtg44ul7c2rso.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBzoccGgRCWAuNb0-f0JBvmeeR8BffEXAo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>372259941478</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.palei.my-wins-today</string>
+	<key>PROJECT_ID</key>
+	<string>my-wins-today</string>
+	<key>STORAGE_BUCKET</key>
+	<string>my-wins-today.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:372259941478:ios:317b5df556928386e3d1a7</string>
+</dict>
+</plist>

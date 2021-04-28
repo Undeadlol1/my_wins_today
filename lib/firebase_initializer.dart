@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class FirebaseInitializer extends StatefulWidget {
-  final Widget Function(BuildContext) onLoading;
-  final Widget Function(BuildContext, Object?) onError;
-  final Widget Function(BuildContext, FirebaseApp?) onDidInitilize;
+  final Widget Function() onLoading;
+  final Widget Function(Object?) onError;
+  final Widget Function(FirebaseApp?) onDidInitilize;
 
   const FirebaseInitializer({
     Key? key,
@@ -37,12 +37,12 @@ class _FirebaseInitializerState extends State<FirebaseInitializer> {
       future: initialization,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return widget.onError(context, snapshot.error);
+          return widget.onError(snapshot.error);
         }
         if (snapshot.connectionState == ConnectionState.done) {
-          return widget.onDidInitilize(context, snapshot.data);
+          return widget.onDidInitilize(snapshot.data);
         }
-        return widget.onLoading(context);
+        return widget.onLoading();
       },
     );
   }

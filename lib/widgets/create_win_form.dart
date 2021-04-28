@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:my_wins_today/entities/Win.dart';
 import 'package:my_wins_today/widgets/wins_list.dart';
@@ -18,6 +20,7 @@ class CreateWinForm extends StatefulWidget {
 }
 
 class _CreateWinFormState extends State<CreateWinForm> {
+  bool _checkboxValue = false;
   final _form = GlobalKey<FormState>();
 
   @override
@@ -28,12 +31,14 @@ class _CreateWinFormState extends State<CreateWinForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildInputForm(),
+          _buildCheckbox(),
           _buildSubmitButton(),
           Expanded(
-              child: WinsList(
-            isReversed: true,
-            wins: widget.myWinsToday,
-          )),
+            child: WinsList(
+              isReversed: true,
+              wins: widget.myWinsToday,
+            ),
+          ),
         ],
       ),
     );
@@ -46,7 +51,7 @@ class _CreateWinFormState extends State<CreateWinForm> {
         Expanded(
           child: TextFormField(
             autofocus: true,
-            validator: _textValidator,
+            validator: _validateText,
             decoration: InputDecoration(
               labelText: 'Введите название победы',
             ),
@@ -56,6 +61,18 @@ class _CreateWinFormState extends State<CreateWinForm> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildCheckbox() {
+    return CheckboxListTile(
+      value: _checkboxValue,
+      title: Text('Это очень важно'),
+      controlAffinity: ListTileControlAffinity.leading,
+      onChanged: (newValue) {
+        log('Checkbox new value: ' + newValue.toString());
+        setState(() => _checkboxValue = newValue!);
+      },
     );
   }
 
@@ -82,7 +99,7 @@ class _CreateWinFormState extends State<CreateWinForm> {
     }
   }
 
-  String? _textValidator(String? value) {
+  String? _validateText(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'Введите текст';
     }
@@ -92,6 +109,7 @@ class _CreateWinFormState extends State<CreateWinForm> {
   void _resetForm() {
     _titleInputText = '';
     _form.currentState?.reset();
+    setState(() => _checkboxValue = false);
   }
 
   Text _numberOfWinsPrefix() =>

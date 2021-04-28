@@ -1,35 +1,38 @@
-import 'dart:developer';
+import 'dart:async';
 
-import 'package:async_builder/async_builder.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:my_wins_today/states/viewer_state.dart';
+import 'package:my_wins_today/states/wins_list_state.dart';
 import 'package:my_wins_today/use_cases/subscribe_to_viewer.dart';
 
-class GlobalDependencies extends StatelessWidget {
+class GlobalDependencies extends StatefulWidget {
   final Widget child;
 
-  GlobalDependencies({
-    Key? key,
-    required this.child,
-  }) : super(key: key);
-  final _initialization = Firebase.initializeApp();
+  GlobalDependencies({Key? key, required this.child}) : super(key: key);
+
+  @override
+  _GlobalDependenciesState createState() => _GlobalDependenciesState();
+}
+
+class _GlobalDependenciesState extends State<GlobalDependencies> {
+  var viewerStream;
+  @override
+  void initState() {
+    super.initState();
+    Get.put(ViewerState());
+    Get.put(WinsListState());
+    viewerStream = subscribeToViewer().listen((event) {});
+  }
+
+  @override
+  void dispose() {
+    viewerStream.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return AsyncBuilder<void>(
-      future: _initialization,
-      builder: (context, value) => StreamBuilder<void>(
-        stream: subscribeToViewer(),
-        builder: (context, _) => this.child,
-      ),
-      waiting: (context) => Center(child: CircularProgressIndicator()),
-      error: (context, error, stackTrace) => _logAndDisplayErrorText(error),
-    );
-  }
-
-  Widget _logAndDisplayErrorText(Object error) {
-    log('Something were thrown during Firebase initialization.');
-    log(error.toString());
-    return Center(child: Text('Firebase Error.'));
+    return this.widget.child;
   }
 }

@@ -5,12 +5,13 @@ import 'package:my_wins_today/entities/Win.dart';
 import 'package:my_wins_today/DTOs/win_create_dto.dart';
 import 'package:my_wins_today/utilities/generateId.dart';
 
+final CollectionReference winsCollection =
+    FirebaseFirestore.instance.collection('wins');
+
 Future<Win> createWinRepository(WinCreateDTO winPayload) async {
   log('createWinRepository() is called.');
 
   final currentTimeInMilliseconds = DateTime.now().millisecondsSinceEpoch;
-  final CollectionReference winsCollection =
-      FirebaseFirestore.instance.collection('wins');
 
   final Win winToBeCreated = Win(
     id: generateId(),

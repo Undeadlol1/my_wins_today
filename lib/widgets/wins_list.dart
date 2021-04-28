@@ -26,12 +26,23 @@ class WinsList extends StatelessWidget {
     return ListView.builder(
       itemCount: this.wins.length,
       itemBuilder: (BuildContext context, int index) {
+        final theme = Theme.of(context);
         final win = isReversed ? wins.reversed.toList()[index] : wins[index];
-        String textPrefix = (wins.indexOf(win) + 1).toString() + ') ';
+        final String textPrefix = (wins.indexOf(win) + 1).toString() + ') ';
 
-        return Text(
-          textPrefix + win.title,
-          style: Theme.of(context).textTheme.headline6,
+        return Row(
+          children: [
+            Text(textPrefix),
+            // NOTE: currently some wins do not have "isImportant" property. (28.04.2021)
+            // remove this check in the future when all wins are going to have the property.
+            // ignore: unnecessary_null_comparison
+            if (win.isImportant == null || !win.isImportant)
+              Icon(
+                Icons.star,
+                color: theme.primaryColor,
+              ),
+            Text(win.title, style: theme.textTheme.headline6),
+          ],
         );
       },
     );

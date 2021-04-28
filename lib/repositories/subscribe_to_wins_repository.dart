@@ -24,6 +24,7 @@ List<Win> _convertFirebaseDocumentsToWins(QuerySnapshot snapshot) {
       userId: data['userId'],
       createdAt: data['createdAt'],
       updatedAt: data['updatedAt'],
+      isImportant: data['isImportant'],
     ));
   });
 

@@ -8,7 +8,10 @@ String _titleInputText = '';
 
 class CreateWinForm extends StatefulWidget {
   final List<Win> myWinsToday;
-  final void Function({String title}) onSubmit;
+  final void Function({
+    required String title,
+    required bool isImportant,
+  }) onSubmit;
   const CreateWinForm({
     Key? key,
     required this.onSubmit,
@@ -89,7 +92,10 @@ class _CreateWinFormState extends State<CreateWinForm> {
 
   void _saveAndResetForm() {
     if (_form.currentState!.validate()) {
-      widget.onSubmit(title: _titleInputText);
+      widget.onSubmit(
+        title: _titleInputText,
+        isImportant: _checkboxValue,
+      );
       _resetForm();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

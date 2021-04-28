@@ -16,6 +16,7 @@ Future<Win> createWinRepository(WinCreateDTO winPayload) async {
     id: generateId(),
     title: winPayload.title,
     userId: winPayload.userId,
+    isImportant: winPayload.isImportant,
     createdAt: currentTimeInMilliseconds,
     updatedAt: currentTimeInMilliseconds,
   );

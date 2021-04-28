@@ -41,9 +41,14 @@ class CreateWinScreen extends StatelessWidget {
                       init: WinsListState(),
                       builder: (winsState) => CreateWinForm(
                         myWinsToday: winsListState.myWins,
-                        onSubmit: ({String title = ''}) => _onSubmit(
+                        // TODO refactor this.
+                        onSubmit: (
+                                {String title = '',
+                                bool isImportant = false}) =>
+                            _onSubmit(
                           title: title,
                           userId: userId,
+                          isImportant: isImportant,
                         ),
                       ),
                     ),
@@ -57,11 +62,16 @@ class CreateWinScreen extends StatelessWidget {
     );
   }
 
-  void _onSubmit({String title = '', String userId = ''}) {
+  void _onSubmit({
+    String title = '',
+    String userId = '',
+    bool isImportant = false,
+  }) {
     if (userId.isNotEmpty) {
       createWin(WinCreateDTO(
         title: title,
         userId: userId,
+        isImportant: isImportant,
       ));
     }
   }

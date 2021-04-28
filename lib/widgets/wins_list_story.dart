@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:my_wins_today/entities/Win.dart';
 import 'package:my_wins_today/widgets/wins_list.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
@@ -55,6 +57,7 @@ final List<Win> _wins = [
     updatedAt: 123,
     createdAt: 123,
     title: 'Поздравил Деда',
+    isImportant: Random().nextBool(),
   ),
   Win(
     id: '123',
@@ -62,5 +65,6 @@ final List<Win> _wins = [
     updatedAt: 123,
     createdAt: 123,
     title: 'Отправил документы',
+    isImportant: Random().nextBool(),
   ),
 ];

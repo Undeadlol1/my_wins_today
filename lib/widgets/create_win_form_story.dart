@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:my_wins_today/entities/Win.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
@@ -8,7 +10,7 @@ final Story createWinFormStory = Story(
   name: 'CreateWinForm',
   section: StorybookSection.Wins,
   builder: (_, k) => CreateWinForm(
-    onSubmit: ({String title = ''}) => {},
+    onSubmit: ({required String title, required bool isImportant}) => {},
     myWinsToday: k.options(
       label: 'List values',
       initial: _getLongList(),
@@ -40,6 +42,7 @@ final List<Win> _wins = [
     updatedAt: 123,
     createdAt: 123,
     title: 'Поздравил Деда',
+    isImportant: Random().nextBool(),
   ),
   Win(
     id: '123',
@@ -47,5 +50,6 @@ final List<Win> _wins = [
     updatedAt: 123,
     createdAt: 123,
     title: 'Отправил документы',
+    isImportant: Random().nextBool(),
   ),
 ];

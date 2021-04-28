@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:my_wins_today/widgets/create_win_form_story.dart';
 import 'package:my_wins_today/widgets/wins_list_story.dart';
@@ -89,6 +91,7 @@ class StoriesList extends StatelessWidget {
       userId: '123',
       updatedAt: 123,
       createdAt: 123,
+      isImportant: Random().nextBool(),
       title: 'Поздравил Деда',
     ),
     Win(
@@ -96,6 +99,7 @@ class StoriesList extends StatelessWidget {
       userId: '123',
       updatedAt: 123,
       createdAt: 123,
+      isImportant: Random().nextBool(),
       title: 'Отправил документы',
     ),
   ];

@@ -16,9 +16,6 @@ class WinsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textStyle = theme.textTheme.headline6;
-
     if (isLoading) {
       return AnimatedListPlaceHolder();
     }
@@ -30,23 +27,41 @@ class WinsList extends StatelessWidget {
       itemCount: this.wins.length,
       itemBuilder: (BuildContext context, int index) {
         final win = isReversed ? wins.reversed.toList()[index] : wins[index];
-        final String textPrefix = (wins.indexOf(win) + 1).toString() + ') ';
 
-        return Row(
-          children: [
-            Text(textPrefix, style: textStyle),
-            // NOTE: currently some wins do not have "isImportant" property. (28.04.2021)
-            // remove this check in the future when all wins are going to have the property.
-            // ignore: unnecessary_null_comparison
-            if (win.isImportant != null && win.isImportant)
-              Icon(
-                Icons.star,
-                color: theme.primaryColor,
-              ),
-            Text(win.title, style: textStyle),
-          ],
+        return _buildListItem(
+          win: win,
+          context: context,
         );
       },
+    );
+  }
+
+  Widget _buildListItem({required Win win, required BuildContext context}) {
+    final theme = Theme.of(context);
+    final textStyle = theme.textTheme.headline6;
+    final String textPrefix = (wins.indexOf(win) + 1).toString() + ') ';
+
+    return Expanded(
+      child: Row(
+        children: [
+          Text(textPrefix, style: textStyle),
+          // NOTE: currently some wins do not have "isImportant" property. (28.04.2021)
+          // remove this check in the future when all wins are going to have the property.
+          // ignore: unnecessary_null_comparison
+          if (win.isImportant != null && win.isImportant)
+            Icon(
+              Icons.star,
+              color: theme.primaryColor,
+            ),
+          Text(
+            win.title,
+            maxLines: 3,
+            softWrap: true,
+            style: textStyle,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+      ),
     );
   }
 }

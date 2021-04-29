@@ -1,10 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_wins_today/screens/sign_in_screen.dart';
+import 'package:my_wins_today/states/viewer_state.dart';
+import 'package:my_wins_today/states/wins_list_state.dart';
 import 'package:my_wins_today/streams/viewer_stream.dart';
 import 'package:my_wins_today/use_cases/log_out.dart';
+import 'package:my_wins_today/use_cases/subscribe_to_viewer.dart';
 
-class Layout extends StatelessWidget {
+class Layout extends StatefulWidget {
   final String title;
   final Widget body;
   final Widget? floatingActionButton;
@@ -16,22 +20,32 @@ class Layout extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _LayoutState createState() => _LayoutState();
+}
+
+class _LayoutState extends State<Layout> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(this.title),
+        title: Text(this.widget.title),
       ),
       drawer: Drawer(
         child: _linksList(context),
       ),
       body: Padding(
-        child: this.body,
+        child: this.widget.body,
         padding: EdgeInsets.symmetric(
           vertical: 20,
           horizontal: 15,
         ),
       ),
-      floatingActionButton: this.floatingActionButton,
+      floatingActionButton: this.widget.floatingActionButton,
     );
   }
 

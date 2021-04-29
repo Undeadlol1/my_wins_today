@@ -23,9 +23,7 @@ class _MainScreenContainerState extends State<MainScreenContainer> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ViewerState>(
-      // init: ViewerState(),
       builder: (viewerState) => GetBuilder<WinsListState>(
-        // init: ViewerState(),
         builder: (winsListState) {
           final isLoading = winsListState.isLoading || viewerState.isLoading;
 
@@ -42,9 +40,9 @@ class _MainScreenContainerState extends State<MainScreenContainer> {
             myWinsToday: winsListState.friendsWins,
             onFABPress: () {
               if (viewerState.viewer == null) {
-                Navigator.of(context).popAndPushNamed(SignInScreen.path);
+                Navigator.of(context).pushNamed(SignInScreen.path);
               } else {
-                Navigator.of(context).popAndPushNamed(CreateWinScreen.path);
+                Navigator.of(context).pushNamed(CreateWinScreen.path);
               }
             },
           );

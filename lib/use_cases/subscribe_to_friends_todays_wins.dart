@@ -18,6 +18,7 @@ Stream<List<Win>> subscribeToFriendsTodaysWins() {
   final userId = viewerState.userId;
 
   if (userId == null || userId.isEmpty) {
+    log('User id is not present. Returning nothing.');
     return Stream.value([]);
   }
 

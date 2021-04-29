@@ -5,6 +5,7 @@ import 'package:my_wins_today/entities/Win.dart';
 
 Stream<List<Win>> subscribeToWinsRepository({required String userId}) {
   log('subscribeToWinsRepository is called.');
+  log('Requested userId is: $userId');
 
   final _firestore = FirebaseFirestore.instance;
   final lastSixteenHours =
@@ -23,17 +24,19 @@ Stream<List<Win>> subscribeToWinsRepository({required String userId}) {
 }
 
 List<Win> _convertFirebaseDocumentsToWins(QuerySnapshot snapshot) {
+  log('Repository responded with ${snapshot.docs.length.toString()} documents.');
+
   List<Win> list = [];
 
   snapshot.docs.toList().forEach((document) {
     var data = document.data();
     list.add(Win(
       id: data['id'],
-      title: data['title'],
-      userId: data['userId'],
+      title: data['title'] ?? '',
+      userId: data['userId'] ?? '',
       createdAt: data['createdAt'],
       updatedAt: data['updatedAt'],
-      isImportant: data['isImportant'],
+      isImportant: data['isImportant'] ?? false,
     ));
   });
 

@@ -17,8 +17,10 @@ void main() {
 class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const _isStorybookEnabled = false;
-    if (_isStorybookEnabled) {
+    const isStorybookEnabled = false;
+    const isFirebaseEmulatorEnabled = true;
+
+    if (isStorybookEnabled) {
       return StoriesList();
     }
 
@@ -33,6 +35,7 @@ class Application extends StatelessWidget {
           ),
         );
       },
+      shouldEmulatorStart: isFirebaseEmulatorEnabled,
     );
   }
 

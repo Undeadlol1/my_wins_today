@@ -24,7 +24,7 @@ class FirebaseInitializer extends StatefulWidget {
 }
 
 class _FirebaseInitializerState extends State<FirebaseInitializer> {
-  late Future<FirebaseApp> initialization;
+  late Future<FirebaseApp> _initialization;
 
   @override
   void initState() {
@@ -34,20 +34,18 @@ class _FirebaseInitializerState extends State<FirebaseInitializer> {
      avoid redirection during hot reload.
      https://github.com/flutter/flutter/issues/60709#issuecomment-749778081
     */
-    initialization = Firebase.initializeApp();
+    _initialization = Firebase.initializeApp();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<FirebaseApp>(
-      future: initialization,
+      future: _initialization,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return widget.onError(snapshot.error);
         }
         if (snapshot.connectionState == ConnectionState.done) {
-          log('snapshot.data?.options.databaseURL: ' +
-              snapshot.data!.options.toString());
           _setupOrDisableFirebaseEmulator();
           return widget.onDidInitilize(snapshot.data);
         }
@@ -56,10 +54,8 @@ class _FirebaseInitializerState extends State<FirebaseInitializer> {
     );
   }
 
-  Future<void> _setupOrDisableFirebaseEmulator() async {
+  void _setupOrDisableFirebaseEmulator() async {
     final firestore = FirebaseFirestore.instance;
-
-    firestore.settings = Settings();
 
     if (widget.shouldEmulatorStart) {
       log('Enabling firebase emulator.');
@@ -69,6 +65,8 @@ class _FirebaseInitializerState extends State<FirebaseInitializer> {
 
       // https://firebase.flutter.dev/docs/firestore/usage#emulator-usage
       firestore.settings = Settings(host: host, sslEnabled: false);
+    } else {
+      firestore.settings = Settings();
     }
   }
 }

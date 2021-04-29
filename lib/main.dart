@@ -18,7 +18,7 @@ class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const isStorybookEnabled = false;
-    const isFirebaseEmulatorEnabled = true;
+    const isFirebaseEmulatorEnabled = false;
 
     if (isStorybookEnabled) {
       return StoriesList();

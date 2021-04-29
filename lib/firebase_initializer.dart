@@ -46,9 +46,9 @@ class _FirebaseInitializerState extends State<FirebaseInitializer> {
           return widget.onError(snapshot.error);
         }
         if (snapshot.connectionState == ConnectionState.done) {
-          if (widget.shouldEmulatorStart) {
-            _setupFirebaseEmulator();
-          }
+          log('snapshot.data?.options.databaseURL: ' +
+              snapshot.data!.options.toString());
+          _setupOrDisableFirebaseEmulator();
           return widget.onDidInitilize(snapshot.data);
         }
         return widget.onLoading();
@@ -56,14 +56,19 @@ class _FirebaseInitializerState extends State<FirebaseInitializer> {
     );
   }
 
-  void _setupFirebaseEmulator() {
-    log('Enabling firebase emulator.');
-    // https://firebase.flutter.dev/docs/firestore/usage#emulator-usage
-    String host = defaultTargetPlatform == TargetPlatform.android
-        ? '10.0.2.2:8080'
-        : 'localhost:8080';
+  Future<void> _setupOrDisableFirebaseEmulator() async {
+    final firestore = FirebaseFirestore.instance;
 
-    FirebaseFirestore.instance.settings =
-        Settings(host: host, sslEnabled: false);
+    firestore.settings = Settings();
+
+    if (widget.shouldEmulatorStart) {
+      log('Enabling firebase emulator.');
+      String host = defaultTargetPlatform == TargetPlatform.android
+          ? '10.0.2.2:8080'
+          : 'localhost:8080';
+
+      // https://firebase.flutter.dev/docs/firestore/usage#emulator-usage
+      firestore.settings = Settings(host: host, sslEnabled: false);
+    }
   }
 }

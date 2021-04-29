@@ -16,7 +16,10 @@ Stream<List<Win>> subscribeToWinsRepository({required String userId}) {
       .where('createdAt', isGreaterThan: lastSixteenHours)
       .snapshots()
       .map(_convertFirebaseDocumentsToWins)
-      .handleError((error) => log(error.toString()));
+      .handleError((error) {
+    log('subscribeToWinsRepository thrown an error: ');
+    log(error.toString());
+  });
 }
 
 List<Win> _convertFirebaseDocumentsToWins(QuerySnapshot snapshot) {

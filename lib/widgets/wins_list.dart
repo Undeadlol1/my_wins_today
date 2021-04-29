@@ -16,18 +16,19 @@ class WinsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textStyle = theme.textTheme.headline6;
+
     if (isLoading) {
       return AnimatedListPlaceHolder();
     }
-    if (this.wins.isEmpty) {
+    if (wins.isEmpty) {
       return _emptyStateWidget();
     }
 
     return ListView.builder(
       itemCount: this.wins.length,
       itemBuilder: (BuildContext context, int index) {
-        final theme = Theme.of(context);
-        final textStyle = theme.textTheme.headline6;
         final win = isReversed ? wins.reversed.toList()[index] : wins[index];
         final String textPrefix = (wins.indexOf(win) + 1).toString() + ') ';
 

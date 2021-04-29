@@ -54,7 +54,7 @@ class WinsList extends StatelessWidget {
 Widget _emptyStateWidget() {
   return Center(
     child: Text(
-      'Список побед пуст',
+      'Everything is fine.',
       style: TextStyle(fontStyle: FontStyle.italic),
     ),
   );

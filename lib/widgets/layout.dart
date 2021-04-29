@@ -1,12 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:my_wins_today/screens/sign_in_screen.dart';
-import 'package:my_wins_today/states/viewer_state.dart';
-import 'package:my_wins_today/states/wins_list_state.dart';
 import 'package:my_wins_today/streams/viewer_stream.dart';
 import 'package:my_wins_today/use_cases/log_out.dart';
-import 'package:my_wins_today/use_cases/subscribe_to_viewer.dart';
 
 class Layout extends StatefulWidget {
   final String title;
@@ -40,9 +36,11 @@ class _LayoutState extends State<Layout> {
       ),
       body: Padding(
         child: this.widget.body,
-        padding: EdgeInsets.symmetric(
-          vertical: 20,
-          horizontal: 15,
+        padding: EdgeInsets.only(
+          top: 20,
+          left: 15,
+          right: 15,
+          bottom: 0,
         ),
       ),
       floatingActionButton: this.widget.floatingActionButton,

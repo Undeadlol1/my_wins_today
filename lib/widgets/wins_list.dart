@@ -41,27 +41,30 @@ class WinsList extends StatelessWidget {
     final textStyle = theme.textTheme.headline6;
     final String textPrefix = (wins.indexOf(win) + 1).toString() + ') ';
 
-    return Expanded(
-      child: Row(
-        children: [
-          Text(textPrefix, style: textStyle),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(textPrefix, style: textStyle),
+        Visibility(
           // NOTE: currently some wins do not have "isImportant" property. (28.04.2021)
           // remove this check in the future when all wins are going to have the property.
           // ignore: unnecessary_null_comparison
-          if (win.isImportant != null && win.isImportant)
-            Icon(
-              Icons.star,
-              color: theme.primaryColor,
-            ),
-          Text(
+          visible: win.isImportant != null && win.isImportant,
+          child: Icon(
+            Icons.star,
+            color: theme.primaryColor,
+          ),
+        ),
+        Expanded(
+          child: Text(
             win.title,
-            maxLines: 3,
+            maxLines: 2,
             softWrap: true,
             style: textStyle,
             overflow: TextOverflow.ellipsis,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

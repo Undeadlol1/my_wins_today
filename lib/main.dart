@@ -16,7 +16,7 @@ void main() {
 class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const _isStorybookEnabled = true;
+    const _isStorybookEnabled = false;
     if (_isStorybookEnabled) {
       return StoriesList();
     }

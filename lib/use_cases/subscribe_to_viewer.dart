@@ -10,8 +10,8 @@ Stream<User?> subscribeToViewer() {
   log('subscribeToViewer is called.');
   final _viewerState = Get.find<ViewerState>();
 
-  _viewerState.hasBeenRequested = true;
   _viewerState.isLoading = true;
+  _viewerState.hasBeenRequested = true;
   return _firebase.authStateChanges().map((user) {
     if (user != null) {
       _viewerState.login(user);

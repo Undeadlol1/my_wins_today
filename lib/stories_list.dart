@@ -41,7 +41,10 @@ class StoriesList extends StatelessWidget {
         Story(
           name: 'CreateWinScreen',
           section: StorybookSection.Screens,
-          builder: (_, k) => CreateWinScreen(wins: _wins),
+          builder: (_, k) => CreateWinScreen(
+            wins: _wins,
+            onSubmit: ({required bool isImportant, required String title}) {},
+          ),
         ),
         Story(
           name: 'SignInScreen',

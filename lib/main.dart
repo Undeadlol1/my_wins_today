@@ -42,7 +42,10 @@ class Application extends StatelessWidget {
   Map<String, Widget Function(BuildContext)> _buildRoutes() {
     return {
       SignInScreen.path: (context) => SignInScreen(),
-      CreateWinScreen.path: (context) => CreateWinScreen(wins: []),
+      CreateWinScreen.path: (context) => CreateWinScreen(
+            wins: [],
+            onSubmit: ({required bool isImportant, required String title}) {},
+          ),
     };
   }
 

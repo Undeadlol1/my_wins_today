@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:my_wins_today/screens/create_win_screen.dart';
 import 'package:my_wins_today/states/viewer_state.dart';
 
-import '../states/wins_list_state.dart';
 import '../use_cases/create_win.dart';
+import '../states/wins_list_state.dart';
 import '../use_cases/subscribe_to_wins_stream.dart';
 
 class CreateWinScreenContainer extends StatefulWidget {
@@ -19,7 +19,7 @@ class CreateWinScreenContainer extends StatefulWidget {
 }
 
 class _CreateWinScreenState extends State<CreateWinScreenContainer> {
-  bool _isSubscrbeFunctionInitiated = false;
+  bool _isSubscribeFunctionInitiated = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class _CreateWinScreenState extends State<CreateWinScreenContainer> {
         if (_shouldVidwerSubscribeToHisWins(viewerState)) {
           log('About to subscribe to my wins.');
           Future.microtask(() {
-            setState(() => _isSubscrbeFunctionInitiated = true);
+            setState(() => _isSubscribeFunctionInitiated = true);
             subscribeToMyOwnTodaysWins().listen((_) => {});
           });
         }
@@ -44,7 +44,7 @@ class _CreateWinScreenState extends State<CreateWinScreenContainer> {
   }
 
   bool _shouldVidwerSubscribeToHisWins(ViewerState viewerState) {
-    return !_isSubscrbeFunctionInitiated &&
+    return !_isSubscribeFunctionInitiated &&
         viewerState.hasBeenRequested &&
         !viewerState.isLoading &&
         viewerState.userId != null;

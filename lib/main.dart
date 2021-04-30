@@ -32,6 +32,9 @@ class Application extends StatelessWidget {
         return GlobalDependencies(
           child: GetMaterialApp(
             routes: _buildRoutes(),
+            theme: ThemeData.light(),
+            themeMode: ThemeMode.system,
+            darkTheme: ThemeData.dark(),
             home: MainScreenContainer(),
           ),
         );

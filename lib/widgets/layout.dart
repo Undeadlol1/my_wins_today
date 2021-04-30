@@ -4,7 +4,7 @@ import 'package:my_wins_today/use_cases/log_out.dart';
 import 'package:my_wins_today/states/viewer_state.dart';
 import 'package:my_wins_today/screens/sign_in_screen.dart';
 
-class Layout extends StatefulWidget {
+class Layout extends StatelessWidget {
   final String title;
   final Widget body;
   final Widget? floatingActionButton;
@@ -16,22 +16,12 @@ class Layout extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _LayoutState createState() => _LayoutState();
-}
-
-class _LayoutState extends State<Layout> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final viewerState = Get.find<ViewerState>();
     final String viewerPhoto = viewerState.viewer?.photoURL ?? '';
     return Scaffold(
       appBar: AppBar(
-        title: Text(this.widget.title),
+        title: Text(this.title),
         actions: [
           Container(
             width: 35,
@@ -48,7 +38,7 @@ class _LayoutState extends State<Layout> {
         ),
       ),
       body: Padding(
-        child: this.widget.body,
+        child: this.body,
         padding: const EdgeInsets.only(
           top: 20,
           left: 15,
@@ -56,7 +46,7 @@ class _LayoutState extends State<Layout> {
           bottom: 0,
         ),
       ),
-      floatingActionButton: this.widget.floatingActionButton,
+      floatingActionButton: this.floatingActionButton,
     );
   }
 

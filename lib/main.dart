@@ -2,12 +2,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
-import 'package:my_wins_today/global_dependencies.dart';
-import 'package:my_wins_today/screens/create_win_screen.dart';
-import 'package:my_wins_today/screens/main_screen_container.dart';
+import 'stories_list.dart';
+import 'global_dependencies.dart';
 import 'firebase_initializer.dart';
 import 'screens/sign_in_screen.dart';
-import 'stories_list.dart';
+import 'screens/create_win_screen.dart';
+import 'screens/main_screen_container.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

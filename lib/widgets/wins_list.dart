@@ -38,33 +38,34 @@ class WinsList extends StatelessWidget {
 
   Widget _buildListItem({required Win win, required BuildContext context}) {
     final theme = Theme.of(context);
-    final textStyle = theme.textTheme.headline6;
+    final normalTextStyle = theme.textTheme.headline6;
+    final importantTextStyle = normalTextStyle!.merge(
+      TextStyle(color: theme.accentColor),
+    );
+
     final String textPrefix = (wins.indexOf(win) + 1).toString() + ') ';
 
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(textPrefix, style: textStyle),
-        Visibility(
-          // NOTE: currently some wins do not have "isImportant" property. (28.04.2021)
-          // remove this check in the future when all wins are going to have the property.
-          // ignore: unnecessary_null_comparison
-          visible: win.isImportant != null && win.isImportant,
-          child: Icon(
-            Icons.star,
-            color: theme.primaryColor,
+    return Container(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(textPrefix, style: normalTextStyle),
+          Expanded(
+            child: Text(
+              win.title,
+              maxLines: 2,
+              softWrap: true,
+              overflow: TextOverflow.ellipsis,
+              // NOTE: currently some wins do not have "isImportant" property. (28.04.2021)
+              // remove this check in the future when all wins are going to have the property.
+              // ignore: unnecessary_null_comparison
+              style: win.isImportant != null && win.isImportant
+                  ? importantTextStyle
+                  : normalTextStyle,
+            ),
           ),
-        ),
-        Expanded(
-          child: Text(
-            win.title,
-            maxLines: 2,
-            softWrap: true,
-            style: textStyle,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

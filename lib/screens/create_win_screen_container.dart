@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:my_wins_today/screens/create_win_screen.dart';
 import 'package:my_wins_today/states/viewer_state.dart';
 
-import '../entities/Win.dart';
 import '../states/wins_list_state.dart';
 import '../use_cases/create_win.dart';
 import '../use_cases/subscribe_to_wins_stream.dart';
@@ -13,9 +12,7 @@ import '../use_cases/subscribe_to_wins_stream.dart';
 class CreateWinScreenContainer extends StatefulWidget {
   static const path = '/add_win';
 
-  final List<Win> wins;
-  const CreateWinScreenContainer({Key? key, required this.wins})
-      : super(key: key);
+  const CreateWinScreenContainer({Key? key}) : super(key: key);
 
   @override
   _CreateWinScreenState createState() => _CreateWinScreenState();

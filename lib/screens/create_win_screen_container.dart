@@ -20,11 +20,12 @@ class CreateWinScreenContainer extends StatefulWidget {
 
 class _CreateWinScreenState extends State<CreateWinScreenContainer> {
   bool _isSubscrbeFunctionInitiated = false;
+
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ViewerState>(
-      builder: (viewerState) {
-        final winsListState = Get.find<WinsListState>();
+    return GetBuilder<WinsListState>(
+      builder: (winsListState) {
+        final viewerState = Get.find<ViewerState>();
 
         if (_shouldVidwerSubscribeToHisWins(viewerState)) {
           log('About to subscribe to my wins.');

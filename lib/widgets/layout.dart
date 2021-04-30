@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_wins_today/screens/sign_in_screen.dart';
+import 'package:my_wins_today/states/viewer_state.dart';
 import 'package:my_wins_today/streams/viewer_stream.dart';
 import 'package:my_wins_today/use_cases/log_out.dart';
 
@@ -27,9 +29,18 @@ class _LayoutState extends State<Layout> {
 
   @override
   Widget build(BuildContext context) {
+    final viewerState = Get.find<ViewerState>();
+    final String viewerPhoto = viewerState.viewer?.photoURL ?? '';
     return Scaffold(
       appBar: AppBar(
         title: Text(this.widget.title),
+        actions: [
+          Container(
+            width: 35,
+            margin: EdgeInsets.only(right: 15),
+            child: viewerPhoto.isEmpty ? null : Image.network(viewerPhoto),
+          ),
+        ],
       ),
       drawer: Drawer(
         child: _linksList(context),

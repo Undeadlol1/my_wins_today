@@ -93,7 +93,7 @@ class _CreateWinFormState extends State<CreateWinForm> {
   void _saveAndResetForm() {
     if (_form.currentState!.validate()) {
       widget.onSubmit(
-        title: _titleInputText,
+        title: _titleInputText.trim(),
         isImportant: _checkboxValue,
       );
       _resetForm();
@@ -106,8 +106,12 @@ class _CreateWinFormState extends State<CreateWinForm> {
   }
 
   String? _validateText(String? value) {
-    if (value == null || value.trim().isEmpty) {
+    String trimmedText = value!.trim();
+    if (trimmedText.isEmpty) {
       return 'Введите текст';
+    }
+    if (trimmedText.length < 5) {
+      return 'Слишком коротко';
     }
     return null;
   }

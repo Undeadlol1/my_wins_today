@@ -18,7 +18,7 @@ class Layout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewerState = Get.find<ViewerState>();
-    final String viewerPhoto = viewerState.viewer?.photoURL ?? '';
+    final String viewerPhoto = viewerState.viewer?.picture ?? '';
     return Scaffold(
       appBar: AppBar(
         title: Text(this.title),

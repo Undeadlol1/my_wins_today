@@ -7,8 +7,8 @@ User firestoreDocumentToUserEntityTransformer(DocumentSnapshot document) {
   return User(
     id: document.id,
     email: data['email'],
-    createdAt: data['data'],
     picture: data['picture'],
+    createdAt: data['createdAt'],
     updatedAt: data['updatedAt'],
     displayName: data['displayName'],
   );

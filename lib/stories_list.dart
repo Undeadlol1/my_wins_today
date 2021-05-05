@@ -1,15 +1,17 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:my_wins_today/widgets/create_win_form_story.dart';
+import 'package:my_wins_today/widgets/wins_list_story.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
 import 'entities/Win.dart';
-import 'widgets/layout.dart';
-import 'widgets/WinsList.dart';
-import 'screens/main_screen.dart';
-import 'widgets/CreateWinForm.dart';
-import 'screens/sign_in_screen.dart';
 import 'screens/create_win_screen.dart';
-import 'widgets/sign_in_with_google_button.dart';
+import 'screens/main_screen.dart';
+import 'screens/sign_in_screen.dart';
 import 'widgets/animamted_list_placeholder.dart';
+import 'widgets/layout.dart';
+import 'widgets/sign_in_with_google_button.dart';
 
 class StorybookSection {
   static const String Wins = 'Wins';
@@ -25,15 +27,24 @@ class StoriesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Storybook(
       children: [
+        winsListStory,
+        createWinFormStory,
         Story(
           name: 'MainScreen',
           section: StorybookSection.Screens,
-          builder: (_, k) => MainScreen(myWinsToday: _wins),
+          builder: (_, k) => MainScreen(
+            myWinsToday: _wins,
+            onFABPress: () => {},
+            isLoading: k.boolean(label: 'Is loading'),
+          ),
         ),
         Story(
           name: 'CreateWinScreen',
           section: StorybookSection.Screens,
-          builder: (_, k) => CreateWinScreen(wins: _wins),
+          builder: (_, k) => CreateWinScreen(
+            wins: _wins,
+            onSubmit: ({required bool isImportant, required String title}) {},
+          ),
         ),
         Story(
           name: 'SignInScreen',
@@ -41,31 +52,9 @@ class StoriesList extends StatelessWidget {
           builder: (_, k) => SignInScreen(),
         ),
         Story(
-          name: 'Login with Google button',
           section: StorybookSection.Auth,
+          name: 'Login with Google button',
           builder: (_, k) => SignInWithGoogleButton(),
-        ),
-        Story(
-          name: 'WinsList',
-          section: StorybookSection.Wins,
-          builder: (_, k) => WinsList(
-            wins: k.options(
-              label: 'List values',
-              initial: _wins,
-              options: [
-                Option('Empty', []),
-                Option('With data', _wins),
-              ],
-            ),
-            isLoading: k.options(
-              label: 'Is loading',
-              initial: false,
-              options: [
-                Option('True', true),
-                Option('False', false),
-              ],
-            ),
-          ),
         ),
         Story(
           name: 'Layout',
@@ -87,25 +76,10 @@ class StoriesList extends StatelessWidget {
                 .toInt(),
           ),
         ),
-        Story(
-          name: 'CreateWinForm',
-          section: StorybookSection.Wins,
-          builder: (_, k) => CreateWinForm(
-            myWinsToday: k.options(
-              label: 'List values',
-              initial: _wins,
-              options: [
-                Option('Empty', []),
-                Option('With data', _wins),
-              ],
-            ),
-          ),
-        ),
       ],
       storyWrapperBuilder: (context, story, child) => Stack(
         children: [
           Container(
-            color: Colors.black54,
             padding: story.padding,
             child: Center(child: child),
           ),
@@ -120,6 +94,7 @@ class StoriesList extends StatelessWidget {
       userId: '123',
       updatedAt: 123,
       createdAt: 123,
+      isImportant: Random().nextBool(),
       title: 'Поздравил Деда',
     ),
     Win(
@@ -127,6 +102,7 @@ class StoriesList extends StatelessWidget {
       userId: '123',
       updatedAt: 123,
       createdAt: 123,
+      isImportant: Random().nextBool(),
       title: 'Отправил документы',
     ),
   ];

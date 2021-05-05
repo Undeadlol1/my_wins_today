@@ -1,15 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:my_wins_today/widgets/CreateWinForm.dart';
-import 'package:my_wins_today/widgets/layout.dart';
 
 import '../entities/Win.dart';
+import '../widgets/layout.dart';
+import '../widgets/create_win_form.dart';
 
-class CreateWinScreen extends StatelessWidget {
+class CreateWinScreen extends StatefulWidget {
   static const path = '/add_win';
 
   final List<Win> wins;
-  const CreateWinScreen({Key? key, required this.wins}) : super(key: key);
+  final void Function({
+    required String title,
+    required bool isImportant,
+  }) onSubmit;
+  const CreateWinScreen({
+    Key? key,
+    required this.wins,
+    required this.onSubmit,
+  }) : super(key: key);
 
+  @override
+  _CreateWinScreenState createState() => _CreateWinScreenState();
+}
+
+class _CreateWinScreenState extends State<CreateWinScreen> {
   @override
   Widget build(BuildContext context) {
     return Layout(
@@ -20,7 +33,10 @@ class CreateWinScreen extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Center(
-              child: CreateWinForm(myWinsToday: this.wins),
+              child: CreateWinForm(
+                myWinsToday: widget.wins,
+                onSubmit: widget.onSubmit,
+              ),
             ),
           ),
         ],

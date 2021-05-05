@@ -1,28 +1,28 @@
-class Win {
+class User {
   String id;
-  String title;
-  String userId;
-  bool isImportant;
+  String email;
   int createdAt;
   int updatedAt;
+  String picture;
+  String displayName;
 
-  Win({
+  User({
     required this.id,
-    required this.title,
-    required this.userId,
-    required this.isImportant,
+    required this.email,
+    required this.picture,
     required this.createdAt,
     required this.updatedAt,
+    required this.displayName,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'id': this.id,
-      'title': this.title,
-      'userId': this.userId,
-      'isImportant': this.isImportant,
+      'email': this.email,
+      'picture': this.picture,
       'createdAt': this.createdAt,
       'updatedAt': this.updatedAt,
+      'displayName': this.displayName,
     };
   }
 }

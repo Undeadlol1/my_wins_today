@@ -26,6 +26,8 @@ Future<void> signInWithGoogle() async {
     final createdUser = await createUserRepository(firebaseUser);
     viewerState.login(createdUser);
   }
+
+  viewerState.setIsLoading(false);
 }
 
 Future<void> _signinToFirebaseViaGoogle() async {

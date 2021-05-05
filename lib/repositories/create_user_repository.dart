@@ -21,7 +21,7 @@ Future<User> createUserRepository(Firebase.User firebaseUser) async {
   );
 
   await _users.doc(id).set(userToBeCreated.toMap()).catchError((error) {
-    log("Failed to add a win: $error");
+    log("Failed to add a user: $error");
     throw error;
   });
 

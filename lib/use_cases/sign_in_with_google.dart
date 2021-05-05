@@ -15,16 +15,24 @@ Future<void> signInWithGoogle() async {
 
   viewerState.setIsLoading(true);
 
-  await _signinToFirebaseViaGoogle();
+  try {
+    await _signinToFirebaseViaGoogle();
 
-  final firebaseUser = FirebaseAuth.instance.currentUser;
-  final applicationUser = await getUserById(firebaseUser!.uid);
+    final firebaseUser = FirebaseAuth.instance.currentUser;
+    final applicationUser = await getUserById(firebaseUser!.uid);
 
-  if (applicationUser != null) {
-    viewerState.login(applicationUser);
-  } else {
-    final createdUser = await createUserRepository(firebaseUser);
-    viewerState.login(createdUser);
+    if (applicationUser != null) {
+      log('User is found in DB. Logging in.');
+      viewerState.login(applicationUser);
+    } else {
+      log('No user found in DB. Creating one...');
+      final createdUser = await createUserRepository(firebaseUser);
+      viewerState.login(createdUser);
+    }
+  } on Exception catch (error) {
+    log('Something went wrong during sign in.');
+    log(error.toString());
+    throw error;
   }
 
   viewerState.setIsLoading(false);

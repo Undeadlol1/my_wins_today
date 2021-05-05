@@ -1,11 +1,12 @@
 import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:my_wins_today/screens/create_win_screen_container.dart';
 
-import 'package:my_wins_today/global_dependencies.dart';
-import 'package:my_wins_today/screens/create_win_screen.dart';
-import 'package:my_wins_today/screens/main_screen_container.dart';
 import 'firebase_initializer.dart';
+import 'global_dependencies.dart';
+import 'screens/main_screen_container.dart';
 import 'screens/sign_in_screen.dart';
 import 'stories_list.dart';
 
@@ -31,6 +32,9 @@ class Application extends StatelessWidget {
         return GlobalDependencies(
           child: GetMaterialApp(
             routes: _buildRoutes(),
+            theme: ThemeData.light(),
+            themeMode: ThemeMode.system,
+            darkTheme: ThemeData.dark(),
             home: MainScreenContainer(),
           ),
         );
@@ -41,8 +45,8 @@ class Application extends StatelessWidget {
 
   Map<String, Widget Function(BuildContext)> _buildRoutes() {
     return {
-      SignInScreen.path: (context) => SignInScreen(),
-      CreateWinScreen.path: (context) => CreateWinScreen(wins: []),
+      SignInScreen.path: (_) => SignInScreen(),
+      CreateWinScreenContainer.path: (_) => CreateWinScreenContainer(),
     };
   }
 

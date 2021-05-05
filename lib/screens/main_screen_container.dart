@@ -25,8 +25,6 @@ class _MainScreenContainerState extends State<MainScreenContainer> {
       builder: (viewerState) => GetBuilder<WinsListState>(
         builder: (winsListState) {
           final isLoading = winsListState.isLoading || viewerState.isLoading;
-          log('viewerState.isLoading: ' + viewerState.isLoading.toString());
-          log('winsListState.isLoading: ' + winsListState.isLoading.toString());
 
           if (_shouldVidwerSubscribeToFriends(viewerState)) {
             log('About to subscribe to friends wins.');

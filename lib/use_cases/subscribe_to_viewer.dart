@@ -11,13 +11,12 @@ Stream<User?> subscribeToViewer() {
   log('subscribeToViewer is called.');
   final _viewerState = Get.find<ViewerState>();
 
-  _viewerState.isLoading = true;
+  _viewerState.setIsLoading(true);
   _viewerState.hasBeenRequested = true;
   return _firebase.authStateChanges().map((user) {
-    log('user: ' + user.toString());
     if (user != null) {
       _viewerState.login(firebaseUserToUserEntityTransformer(user));
     }
-    return user;
+    _viewerState.setIsLoading(false);
   });
 }

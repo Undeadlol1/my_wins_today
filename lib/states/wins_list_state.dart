@@ -3,8 +3,8 @@ import 'package:my_wins_today/entities/Win.dart';
 
 class WinsListState extends GetxController {
   List<Win> myWins = [];
+  bool isLoading = false;
   List<Win> friendsWins = [];
-  bool isLoading = true;
 
   void setFriendsWins(List<Win> payload) {
     this.friendsWins = payload;

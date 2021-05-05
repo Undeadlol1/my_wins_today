@@ -1,7 +1,7 @@
-import 'dart:developer';
+import 'dart:developer' show log;
 
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:my_wins_today/entities/User.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class ViewerState extends GetxController {
   User? viewer;

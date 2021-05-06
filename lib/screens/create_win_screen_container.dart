@@ -25,11 +25,7 @@ class _CreateWinScreenState extends State<CreateWinScreenContainer> {
   Widget build(BuildContext context) {
     return GetBuilder<WinsListState>(
       builder: (winsListState) {
-        final viewerState = Get.find<ViewerState>();
-
-        if (_shouldViewerSubscribeToHisWins(viewerState)) {
-          _subscribe();
-        }
+        _subscribeToWinsWhenViewerIsLoaded();
 
         return CreateWinScreen(
           onSubmit: createWin,
@@ -39,15 +35,18 @@ class _CreateWinScreenState extends State<CreateWinScreenContainer> {
     );
   }
 
-  void _subscribe() {
-    log('About to subscribe to my wins.');
-    Future.microtask(() {
-      setState(() => _isSubscriptionInitiated = true);
-      subscribeToMyOwnTodaysWins().listen((_) => {});
-    });
+  void _subscribeToWinsWhenViewerIsLoaded() {
+    if (_shouldViewerSubscribeToHisWins()) {
+      log('Subscribing to my wins.');
+      Future.microtask(() {
+        setState(() => _isSubscriptionInitiated = true);
+        subscribeToMyOwnTodaysWins().listen((_) => {});
+      });
+    }
   }
 
-  bool _shouldViewerSubscribeToHisWins(ViewerState viewerState) {
+  bool _shouldViewerSubscribeToHisWins() {
+    final viewerState = Get.find<ViewerState>();
     return !_isSubscriptionInitiated &&
         viewerState.hasBeenRequested &&
         !viewerState.isLoading &&

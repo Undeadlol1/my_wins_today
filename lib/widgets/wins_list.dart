@@ -94,6 +94,7 @@ class WinsList extends StatelessWidget {
           : () async => await onLikeButtonTap!(winToUpdate: win),
       builder: (BuildContext context, TapDebouncerFunc? onTap) {
         return InkWell(
+          onTap: onTap,
           child: Container(
             padding: EdgeInsets.all(2.5),
             child: Icon(
@@ -106,7 +107,6 @@ class WinsList extends StatelessWidget {
                       : Icons.favorite_outline,
             ),
           ),
-          onTap: onTap,
         );
       },
     );

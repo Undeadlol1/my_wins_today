@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_wins_today/states/viewer_state.dart';
 import 'package:my_wins_today/widgets/create_win_form_story.dart';
 import 'package:my_wins_today/widgets/wins_list_story.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
@@ -20,8 +22,19 @@ class StorybookSection {
   static const String Layout = 'Layout and UI';
 }
 
-class StoriesList extends StatelessWidget {
+class StoriesList extends StatefulWidget {
   StoriesList({Key? key}) : super(key: key);
+
+  @override
+  _StoriesListState createState() => _StoriesListState();
+}
+
+class _StoriesListState extends State<StoriesList> {
+  @override
+  void initState() {
+    super.initState();
+    Get.put(ViewerState());
+  }
 
   @override
   Widget build(BuildContext context) {

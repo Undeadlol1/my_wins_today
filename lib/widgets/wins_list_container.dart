@@ -27,6 +27,7 @@ class _WinsListConntainerState extends State<WinsListConntainer> {
     ViewerState viewerState = Get.find<ViewerState>();
     return WinsList(
       wins: widget.wins,
+      isLoading: widget.isLoading,
       onLikeButtonTap: toggleLike,
       isReversed: widget.isReversed,
       viewerId: viewerState.userId ?? '',

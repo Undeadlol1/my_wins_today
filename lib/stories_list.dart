@@ -96,6 +96,7 @@ class StoriesList extends StatelessWidget {
       createdAt: 123,
       isImportant: Random().nextBool(),
       title: 'Поздравил Деда',
+      likedByUsers: [],
     ),
     Win(
       id: '123',
@@ -104,6 +105,7 @@ class StoriesList extends StatelessWidget {
       createdAt: 123,
       isImportant: Random().nextBool(),
       title: 'Отправил документы',
+      likedByUsers: [],
     ),
   ];
 }

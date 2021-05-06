@@ -14,6 +14,7 @@ Future<Win> createWinRepository(WinCreateDTO winPayload) async {
   final currentTimeInMilliseconds = DateTime.now().millisecondsSinceEpoch;
   final winToBeCreated = Win(
     id: documentId,
+    likedByUsers: [],
     title: winPayload.title,
     userId: winPayload.userId,
     isImportant: winPayload.isImportant,

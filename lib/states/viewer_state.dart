@@ -7,7 +7,6 @@ class ViewerState extends GetxController {
   User? viewer;
   String? userId = '';
   bool isLoading = true;
-  // TODO better name?
   bool hasBeenRequested = false;
 
   void login(User user) {

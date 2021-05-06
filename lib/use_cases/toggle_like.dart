@@ -6,6 +6,8 @@ import 'package:my_wins_today/states/viewer_state.dart';
 import 'package:my_wins_today/repositories/update_win_repository.dart';
 
 Future<Win> toggleLike({required Win winToUpdate}) async {
+  log('toggleLike() is called.');
+
   final userId = Get.find<ViewerState>().userId;
 
   if (userId == null) {

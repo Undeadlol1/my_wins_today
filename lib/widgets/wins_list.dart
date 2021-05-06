@@ -8,9 +8,8 @@ class WinsList extends StatelessWidget {
   final bool isLoading;
   final bool isReversed;
   final String viewerId;
-  final void Function({
-    required Win win,
-    required bool isLiked,
+  final Future Function({
+    required Win winToUpdate,
   })? onLikeButtonTap;
 
   const WinsList({
@@ -95,7 +94,7 @@ class WinsList extends StatelessWidget {
       ),
       onTap: onLikeButtonTap == null
           ? null
-          : () => onLikeButtonTap!(win: win, isLiked: !isWinLiked),
+          : () => onLikeButtonTap!(winToUpdate: win),
     );
   }
 }

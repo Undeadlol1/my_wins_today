@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_wins_today/entities/Win.dart';
+import 'package:tap_debouncer/tap_debouncer.dart';
 
 import 'animamted_list_placeholder.dart';
 
@@ -76,7 +77,8 @@ class WinsList extends StatelessWidget {
               style: win.isImportant ? importantTextStyle : normalTextStyle,
             ),
           ),
-          if (viewerId != win.userId) _buildLikeButton(win),
+          if (viewerId != win.userId && onLikeButtonTap != null)
+            _buildLikeButton(win),
         ],
       ),
     );
@@ -85,16 +87,22 @@ class WinsList extends StatelessWidget {
   Widget _buildLikeButton(Win win) {
     bool isWinLiked = win.likedByUsers.contains(viewerId);
 
-    return InkWell(
-      child: Container(
-        padding: EdgeInsets.all(2.5),
-        child: Icon(
-          isWinLiked ? Icons.favorite : Icons.favorite_outline,
-        ),
-      ),
+    return TapDebouncer(
+      cooldown: const Duration(milliseconds: 1500),
       onTap: onLikeButtonTap == null
           ? null
-          : () => onLikeButtonTap!(winToUpdate: win),
+          : () async => await onLikeButtonTap!(winToUpdate: win),
+      builder: (BuildContext context, TapDebouncerFunc? onTap) {
+        return InkWell(
+          child: Container(
+            padding: EdgeInsets.all(2.5),
+            child: Icon(
+              isWinLiked ? Icons.favorite : Icons.favorite_outline,
+            ),
+          ),
+          onTap: onTap,
+        );
+      },
     );
   }
 }

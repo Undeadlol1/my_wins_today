@@ -8,11 +8,13 @@ import 'package:my_wins_today/widgets/wins_list.dart';
 class WinsListConntainer extends StatefulWidget {
   final List<Win> wins;
   final bool isLoading;
+  final bool isReversed;
 
   WinsListConntainer({
     Key? key,
     required this.wins,
     required this.isLoading,
+    this.isReversed = false,
   }) : super(key: key);
 
   @override
@@ -26,6 +28,7 @@ class _WinsListConntainerState extends State<WinsListConntainer> {
     return WinsList(
       wins: widget.wins,
       onLikeButtonTap: toggleLike,
+      isReversed: widget.isReversed,
       viewerId: viewerState.userId ?? '',
     );
   }

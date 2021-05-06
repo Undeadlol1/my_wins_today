@@ -19,7 +19,7 @@ class CreateWinScreenContainer extends StatefulWidget {
 }
 
 class _CreateWinScreenState extends State<CreateWinScreenContainer> {
-  bool _isSubscribeFunctionInitiated = false;
+  bool _isSubscriptionInitiated = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +27,10 @@ class _CreateWinScreenState extends State<CreateWinScreenContainer> {
       builder: (winsListState) {
         final viewerState = Get.find<ViewerState>();
 
-        if (_shouldVidwerSubscribeToHisWins(viewerState)) {
+        if (_shouldViewerSubscribeToHisWins(viewerState)) {
           log('About to subscribe to my wins.');
           Future.microtask(() {
-            setState(() => _isSubscribeFunctionInitiated = true);
+            setState(() => _isSubscriptionInitiated = true);
             subscribeToMyOwnTodaysWins().listen((_) => {});
           });
         }
@@ -43,8 +43,8 @@ class _CreateWinScreenState extends State<CreateWinScreenContainer> {
     );
   }
 
-  bool _shouldVidwerSubscribeToHisWins(ViewerState viewerState) {
-    return !_isSubscribeFunctionInitiated &&
+  bool _shouldViewerSubscribeToHisWins(ViewerState viewerState) {
+    return !_isSubscriptionInitiated &&
         viewerState.hasBeenRequested &&
         !viewerState.isLoading &&
         viewerState.userId != null;

@@ -9,21 +9,24 @@ import 'package:my_wins_today/repositories/subscribe_to_wins_repository.dart';
 Stream<List<Win>> subscribeToMyOwnTodaysWins() {
   log('subscribeToTodaysWinsStream is called.');
 
-  final winsListState = Get.find<WinsListState>();
-  final viewerState = Get.find<ViewerState>();
-  final userId = viewerState.userId;
+  final userId = Get.find<ViewerState>().userId;
+  final winsState = Get.find<WinsListState>();
+
+  winsState.setLoading(true);
 
   if (userId == null || userId.isEmpty) {
+    winsState.setLoading(false);
     return Stream.empty();
-  } else {
-    winsListState.setLoading(true);
-    return subscribeToWinsRepository(userId: userId).map((wins) {
-      wins.sort(_sortFromNewestToOldest);
-      winsListState.setLoading(false);
-      winsListState.setMyWins(wins);
-      return wins;
-    });
   }
+
+  return subscribeToWinsRepository(userId: userId).map(
+    (wins) {
+      wins.sort(_sortFromNewestToOldest);
+      winsState.setMyWins(wins);
+      winsState.setLoading(false);
+      return wins;
+    },
+  );
 }
 
 int _sortFromNewestToOldest(first, second) {

@@ -24,13 +24,17 @@ class WinsListConntainer extends StatefulWidget {
 class _WinsListConntainerState extends State<WinsListConntainer> {
   @override
   Widget build(BuildContext context) {
-    ViewerState viewerState = Get.find<ViewerState>();
+    String viewerId = Get.find<ViewerState>().userId ?? '';
+    bool doesListBelongToViewer = widget.wins.every(
+      (win) => win.userId == viewerId,
+    );
+
     return WinsList(
       wins: widget.wins,
+      viewerId: viewerId,
       isLoading: widget.isLoading,
-      onLikeButtonTap: toggleLike,
       isReversed: widget.isReversed,
-      viewerId: viewerState.userId ?? '',
+      onLikeButtonTap: doesListBelongToViewer ? null : toggleLike,
     );
   }
 }

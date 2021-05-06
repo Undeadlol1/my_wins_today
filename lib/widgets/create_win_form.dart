@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:my_wins_today/entities/Win.dart';
-import 'package:my_wins_today/widgets/wins_list.dart';
+import 'package:my_wins_today/widgets/wins_list_container.dart';
 
 String _titleInputText = '';
 
@@ -37,7 +37,8 @@ class _CreateWinFormState extends State<CreateWinForm> {
           _buildCheckbox(),
           _buildSubmitButton(),
           Expanded(
-            child: WinsList(
+            child: WinsListConntainer(
+              isLoading: false,
               isReversed: true,
               wins: widget.myWinsToday,
             ),

@@ -77,8 +77,7 @@ class WinsList extends StatelessWidget {
               style: win.isImportant ? importantTextStyle : normalTextStyle,
             ),
           ),
-          if (viewerId != win.userId && onLikeButtonTap != null)
-            _buildLikeButton(win),
+          _buildLikeButton(win),
         ],
       ),
     );

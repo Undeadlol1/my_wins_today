@@ -39,6 +39,15 @@ class WinsList extends StatelessWidget {
     );
   }
 
+  Widget _emptyStateWidget() {
+    return Center(
+      child: Text(
+        'Список побед пуст',
+        style: TextStyle(fontStyle: FontStyle.italic),
+      ),
+    );
+  }
+
   Widget _buildListItem({required Win win, required BuildContext context}) {
     final theme = Theme.of(context);
     final normalTextStyle = theme.textTheme.headline6;
@@ -67,26 +76,23 @@ class WinsList extends StatelessWidget {
                   : normalTextStyle,
             ),
           ),
-          //  Icon(Icons.favorite),
-          if (viewerId != win.userId)
-            InkWell(
-              child: Container(
-                padding: EdgeInsets.all(2.5),
-                child: Icon(Icons.favorite_outline),
-              ),
-              onTap: () {},
-            ),
+          if (viewerId != win.userId) _buildLikeButton(win),
         ],
       ),
     );
   }
-}
 
-Widget _emptyStateWidget() {
-  return Center(
-    child: Text(
-      'Список побед пуст',
-      style: TextStyle(fontStyle: FontStyle.italic),
-    ),
-  );
+  Widget _buildLikeButton(Win win) {
+    return InkWell(
+      child: Container(
+        padding: EdgeInsets.all(2.5),
+        child: Icon(
+          win.likedByUsers.contains(viewerId)
+              ? Icons.favorite
+              : Icons.favorite_outline,
+        ),
+      ),
+      onTap: () {},
+    );
+  }
 }

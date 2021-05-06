@@ -28,11 +28,7 @@ class _CreateWinScreenState extends State<CreateWinScreenContainer> {
         final viewerState = Get.find<ViewerState>();
 
         if (_shouldViewerSubscribeToHisWins(viewerState)) {
-          log('About to subscribe to my wins.');
-          Future.microtask(() {
-            setState(() => _isSubscriptionInitiated = true);
-            subscribeToMyOwnTodaysWins().listen((_) => {});
-          });
+          _subscribe();
         }
 
         return CreateWinScreen(
@@ -41,6 +37,14 @@ class _CreateWinScreenState extends State<CreateWinScreenContainer> {
         );
       },
     );
+  }
+
+  void _subscribe() {
+    log('About to subscribe to my wins.');
+    Future.microtask(() {
+      setState(() => _isSubscriptionInitiated = true);
+      subscribeToMyOwnTodaysWins().listen((_) => {});
+    });
   }
 
   bool _shouldViewerSubscribeToHisWins(ViewerState viewerState) {

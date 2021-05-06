@@ -84,11 +84,12 @@ class WinsList extends StatelessWidget {
   }
 
   Widget _buildLikeButton(Win win) {
-    bool isWinLiked = win.likedByUsers.contains(viewerId);
+    bool isMyOwnWinsList = onLikeButtonTap == null;
+    bool isWinLikedByMe = win.likedByUsers.contains(viewerId);
 
     return TapDebouncer(
       cooldown: const Duration(milliseconds: 1500),
-      onTap: onLikeButtonTap == null
+      onTap: isMyOwnWinsList
           ? null
           : () async => await onLikeButtonTap!(winToUpdate: win),
       builder: (BuildContext context, TapDebouncerFunc? onTap) {
@@ -96,7 +97,13 @@ class WinsList extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.all(2.5),
             child: Icon(
-              isWinLiked ? Icons.favorite : Icons.favorite_outline,
+              isMyOwnWinsList
+                  ? win.likedByUsers.isNotEmpty
+                      ? Icons.favorite
+                      : Icons.favorite_outline
+                  : isWinLikedByMe
+                      ? Icons.favorite
+                      : Icons.favorite_outline,
             ),
           ),
           onTap: onTap,

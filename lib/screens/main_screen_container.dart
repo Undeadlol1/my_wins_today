@@ -54,6 +54,6 @@ class _MainScreenContainerState extends State<MainScreenContainer> {
     return !_isSubscrbeFunctionInitiated &&
         viewerState.hasBeenRequested &&
         !viewerState.isLoading &&
-        viewerState.userId != null;
+        viewerState.userId!.isNotEmpty;
   }
 }

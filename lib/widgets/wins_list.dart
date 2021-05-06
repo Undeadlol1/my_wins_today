@@ -8,11 +8,16 @@ class WinsList extends StatelessWidget {
   final bool isLoading;
   final bool isReversed;
   final String viewerId;
+  final void Function({
+    required Win win,
+    required bool isLiked,
+  })? onLikeButtonTap;
 
   const WinsList({
     Key? key,
     required this.wins,
     this.viewerId = '',
+    this.onLikeButtonTap,
     this.isLoading = false,
     this.isReversed = false,
   }) : super(key: key);
@@ -22,12 +27,13 @@ class WinsList extends StatelessWidget {
     if (isLoading) {
       return AnimatedListPlaceHolder();
     }
+
     if (wins.isEmpty) {
       return _emptyStateWidget();
     }
 
     return ListView.builder(
-      itemCount: this.wins.length,
+      itemCount: wins.length,
       itemBuilder: (BuildContext context, int index) {
         final win = isReversed ? wins.reversed.toList()[index] : wins[index];
 
@@ -68,12 +74,7 @@ class WinsList extends StatelessWidget {
               maxLines: 2,
               softWrap: true,
               overflow: TextOverflow.ellipsis,
-              // NOTE: currently some wins do not have "isImportant" property. (28.04.2021)
-              // remove this check in the future when all wins are going to have the property.
-              // ignore: unnecessary_null_comparison
-              style: win.isImportant != null && win.isImportant
-                  ? importantTextStyle
-                  : normalTextStyle,
+              style: win.isImportant ? importantTextStyle : normalTextStyle,
             ),
           ),
           if (viewerId != win.userId) _buildLikeButton(win),
@@ -83,16 +84,18 @@ class WinsList extends StatelessWidget {
   }
 
   Widget _buildLikeButton(Win win) {
+    bool isWinLiked = win.likedByUsers.contains(viewerId);
+
     return InkWell(
       child: Container(
         padding: EdgeInsets.all(2.5),
         child: Icon(
-          win.likedByUsers.contains(viewerId)
-              ? Icons.favorite
-              : Icons.favorite_outline,
+          isWinLiked ? Icons.favorite : Icons.favorite_outline,
         ),
       ),
-      onTap: () {},
+      onTap: onLikeButtonTap == null
+          ? null
+          : () => onLikeButtonTap!(win: win, isLiked: !isWinLiked),
     );
   }
 }

@@ -35,8 +35,18 @@ final Story winsListStory = Story(
         Option('False', false),
       ],
     ),
+    viewerId: k.options(
+      label: 'Are this viewer\'s wins?',
+      initial: '',
+      options: [
+        Option('Yes', ''),
+        Option('No', _viewerId),
+      ],
+    ),
   ),
 );
+
+const _viewerId = '123';
 
 List<Win> _getSmallList() {
   return _wins;
@@ -53,7 +63,7 @@ List<Win> _getLongList() {
 final List<Win> _wins = [
   Win(
     id: '321',
-    userId: '123',
+    userId: _viewerId,
     updatedAt: 123,
     createdAt: 123,
     isImportant: true,
@@ -62,7 +72,7 @@ final List<Win> _wins = [
   ),
   Win(
     id: '123',
-    userId: '123',
+    userId: _viewerId,
     updatedAt: 123,
     createdAt: 123,
     isImportant: false,
@@ -71,7 +81,7 @@ final List<Win> _wins = [
   ),
   Win(
     id: '123',
-    userId: '123',
+    userId: _viewerId,
     updatedAt: 123,
     createdAt: 123,
     title:

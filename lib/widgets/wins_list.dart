@@ -7,9 +7,12 @@ class WinsList extends StatelessWidget {
   final List<Win> wins;
   final bool isLoading;
   final bool isReversed;
+  final String viewerId;
+
   const WinsList({
     Key? key,
     required this.wins,
+    this.viewerId = '',
     this.isLoading = false,
     this.isReversed = false,
   }) : super(key: key);
@@ -64,6 +67,15 @@ class WinsList extends StatelessWidget {
                   : normalTextStyle,
             ),
           ),
+          //  Icon(Icons.favorite),
+          if (viewerId != win.userId)
+            InkWell(
+              child: Container(
+                padding: EdgeInsets.all(2.5),
+                child: Icon(Icons.favorite_outline),
+              ),
+              onTap: () {},
+            ),
         ],
       ),
     );

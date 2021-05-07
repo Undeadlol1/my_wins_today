@@ -43,6 +43,7 @@ final List<Win> _wins = [
     createdAt: 123,
     title: 'Поздравил Деда',
     isImportant: Random().nextBool(),
+    likedByUsers: [],
   ),
   Win(
     id: '123',
@@ -51,5 +52,6 @@ final List<Win> _wins = [
     createdAt: 123,
     title: 'Отправил документы',
     isImportant: Random().nextBool(),
+    likedByUsers: [],
   ),
 ];

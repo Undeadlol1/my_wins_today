@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_wins_today/entities/Win.dart';
 import 'package:my_wins_today/widgets/layout.dart';
-import 'package:my_wins_today/widgets/wins_list.dart';
+import 'package:my_wins_today/widgets/wins_list_container.dart';
 
 class MainScreen extends StatelessWidget {
   static const path = '/';
@@ -21,7 +21,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Layout(
       title: 'Список побед',
-      body: WinsList(
+      body: WinsListConntainer(
         wins: this.myWinsToday,
         isLoading: this.isLoading,
       ),

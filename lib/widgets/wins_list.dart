@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_wins_today/entities/Win.dart';
+import 'package:tap_debouncer/tap_debouncer.dart';
 
 import 'animamted_list_placeholder.dart';
 
@@ -7,9 +8,16 @@ class WinsList extends StatelessWidget {
   final List<Win> wins;
   final bool isLoading;
   final bool isReversed;
+  final String viewerId;
+  final Future Function({
+    required Win winToUpdate,
+  })? onLikeButtonTap;
+
   const WinsList({
     Key? key,
     required this.wins,
+    this.viewerId = '',
+    this.onLikeButtonTap,
     this.isLoading = false,
     this.isReversed = false,
   }) : super(key: key);
@@ -19,31 +27,34 @@ class WinsList extends StatelessWidget {
     if (isLoading) {
       return AnimatedListPlaceHolder();
     }
+
     if (wins.isEmpty) {
       return _emptyStateWidget();
     }
 
     return ListView.builder(
-      itemCount: this.wins.length,
-      itemBuilder: (BuildContext context, int index) {
-        final win = isReversed ? wins.reversed.toList()[index] : wins[index];
-
-        return _buildListItem(
-          win: win,
-          context: context,
-        );
-      },
+      itemCount: wins.length,
+      itemBuilder: _buildListItem,
     );
   }
 
-  Widget _buildListItem({required Win win, required BuildContext context}) {
-    final theme = Theme.of(context);
-    final normalTextStyle = theme.textTheme.headline6;
-    final importantTextStyle = normalTextStyle!.merge(
-      TextStyle(color: theme.accentColor),
+  Widget _emptyStateWidget() {
+    return Center(
+      child: Text(
+        'Список побед пуст',
+        style: TextStyle(fontStyle: FontStyle.italic),
+      ),
     );
+  }
 
+  Widget _buildListItem(BuildContext context, int index) {
+    final win = isReversed ? wins.reversed.toList()[index] : wins[index];
     final String textPrefix = (wins.indexOf(win) + 1).toString() + ') ';
+
+    final normalTextStyle = Theme.of(context).textTheme.headline6;
+    final importantTextStyle = normalTextStyle!.merge(
+      TextStyle(color: Theme.of(context).accentColor),
+    );
 
     return Container(
       child: Row(
@@ -56,25 +67,41 @@ class WinsList extends StatelessWidget {
               maxLines: 2,
               softWrap: true,
               overflow: TextOverflow.ellipsis,
-              // NOTE: currently some wins do not have "isImportant" property. (28.04.2021)
-              // remove this check in the future when all wins are going to have the property.
-              // ignore: unnecessary_null_comparison
-              style: win.isImportant != null && win.isImportant
-                  ? importantTextStyle
-                  : normalTextStyle,
+              style: win.isImportant ? importantTextStyle : normalTextStyle,
             ),
           ),
+          _buildLikeButton(win),
         ],
       ),
     );
   }
-}
 
-Widget _emptyStateWidget() {
-  return Center(
-    child: Text(
-      'Список побед пуст',
-      style: TextStyle(fontStyle: FontStyle.italic),
-    ),
-  );
+  Widget _buildLikeButton(Win win) {
+    bool isMyOwnWinsList = onLikeButtonTap == null;
+    bool isWinLikedByMe = win.likedByUsers.contains(viewerId);
+
+    return TapDebouncer(
+      cooldown: const Duration(milliseconds: 1500),
+      onTap: isMyOwnWinsList
+          ? null
+          : () async => await onLikeButtonTap!(winToUpdate: win),
+      builder: (BuildContext context, TapDebouncerFunc? onTap) {
+        return InkWell(
+          onTap: onTap,
+          child: Container(
+            padding: EdgeInsets.all(2.5),
+            child: Icon(
+              isMyOwnWinsList
+                  ? win.likedByUsers.isNotEmpty
+                      ? Icons.favorite
+                      : Icons.favorite_outline
+                  : isWinLikedByMe
+                      ? Icons.favorite
+                      : Icons.favorite_outline,
+            ),
+          ),
+        );
+      },
+    );
+  }
 }

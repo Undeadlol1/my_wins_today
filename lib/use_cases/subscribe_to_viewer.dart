@@ -9,14 +9,14 @@ final _firebase = FirebaseAuth.instance;
 
 Stream<User?> subscribeToViewer() {
   log('subscribeToViewer is called.');
-  final _viewerState = Get.find<ViewerState>();
+  final viewerState = Get.find<ViewerState>();
 
-  _viewerState.setIsLoading(true);
-  _viewerState.hasBeenRequested = true;
+  viewerState.setIsLoading(true);
+  viewerState.hasBeenRequested = true;
   return _firebase.authStateChanges().map((user) {
     if (user != null) {
-      _viewerState.login(firebaseUserToUserEntityTransformer(user));
+      viewerState.login(firebaseUserToUserEntityTransformer(user));
     }
-    _viewerState.setIsLoading(false);
+    viewerState.setIsLoading(false);
   });
 }

@@ -34,14 +34,7 @@ class WinsList extends StatelessWidget {
 
     return ListView.builder(
       itemCount: wins.length,
-      itemBuilder: (BuildContext context, int index) {
-        final win = isReversed ? wins.reversed.toList()[index] : wins[index];
-
-        return _buildListItem(
-          win: win,
-          context: context,
-        );
-      },
+      itemBuilder: _buildListItem,
     );
   }
 
@@ -54,14 +47,14 @@ class WinsList extends StatelessWidget {
     );
   }
 
-  Widget _buildListItem({required Win win, required BuildContext context}) {
-    final theme = Theme.of(context);
-    final normalTextStyle = theme.textTheme.headline6;
-    final importantTextStyle = normalTextStyle!.merge(
-      TextStyle(color: theme.accentColor),
-    );
-
+  Widget _buildListItem(BuildContext context, int index) {
+    final win = isReversed ? wins.reversed.toList()[index] : wins[index];
     final String textPrefix = (wins.indexOf(win) + 1).toString() + ') ';
+
+    final normalTextStyle = Theme.of(context).textTheme.headline6;
+    final importantTextStyle = normalTextStyle!.merge(
+      TextStyle(color: Theme.of(context).accentColor),
+    );
 
     return Container(
       child: Row(

@@ -1,4 +1,4 @@
-import 'package:my_wins_today/widgets/friends_avatars.dart';
+import 'package:my_wins_today/widgets/users_avatar_list.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
 import '../stories_list.dart';
@@ -7,8 +7,8 @@ import '../entities/User.dart';
 final Story friendsVatarsStory = Story(
   name: 'Friends Avatars',
   section: StorybookSection.Users,
-  builder: (_, k) => FriendsAvatars(
-    friends: k.options(
+  builder: (_, k) => UsersAvatarList(
+    users: k.options(
       label: 'List values',
       initial: _getSmallList(),
       options: [

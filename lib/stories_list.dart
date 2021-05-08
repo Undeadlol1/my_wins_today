@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_wins_today/states/viewer_state.dart';
 import 'package:my_wins_today/widgets/create_win_form_story.dart';
+import 'package:my_wins_today/widgets/friends_avatars_story.dart';
 import 'package:my_wins_today/widgets/wins_list_story.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
@@ -17,6 +18,7 @@ import 'widgets/sign_in_with_google_button.dart';
 
 class StorybookSection {
   static const String Wins = 'Wins';
+  static const String Users = 'Users';
   static const String Screens = 'Screens';
   static const String Auth = 'Authentication';
   static const String Layout = 'Layout and UI';
@@ -42,6 +44,7 @@ class _StoriesListState extends State<StoriesList> {
       children: [
         winsListStory,
         createWinFormStory,
+        friendsVatarsStory,
         Story(
           name: 'MainScreen',
           section: StorybookSection.Screens,

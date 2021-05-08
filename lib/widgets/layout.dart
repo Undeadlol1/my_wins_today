@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:my_wins_today/screens/sign_in_screen.dart';
-import 'package:my_wins_today/streams/viewer_stream.dart';
 import 'package:my_wins_today/use_cases/log_out.dart';
+import 'package:my_wins_today/states/viewer_state.dart';
+import 'package:my_wins_today/screens/sign_in_screen.dart';
 
 class Layout extends StatelessWidget {
   final String title;
@@ -17,41 +17,45 @@ class Layout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewerState = Get.find<ViewerState>();
+    final String viewerPhoto = viewerState.viewer?.picture ?? '';
     return Scaffold(
       appBar: AppBar(
         title: Text(this.title),
+        actions: [
+          Container(
+            width: 35,
+            margin: const EdgeInsets.only(right: 15),
+            child: viewerPhoto.isEmpty ? null : Image.network(viewerPhoto),
+          ),
+        ],
       ),
       drawer: Drawer(
-        child: _linksList(context),
+        child: ListView(
+          children: [
+            _loginOrLogoutButton(context),
+          ],
+        ),
       ),
       body: Padding(
         child: this.body,
-        padding: EdgeInsets.symmetric(
-          vertical: 20,
-          horizontal: 15,
+        padding: const EdgeInsets.only(
+          top: 20,
+          left: 15,
+          right: 15,
+          bottom: 0,
         ),
       ),
       floatingActionButton: this.floatingActionButton,
     );
   }
 
-  Widget _linksList(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: viewerStream(),
-      builder: (context, snapshot) {
-        final bool isViewerSignedIn = snapshot.data != null;
-        final bool isAuthLoaded =
-            snapshot.connectionState == ConnectionState.active;
-        return ListView(
-          children: [
-            if (isAuthLoaded) _loginOrLogoutButton(context, isViewerSignedIn)
-          ],
-        );
-      },
-    );
-  }
-
-  Widget _loginOrLogoutButton(BuildContext context, bool isViewerSignedIn) {
+  Widget _loginOrLogoutButton(BuildContext context) {
+    final viewerState = Get.find<ViewerState>();
+    final bool isViewerSignedIn = viewerState.viewer != null;
+    if (viewerState.isLoading) {
+      return Container();
+    }
     return ListTile(
       title: TextButton(
         onPressed: () {},

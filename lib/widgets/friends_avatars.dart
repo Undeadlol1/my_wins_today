@@ -13,7 +13,7 @@ class FriendsAvatars extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: CircleAvatar(
-              foregroundImage: NetworkImage(e.image),
+              foregroundImage: NetworkImage(e.picture),
             ),
           );
         }).toList(),

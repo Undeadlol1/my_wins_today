@@ -1,10 +1,10 @@
-import 'package:my_wins_today/entities/Win.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:my_wins_today/entities/Win.dart';
 
 class WinsListState extends GetxController {
   List<Win> myWins = [];
+  bool isLoading = false;
   List<Win> friendsWins = [];
-  bool isLoading = true;
 
   void setFriendsWins(List<Win> payload) {
     this.friendsWins = payload;
@@ -17,7 +17,9 @@ class WinsListState extends GetxController {
   }
 
   void setLoading(bool value) {
-    this.isLoading = value;
-    update();
+    if (value != this.isLoading) {
+      this.isLoading = value;
+      update();
+    }
   }
 }

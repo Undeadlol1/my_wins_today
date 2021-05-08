@@ -38,13 +38,15 @@ final List<User> _users = [
     updatedAt: 123,
     createdAt: 123,
     displayName: 'Михаил Палей',
-    image: 'https://picsum.photos/200/300',
+    email: "some@email.com",
+    picture: 'https://picsum.photos/200/300',
   ),
   User(
     id: '1232',
     updatedAt: 123,
     createdAt: 123,
+    email: "some@email.com",
     displayName: 'Александр Беляев',
-    image: 'https://picsum.photos/200/300',
+    picture: 'https://picsum.photos/200/300',
   ),
 ];

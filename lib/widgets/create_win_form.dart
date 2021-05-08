@@ -1,12 +1,17 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:my_wins_today/entities/Win.dart';
-import 'package:my_wins_today/widgets/wins_list.dart';
+import 'package:my_wins_today/widgets/wins_list_container.dart';
 
 String _titleInputText = '';
 
 class CreateWinForm extends StatefulWidget {
   final List<Win> myWinsToday;
-  final void Function({String title}) onSubmit;
+  final void Function({
+    required String title,
+    required bool isImportant,
+  }) onSubmit;
   const CreateWinForm({
     Key? key,
     required this.onSubmit,
@@ -18,6 +23,7 @@ class CreateWinForm extends StatefulWidget {
 }
 
 class _CreateWinFormState extends State<CreateWinForm> {
+  bool _checkboxValue = false;
   final _form = GlobalKey<FormState>();
 
   @override
@@ -28,12 +34,15 @@ class _CreateWinFormState extends State<CreateWinForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _buildInputForm(),
+          _buildCheckbox(),
           _buildSubmitButton(),
           Expanded(
-              child: WinsList(
-            isReversed: true,
-            wins: widget.myWinsToday,
-          )),
+            child: WinsListConntainer(
+              isLoading: false,
+              isReversed: true,
+              wins: widget.myWinsToday,
+            ),
+          ),
         ],
       ),
     );
@@ -46,7 +55,7 @@ class _CreateWinFormState extends State<CreateWinForm> {
         Expanded(
           child: TextFormField(
             autofocus: true,
-            validator: _textValidator,
+            validator: _validateText,
             decoration: InputDecoration(
               labelText: 'Введите название победы',
             ),
@@ -56,6 +65,18 @@ class _CreateWinFormState extends State<CreateWinForm> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildCheckbox() {
+    return CheckboxListTile(
+      value: _checkboxValue,
+      title: Text('Это очень важно'),
+      controlAffinity: ListTileControlAffinity.leading,
+      onChanged: (newValue) {
+        log('Checkbox new value: ' + newValue.toString());
+        setState(() => _checkboxValue = newValue!);
+      },
     );
   }
 
@@ -72,7 +93,10 @@ class _CreateWinFormState extends State<CreateWinForm> {
 
   void _saveAndResetForm() {
     if (_form.currentState!.validate()) {
-      widget.onSubmit(title: _titleInputText);
+      widget.onSubmit(
+        title: _titleInputText.trim(),
+        isImportant: _checkboxValue,
+      );
       _resetForm();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -82,9 +106,13 @@ class _CreateWinFormState extends State<CreateWinForm> {
     }
   }
 
-  String? _textValidator(String? value) {
-    if (value == null || value.trim().isEmpty) {
+  String? _validateText(String? value) {
+    String trimmedText = value!.trim();
+    if (trimmedText.isEmpty) {
       return 'Введите текст';
+    }
+    if (trimmedText.length < 5) {
+      return 'Слишком коротко';
     }
     return null;
   }
@@ -92,6 +120,7 @@ class _CreateWinFormState extends State<CreateWinForm> {
   void _resetForm() {
     _titleInputText = '';
     _form.currentState?.reset();
+    setState(() => _checkboxValue = false);
   }
 
   Text _numberOfWinsPrefix() =>

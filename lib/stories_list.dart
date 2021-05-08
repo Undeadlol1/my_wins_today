@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:my_wins_today/states/viewer_state.dart';
 import 'package:my_wins_today/widgets/create_win_form_story.dart';
 import 'package:my_wins_today/widgets/friends_avatars_story.dart';
 import 'package:my_wins_today/widgets/wins_list_story.dart';
@@ -20,8 +24,19 @@ class StorybookSection {
   static const String Layout = 'Layout and UI';
 }
 
-class StoriesList extends StatelessWidget {
+class StoriesList extends StatefulWidget {
   StoriesList({Key? key}) : super(key: key);
+
+  @override
+  _StoriesListState createState() => _StoriesListState();
+}
+
+class _StoriesListState extends State<StoriesList> {
+  @override
+  void initState() {
+    super.initState();
+    Get.put(ViewerState());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +57,10 @@ class StoriesList extends StatelessWidget {
         Story(
           name: 'CreateWinScreen',
           section: StorybookSection.Screens,
-          builder: (_, k) => CreateWinScreen(wins: _wins),
+          builder: (_, k) => CreateWinScreen(
+            wins: _wins,
+            onSubmit: ({required bool isImportant, required String title}) {},
+          ),
         ),
         Story(
           name: 'SignInScreen',
@@ -78,7 +96,6 @@ class StoriesList extends StatelessWidget {
       storyWrapperBuilder: (context, story, child) => Stack(
         children: [
           Container(
-            color: Colors.black54,
             padding: story.padding,
             child: Center(child: child),
           ),
@@ -93,14 +110,18 @@ class StoriesList extends StatelessWidget {
       userId: '123',
       updatedAt: 123,
       createdAt: 123,
+      isImportant: Random().nextBool(),
       title: 'Поздравил Деда',
+      likedByUsers: [],
     ),
     Win(
       id: '123',
       userId: '123',
       updatedAt: 123,
       createdAt: 123,
+      isImportant: Random().nextBool(),
       title: 'Отправил документы',
+      likedByUsers: [],
     ),
   ];
 }

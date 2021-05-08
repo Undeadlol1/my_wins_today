@@ -19,7 +19,7 @@ class UserScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Layout(
       title: 'Список побед',
-      body: WinsListConntainer(
+      body: WinsListContainer(
         wins: this.winsToday,
         isLoading: this.isLoading,
       ),

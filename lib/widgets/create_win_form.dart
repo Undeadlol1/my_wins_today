@@ -37,7 +37,7 @@ class _CreateWinFormState extends State<CreateWinForm> {
           _buildCheckbox(),
           _buildSubmitButton(),
           Expanded(
-            child: WinsListConntainer(
+            child: WinsListContainer(
               isLoading: false,
               isReversed: true,
               wins: widget.myWinsToday,

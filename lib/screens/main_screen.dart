@@ -21,7 +21,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Layout(
       title: 'Список побед',
-      body: WinsListConntainer(
+      body: WinsListContainer(
         wins: this.myWinsToday,
         isLoading: this.isLoading,
       ),

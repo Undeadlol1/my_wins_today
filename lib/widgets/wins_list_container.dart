@@ -5,12 +5,12 @@ import 'package:my_wins_today/states/viewer_state.dart';
 import 'package:my_wins_today/use_cases/toggle_like.dart';
 import 'package:my_wins_today/widgets/wins_list.dart';
 
-class WinsListConntainer extends StatefulWidget {
+class WinsListContainer extends StatefulWidget {
   final List<Win> wins;
   final bool isLoading;
   final bool isReversed;
 
-  WinsListConntainer({
+  WinsListContainer({
     Key? key,
     required this.wins,
     required this.isLoading,
@@ -18,10 +18,10 @@ class WinsListConntainer extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _WinsListConntainerState createState() => _WinsListConntainerState();
+  _WinsListContainerState createState() => _WinsListContainerState();
 }
 
-class _WinsListConntainerState extends State<WinsListConntainer> {
+class _WinsListContainerState extends State<WinsListContainer> {
   @override
   Widget build(BuildContext context) {
     String viewerId = Get.find<ViewerState>().userId ?? '';

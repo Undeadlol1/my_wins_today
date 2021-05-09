@@ -37,13 +37,15 @@ class Layout extends StatelessWidget {
           ],
         ),
       ),
-      body: Padding(
-        child: this.body,
-        padding: const EdgeInsets.only(
-          top: 20,
-          left: 15,
-          right: 15,
-          bottom: 0,
+      body: SingleChildScrollView(
+        child: Container(
+          child: this.body,
+          padding: const EdgeInsets.only(
+            top: 20,
+            left: 15,
+            right: 15,
+            bottom: 0,
+          ),
         ),
       ),
       floatingActionButton: this.floatingActionButton,

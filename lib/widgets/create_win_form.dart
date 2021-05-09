@@ -1,7 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_wins_today/entities/Win.dart';
+import 'package:my_wins_today/screens/sign_in_screen.dart';
+import 'package:my_wins_today/states/viewer_state.dart';
 import 'package:my_wins_today/widgets/wins_list_container.dart';
 
 String _titleInputText = '';
@@ -36,12 +39,10 @@ class _CreateWinFormState extends State<CreateWinForm> {
           _buildInputForm(),
           _buildCheckbox(),
           _buildSubmitButton(),
-          Expanded(
-            child: WinsListContainer(
-              isLoading: false,
-              isReversed: true,
-              wins: widget.myWinsToday,
-            ),
+          WinsListContainer(
+            isLoading: false,
+            isReversed: true,
+            wins: widget.myWinsToday,
           ),
         ],
       ),
@@ -49,16 +50,21 @@ class _CreateWinFormState extends State<CreateWinForm> {
   }
 
   Widget _buildInputForm() {
+    final viewerState = Get.find<ViewerState>();
     return Row(
       children: [
         _numberOfWinsPrefix(),
         Expanded(
           child: TextFormField(
-            autofocus: true,
             validator: _validateText,
             decoration: InputDecoration(
               labelText: 'Введите название победы',
             ),
+            onTap: () {
+              if (viewerState.viewer == null) {
+                Navigator.of(context).pushNamed(SignInScreen.path);
+              }
+            },
             onEditingComplete: _saveAndResetForm,
             onChanged: (value) => _titleInputText = value,
             textCapitalization: TextCapitalization.sentences,

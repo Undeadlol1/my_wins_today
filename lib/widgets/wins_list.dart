@@ -32,9 +32,10 @@ class WinsList extends StatelessWidget {
       return _emptyStateWidget();
     }
 
-    return ListView.builder(
-      itemCount: wins.length,
-      itemBuilder: _buildListItem,
+    return Column(
+      children: wins
+          .map((win) => _buildListItem(context, wins.indexOf(win)))
+          .toList(),
     );
   }
 

@@ -1,12 +1,11 @@
 import 'dart:developer';
 
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:my_wins_today/screens/create_win_screen.dart';
+import 'package:get/get.dart';
 import 'package:my_wins_today/screens/main_screen.dart';
-import 'package:my_wins_today/screens/sign_in_screen.dart';
 import 'package:my_wins_today/states/viewer_state.dart';
 import 'package:my_wins_today/states/wins_list_state.dart';
+import 'package:my_wins_today/use_cases/create_win.dart';
 import 'package:my_wins_today/use_cases/subscribe_to_wins_stream.dart';
 
 class MainScreenContainer extends StatefulWidget {
@@ -35,15 +34,10 @@ class _MainScreenContainerState extends State<MainScreenContainer> {
           }
 
           return MainScreen(
+            friendsList: [],
             isLoading: isLoading,
+            onCreateWinSubmit: createWin,
             myWinsToday: winsListState.myWins,
-            onFABPress: () {
-              if (viewerState.viewer == null) {
-                Navigator.of(context).pushNamed(SignInScreen.path);
-              } else {
-                Navigator.of(context).pushNamed(CreateWinScreen.path);
-              }
-            },
           );
         },
       ),

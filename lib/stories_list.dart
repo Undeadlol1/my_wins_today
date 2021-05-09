@@ -8,6 +8,7 @@ import 'package:my_wins_today/widgets/users_avatar_list_story.dart';
 import 'package:my_wins_today/widgets/wins_list_story.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
+import 'entities/User.dart';
 import 'entities/Win.dart';
 import 'screens/create_win_screen.dart';
 import 'screens/main_screen.dart';
@@ -50,8 +51,10 @@ class _StoriesListState extends State<StoriesList> {
           section: StorybookSection.Screens,
           builder: (_, k) => MainScreen(
             myWinsToday: _wins,
-            onFABPress: () => {},
+            friendsList: _users,
             isLoading: k.boolean(label: 'Is loading'),
+            onCreateWinSubmit:
+                ({required bool isImportant, required String title}) => {},
           ),
         ),
         Story(
@@ -103,6 +106,25 @@ class _StoriesListState extends State<StoriesList> {
       ),
     );
   }
+
+  final List<User> _users = [
+    User(
+      id: '321',
+      updatedAt: 123,
+      createdAt: 123,
+      displayName: 'Михаил Палей',
+      email: "some@email.com",
+      picture: 'https://picsum.photos/200/300',
+    ),
+    User(
+      id: '1232',
+      updatedAt: 123,
+      createdAt: 123,
+      email: "some@email.com",
+      displayName: 'Александр Беляев',
+      picture: 'https://picsum.photos/200/300',
+    ),
+  ];
 
   final List<Win> _wins = [
     Win(

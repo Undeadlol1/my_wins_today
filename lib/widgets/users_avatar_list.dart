@@ -1,5 +1,7 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:my_wins_today/entities/User.dart';
+import 'package:my_wins_today/screens/user_screen.dart';
 
 class UsersAvatarList extends StatelessWidget {
   final List<User> users;
@@ -9,10 +11,13 @@ class UsersAvatarList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: users.map((user) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: CircleAvatar(
-            foregroundImage: NetworkImage(user.picture),
+        return InkWell(
+          onTap: () => Get.toNamed(UserScreen.path + user.id),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CircleAvatar(
+              foregroundImage: NetworkImage(user.picture),
+            ),
           ),
         );
       }).toList(),

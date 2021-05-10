@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_wins_today/entities/User.dart';
 import 'package:my_wins_today/screens/main_screen.dart';
 import 'package:my_wins_today/states/viewer_state.dart';
 import 'package:my_wins_today/states/wins_list_state.dart';
@@ -17,6 +18,17 @@ class MainScreenContainer extends StatefulWidget {
 
 class _MainScreenContainerState extends State<MainScreenContainer> {
   bool _isSubscrbeFunctionInitiated = false;
+  static final List<User> _friends = [
+    User(
+      updatedAt: 1620244715861,
+      createdAt: 1620244715861,
+      displayName: 'Михаил Палей',
+      email: 'paleyblog@gmail.com',
+      id: 'TVwWONM7LVgCI6NnBiT4bIpbRFZ2',
+      picture:
+          'https://lh3.googleusercontent.com/a-/AOh14GiuH5mkcYoTViolN7kPKBkz8mYE0IaPdBBLQlMv5w=s96-c',
+    )
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +46,8 @@ class _MainScreenContainerState extends State<MainScreenContainer> {
           }
 
           return MainScreen(
-            friendsList: [],
             isLoading: isLoading,
+            friendsList: _friends,
             onCreateWinSubmit: createWin,
             myWinsToday: winsListState.myWins,
           );

@@ -54,6 +54,8 @@ class _MainScreenContainerState extends State<MainScreenContainer> {
             });
           }
 
+          _friends.removeWhere((friend) => friend.id == viewerState.userId);
+
           return MainScreen(
             isLoading: isLoading,
             friendsList: _friends,

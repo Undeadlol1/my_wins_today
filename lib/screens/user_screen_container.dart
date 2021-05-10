@@ -22,12 +22,6 @@ class _UserScreenContainerState extends State<UserScreenContainer> {
   }
 
   @override
-  void dispose() {
-    Get.delete<UserState>();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return GetBuilder<UserState>(
       builder: (userState) {

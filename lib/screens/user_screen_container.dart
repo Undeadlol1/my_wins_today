@@ -1,11 +1,8 @@
-import 'dart:developer';
-
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_wins_today/screens/user_screen.dart';
-import 'package:my_wins_today/states/viewer_state.dart';
-import 'package:my_wins_today/states/wins_list_state.dart';
-import 'package:my_wins_today/use_cases/subscribe_to_friends_todays_wins.dart';
+import 'package:my_wins_today/states/user_state.dart';
+import 'package:my_wins_today/use_cases/get_user.dart';
 
 class UserScreenContainer extends StatefulWidget {
   const UserScreenContainer({Key? key}) : super(key: key);
@@ -15,38 +12,24 @@ class UserScreenContainer extends StatefulWidget {
 }
 
 class _UserScreenContainerState extends State<UserScreenContainer> {
-  bool _isSubscrbeFunctionInitiated = false;
+  @override
+  void initState() {
+    super.initState();
+
+    final String? userId = Get.parameters['userId'];
+    Get.put(UserState());
+    getUser(userId!);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ViewerState>(
-      builder: (viewerState) => GetBuilder<WinsListState>(
-        builder: (winsListState) {
-          final String? userId = Get.parameters['userId'];
-          final isLoading = winsListState.isLoading || viewerState.isLoading;
-
-          if (_shouldVidwerSubscribeToFriends(viewerState)) {
-            log('About to subscribe to friends wins.');
-            Future.microtask(() {
-              setState(() => _isSubscrbeFunctionInitiated = true);
-              subscribeToFriendsTodaysWins().listen((_) => {});
-            });
-          }
-
-          return UserScreen(
-            userId: userId!,
-            isLoading: isLoading,
-            winsToday: winsListState.myWins,
-          );
-        },
-      ),
+    return GetBuilder<UserState>(
+      builder: (userState) {
+        return UserScreen(
+          winsToday: [],
+          isLoading: userState.isLoading,
+        );
+      },
     );
-  }
-
-  bool _shouldVidwerSubscribeToFriends(ViewerState viewerState) {
-    return !_isSubscrbeFunctionInitiated &&
-        viewerState.hasBeenRequested &&
-        !viewerState.isLoading &&
-        viewerState.userId!.isNotEmpty;
   }
 }

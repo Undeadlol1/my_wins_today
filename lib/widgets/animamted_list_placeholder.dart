@@ -28,44 +28,11 @@ class AnimatedListPlaceHolder extends StatelessWidget {
                       width: 48.0,
                       height: 48.0,
                       color: Colors.white,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      margin: const EdgeInsets.only(right: 8.0),
                     ),
                     Expanded(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            width: double.infinity,
-                            height: 8.0,
-                            color: Colors.white,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 2.0),
-                          ),
-                          Container(
-                            height: 8.0,
-                            color: Colors.white,
-                            width: double.infinity,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 2.0),
-                          ),
-                          Container(
-                            height: 8.0,
-                            color: Colors.white,
-                            width: double.infinity,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 2.0),
-                          ),
-                          Container(
-                            height: 8.0,
-                            color: Colors.white,
-                            width: double.infinity,
-                          ),
-                        ],
+                        children: _buildColumns(),
                       ),
                     )
                   ],
@@ -75,5 +42,17 @@ class AnimatedListPlaceHolder extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  List<Widget> _buildColumns() {
+    return <Widget>[
+      for (var i = 0; i < 4; i++)
+        Container(
+          height: 8.0,
+          color: Colors.white,
+          width: double.infinity,
+          margin: EdgeInsets.symmetric(vertical: 2.0),
+        ),
+    ];
   }
 }

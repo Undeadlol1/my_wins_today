@@ -3,6 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:my_wins_today/screens/create_win_screen_container.dart';
+import 'package:my_wins_today/screens/main_screen.dart';
+import 'package:my_wins_today/screens/user_screen.dart';
+import 'package:my_wins_today/screens/user_screen_container.dart';
 
 import 'firebase_initializer.dart';
 import 'global_dependencies.dart';
@@ -18,7 +21,7 @@ void main() {
 class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const isStorybookEnabled = true;
+    const isStorybookEnabled = false;
     const isFirebaseEmulatorEnabled = false;
 
     if (isStorybookEnabled) {
@@ -31,11 +34,11 @@ class Application extends StatelessWidget {
       onDidInitilize: (_) {
         return GlobalDependencies(
           child: GetMaterialApp(
-            routes: _buildRoutes(),
-            home: MainScreenContainer(),
+            getPages: _buildRoutes(),
+            initialRoute: MainScreen.path,
             theme: ThemeData.light(),
-            darkTheme: ThemeData.dark(),
             themeMode: ThemeMode.dark,
+            darkTheme: ThemeData.dark(),
           ),
         );
       },
@@ -43,11 +46,25 @@ class Application extends StatelessWidget {
     );
   }
 
-  Map<String, Widget Function(BuildContext)> _buildRoutes() {
-    return {
-      SignInScreen.path: (_) => SignInScreen(),
-      CreateWinScreenContainer.path: (_) => CreateWinScreenContainer(),
-    };
+  List<GetPage<dynamic>>? _buildRoutes() {
+    return [
+      GetPage(
+        name: MainScreen.path,
+        page: () => MainScreenContainer(),
+      ),
+      GetPage(
+        name: SignInScreen.path,
+        page: () => SignInScreen(),
+      ),
+      GetPage(
+        name: CreateWinScreenContainer.path,
+        page: () => CreateWinScreenContainer(),
+      ),
+      GetPage(
+        name: UserScreen.path + '/:userId',
+        page: () => UserScreenContainer(),
+      ),
+    ];
   }
 
   Widget _buildLoadingIndicator() {

@@ -32,8 +32,8 @@ class _UserScreenContainerState extends State<UserScreenContainer> {
     return GetBuilder<UserState>(
       builder: (userState) {
         return UserScreen(
-          winsToday: [],
           user: userState.data,
+          winsToday: userState.wins,
           isLoading: userState.isLoading,
         );
       },

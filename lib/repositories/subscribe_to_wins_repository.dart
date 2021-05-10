@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_wins_today/entities/Win.dart';
+import 'package:my_wins_today/transformers/firebase_win_documents_to_win_entities_transformer.dart';
 
 Stream<List<Win>> subscribeToWinsRepository({required String userId}) {
   log('subscribeToWinsRepository is called.');
@@ -16,32 +17,9 @@ Stream<List<Win>> subscribeToWinsRepository({required String userId}) {
       .where('userId', isEqualTo: userId)
       .where('createdAt', isGreaterThan: lastSixteenHours)
       .snapshots()
-      .map(_convertFirebaseDocumentsToWins)
+      .map(firebaseWinDocumentsToWinEntities)
       .handleError((error) {
     log('subscribeToWinsRepository thrown an error: ');
     log(error.toString());
   });
-}
-
-List<Win> _convertFirebaseDocumentsToWins(QuerySnapshot snapshot) {
-  log('Repository responded with ${snapshot.docs.length.toString()} documents.');
-
-  List<Win> list = [];
-
-  snapshot.docs.toList().forEach((document) {
-    var data = document.data();
-    list.add(Win(
-      id: data['id'],
-      title: data['title'] ?? '',
-      userId: data['userId'] ?? '',
-      createdAt: data['createdAt'],
-      updatedAt: data['updatedAt'],
-      likedByUsers: data['likedByUsers'] == null
-          ? []
-          : List<String>.from(data['likedByUsers']),
-      isImportant: data['isImportant'] ?? false,
-    ));
-  });
-
-  return list;
 }

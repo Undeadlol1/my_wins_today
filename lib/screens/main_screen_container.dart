@@ -27,7 +27,16 @@ class _MainScreenContainerState extends State<MainScreenContainer> {
       id: 'TVwWONM7LVgCI6NnBiT4bIpbRFZ2',
       picture:
           'https://lh3.googleusercontent.com/a-/AOh14GiuH5mkcYoTViolN7kPKBkz8mYE0IaPdBBLQlMv5w=s96-c',
-    )
+    ),
+    User(
+      updatedAt: 1620622123039,
+      createdAt: 1620622123039,
+      displayName: 'Маргарита Емельянова',
+      email: 'ritusharira@gmail.com',
+      id: 'TAco9JE8NXeooQsVDPsMIHAugpk1',
+      picture:
+          'https://lh3.googleusercontent.com/a-/AOh14GhX1dOK2WMTNdmjmxnaJUmlcDxrssMwtDNt8aJlcA=s96-c',
+    ),
   ];
 
   @override

@@ -11,74 +11,68 @@ class AnimatedListPlaceHolder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          Expanded(
-            child: Shimmer.fromColors(
-              enabled: true,
-              baseColor: Theme.of(context).backgroundColor,
-              highlightColor: Theme.of(context).highlightColor,
-              child: ListView.builder(
-                itemCount: itemCount,
-                itemBuilder: (_, __) => Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        width: 48.0,
-                        height: 48.0,
-                        color: Colors.white,
+      child: Shimmer.fromColors(
+        enabled: true,
+        baseColor: Theme.of(context).backgroundColor,
+        highlightColor: Theme.of(context).highlightColor,
+        child: Column(
+          children: <Widget>[
+            for (var i = 0; i < itemCount; i++)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      width: 48.0,
+                      height: 48.0,
+                      color: Colors.white,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            width: double.infinity,
+                            height: 8.0,
+                            color: Colors.white,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 2.0),
+                          ),
+                          Container(
+                            height: 8.0,
+                            color: Colors.white,
+                            width: double.infinity,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 2.0),
+                          ),
+                          Container(
+                            height: 8.0,
+                            color: Colors.white,
+                            width: double.infinity,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 2.0),
+                          ),
+                          Container(
+                            height: 8.0,
+                            color: Colors.white,
+                            width: double.infinity,
+                          ),
+                        ],
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              width: double.infinity,
-                              height: 8.0,
-                              color: Colors.white,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 2.0),
-                            ),
-                            Container(
-                              height: 8.0,
-                              color: Colors.white,
-                              width: double.infinity,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 2.0),
-                            ),
-                            Container(
-                              height: 8.0,
-                              color: Colors.white,
-                              width: double.infinity,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 2.0),
-                            ),
-                            Container(
-                              height: 8.0,
-                              color: Colors.white,
-                              width: double.infinity,
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                    )
+                  ],
                 ),
-              ),
-            ),
-          ),
-        ],
+              )
+          ],
+        ),
       ),
     );
   }

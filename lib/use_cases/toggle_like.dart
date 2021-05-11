@@ -11,7 +11,6 @@ Future<Win> toggleLike({required Win winToUpdate}) async {
   final userId = Get.find<ViewerState>().userId;
 
   if (userId == null) {
-    // TODO: what if user is not signed in?
     log('User is not signed in. Returning.');
     return winToUpdate;
   }

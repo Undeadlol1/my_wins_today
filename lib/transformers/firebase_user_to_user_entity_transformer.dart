@@ -8,10 +8,7 @@ User firebaseUserToUserEntityTransformer(FirebaseAuth.User firebaseUser) {
     id: firebaseUser.uid,
     email: firebaseUser.email!,
     picture: firebaseUser.photoURL!,
-    // NOTE: this is intentionally wrong.
-    // TODO: save currently logged in user locally.
-    // then use this data to put in state during "subscribeToViewer"
-    // on application start up.
+    // NOTE: this is wrong.
     createdAt: currentTimeInMilliseconds,
     updatedAt: currentTimeInMilliseconds,
     displayName: firebaseUser.displayName!,

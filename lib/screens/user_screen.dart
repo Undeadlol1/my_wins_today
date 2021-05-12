@@ -24,7 +24,7 @@ class UserScreen extends StatelessWidget {
       title: 'Страница пользователя',
       body: Column(
         children: [
-          Text(user?.displayName ?? ''),
+          _buildUserNameAndAvatar(),
           SizedBox(height: 20),
           WinsListContainer(
             wins: this.winsToday,
@@ -32,6 +32,19 @@ class UserScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildUserNameAndAvatar() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Text(user?.displayName ?? ''),
+        if (user != null)
+          CircleAvatar(
+            foregroundImage: NetworkImage(user!.picture),
+          ),
+      ],
     );
   }
 }

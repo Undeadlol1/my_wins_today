@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:my_wins_today/screens/main_screen.dart';
 import 'package:my_wins_today/use_cases/log_out.dart';
 import 'package:my_wins_today/states/viewer_state.dart';
 import 'package:my_wins_today/screens/sign_in_screen.dart';
@@ -17,17 +18,11 @@ class Layout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewerState = Get.find<ViewerState>();
-    final String viewerPhoto = viewerState.viewer?.picture ?? '';
     return Scaffold(
       appBar: AppBar(
         title: Text(this.title),
         actions: [
-          Container(
-            width: 35,
-            margin: const EdgeInsets.only(right: 15),
-            child: viewerPhoto.isEmpty ? null : Image.network(viewerPhoto),
-          ),
+          _buildUserAvatar(),
         ],
       ),
       drawer: Drawer(
@@ -52,12 +47,28 @@ class Layout extends StatelessWidget {
     );
   }
 
+  Widget _buildUserAvatar() {
+    final viewerState = Get.find<ViewerState>();
+    final String viewerPhoto = viewerState.viewer?.picture ?? '';
+
+    return Container(
+      width: 35,
+      margin: const EdgeInsets.only(right: 15),
+      child: InkWell(
+        onTap: () => Get.toNamed(MainScreen.path),
+        child: viewerPhoto.isEmpty ? null : Image.network(viewerPhoto),
+      ),
+    );
+  }
+
   Widget _loginOrLogoutButton(BuildContext context) {
     final viewerState = Get.find<ViewerState>();
     final bool isViewerSignedIn = viewerState.viewer != null;
+
     if (viewerState.isLoading) {
       return Container();
     }
+
     return ListTile(
       title: TextButton(
         onPressed: () {},

@@ -5,9 +5,9 @@ import 'package:like_button/like_button.dart' as LikeButtonPackage;
 class LikeButton extends StatelessWidget {
   const LikeButton({
     Key? key,
-    this.isDisabled = false,
-    required this.isLiked,
     required this.onTap,
+    required this.isLiked,
+    this.isDisabled = false,
   }) : super(key: key);
 
   final bool isLiked;
@@ -28,6 +28,19 @@ class LikeButton extends StatelessWidget {
             if (onTap != null) onTap();
             return !isButtonCurrentlyLiked;
           },
+          likeBuilder: (bool isLiked) {
+            return Icon(
+              isLiked ? Icons.favorite : Icons.favorite_outline,
+            );
+          },
+          circleColor: LikeButtonPackage.CircleColor(
+            end: const Color(0xff33b5e5),
+            start: const Color(0xff0099cc),
+          ),
+          bubblesColor: LikeButtonPackage.BubblesColor(
+            dotPrimaryColor: const Color(0xff33b5e5),
+            dotSecondaryColor: const Color(0xff0099cc),
+          ),
         );
       },
     );

@@ -27,7 +27,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Layout(
-      title: 'Список побед',
+      title: 'Ваши победы',
       body: Column(
         children: [
           UsersAvatarList(users: friendsList),

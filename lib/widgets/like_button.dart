@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tap_debouncer/tap_debouncer.dart';
+import 'package:like_button/like_button.dart' as LikeButtonPackage;
 
 class LikeButton extends StatelessWidget {
   const LikeButton({
@@ -16,17 +17,17 @@ class LikeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TapDebouncer(
-      onTap: onTap,
+      onTap: isDisabled ? null : onTap,
       cooldown: const Duration(milliseconds: 1500),
       builder: (BuildContext context, TapDebouncerFunc? onTap) {
-        return InkWell(
-          onTap: onTap,
-          child: Container(
-            padding: EdgeInsets.all(2.5),
-            child: Icon(
-              isLiked ? Icons.favorite : Icons.favorite_outline,
-            ),
-          ),
+        return LikeButtonPackage.LikeButton(
+          isLiked: isLiked,
+          onTap: (isButtonCurrentlyLiked) async {
+            if (isDisabled) return isButtonCurrentlyLiked;
+
+            if (onTap != null) onTap();
+            return !isButtonCurrentlyLiked;
+          },
         );
       },
     );

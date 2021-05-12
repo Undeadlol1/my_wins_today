@@ -57,8 +57,8 @@ class WinsList extends StatelessWidget {
       TextStyle(color: Theme.of(context).accentColor),
     );
 
-    bool isMyOwnWinsList = onLikeButtonTap == null;
-    bool isWinLikedByMe = win.likedByUsers.contains(viewerId);
+    final isWinLikedByMe = win.likedByUsers.contains(viewerId);
+    final isMyOwnWinsList = wins.every((element) => element.userId == viewerId);
 
     return Container(
       child: Row(
@@ -76,11 +76,9 @@ class WinsList extends StatelessWidget {
           ),
           LikeButton(
             isDisabled: isMyOwnWinsList,
+            onTap: () async => onLikeButtonTap!(winToUpdate: win),
             isLiked:
                 isMyOwnWinsList ? win.likedByUsers.isNotEmpty : isWinLikedByMe,
-            onTap: isMyOwnWinsList
-                ? null
-                : () async => await onLikeButtonTap!(winToUpdate: win),
           ),
         ],
       ),

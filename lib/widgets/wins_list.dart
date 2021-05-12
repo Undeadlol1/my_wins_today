@@ -54,7 +54,7 @@ class WinsList extends StatelessWidget {
 
     final normalTextStyle = Theme.of(context).textTheme.headline6;
     final importantTextStyle = normalTextStyle!.merge(
-      TextStyle(color: Theme.of(context).accentColor),
+      TextStyle(color: Theme.of(context).buttonColor),
     );
 
     final isWinLikedByMe = win.likedByUsers.contains(viewerId);

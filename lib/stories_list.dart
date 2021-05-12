@@ -98,6 +98,7 @@ class _StoriesListState extends State<StoriesList> {
           ),
         ),
       ],
+      themeMode: ThemeMode.dark,
       storyWrapperBuilder: (context, story, child) => Stack(
         children: [
           Container(

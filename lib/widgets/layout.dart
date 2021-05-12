@@ -21,15 +21,11 @@ class Layout extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(this.title),
-        actions: [
-          _buildUserAvatar(),
-        ],
+        actions: [_buildUserAvatar()],
       ),
       drawer: Drawer(
         child: ListView(
-          children: [
-            _loginOrLogoutButton(context),
-          ],
+          children: [_loginOrLogoutButton()],
         ),
       ),
       body: SingleChildScrollView(
@@ -61,31 +57,19 @@ class Layout extends StatelessWidget {
     );
   }
 
-  Widget _loginOrLogoutButton(BuildContext context) {
+  Widget _loginOrLogoutButton() {
     final viewerState = Get.find<ViewerState>();
-    final bool isViewerSignedIn = viewerState.viewer != null;
 
     if (viewerState.isLoading) {
       return Container();
     }
 
+    final bool isViewerSignedIn = viewerState.viewer != null;
     return ListTile(
-      title: TextButton(
-        onPressed: () {},
-        child: ListTile(
-          onTap: () async {
-            isViewerSignedIn
-                ? await logOut()
-                : Navigator.pushNamed(
-                    context,
-                    SignInScreen.path,
-                  );
-          },
-          title: Text(
-            isViewerSignedIn ? 'Выйти' : 'Войти',
-            textAlign: TextAlign.center,
-          ),
-        ),
+      onTap: isViewerSignedIn ? logOut : () => Get.toNamed(SignInScreen.path),
+      title: Text(
+        isViewerSignedIn ? 'Выйти' : 'Войти',
+        textAlign: TextAlign.center,
       ),
     );
   }

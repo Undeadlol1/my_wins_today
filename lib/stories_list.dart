@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_wins_today/states/viewer_state.dart';
 import 'package:my_wins_today/widgets/create_win_form_story.dart';
+import 'package:my_wins_today/widgets/like_button_story.dart';
 import 'package:my_wins_today/widgets/users_avatar_list_story.dart';
 import 'package:my_wins_today/widgets/wins_list_story.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
@@ -46,6 +47,7 @@ class _StoriesListState extends State<StoriesList> {
         winsListStory,
         createWinFormStory,
         friendsVatarsStory,
+        likeButtonStory,
         Story(
           name: 'MainScreen',
           section: StorybookSection.Screens,

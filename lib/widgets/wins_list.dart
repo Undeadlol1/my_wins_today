@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_wins_today/entities/Win.dart';
-import 'package:tap_debouncer/tap_debouncer.dart';
 
 import 'animamted_list_placeholder.dart';
+import 'like_button.dart';
 
 class WinsList extends StatelessWidget {
   final List<Win> wins;
@@ -57,6 +57,9 @@ class WinsList extends StatelessWidget {
       TextStyle(color: Theme.of(context).accentColor),
     );
 
+    bool isMyOwnWinsList = onLikeButtonTap == null;
+    bool isWinLikedByMe = win.likedByUsers.contains(viewerId);
+
     return Container(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,38 +74,16 @@ class WinsList extends StatelessWidget {
               style: win.isImportant ? importantTextStyle : normalTextStyle,
             ),
           ),
-          _buildLikeButton(win),
+          LikeButton(
+            isDisabled: isMyOwnWinsList,
+            isLiked:
+                isMyOwnWinsList ? win.likedByUsers.isNotEmpty : isWinLikedByMe,
+            onTap: isMyOwnWinsList
+                ? null
+                : () async => await onLikeButtonTap!(winToUpdate: win),
+          ),
         ],
       ),
-    );
-  }
-
-  Widget _buildLikeButton(Win win) {
-    bool isMyOwnWinsList = onLikeButtonTap == null;
-    bool isWinLikedByMe = win.likedByUsers.contains(viewerId);
-
-    return TapDebouncer(
-      cooldown: const Duration(milliseconds: 1500),
-      onTap: isMyOwnWinsList
-          ? null
-          : () async => await onLikeButtonTap!(winToUpdate: win),
-      builder: (BuildContext context, TapDebouncerFunc? onTap) {
-        return InkWell(
-          onTap: onTap,
-          child: Container(
-            padding: EdgeInsets.all(2.5),
-            child: Icon(
-              isMyOwnWinsList
-                  ? win.likedByUsers.isNotEmpty
-                      ? Icons.favorite
-                      : Icons.favorite_outline
-                  : isWinLikedByMe
-                      ? Icons.favorite
-                      : Icons.favorite_outline,
-            ),
-          ),
-        );
-      },
     );
   }
 }

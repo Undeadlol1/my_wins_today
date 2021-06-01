@@ -54,7 +54,7 @@ class _StoriesListState extends State<StoriesList> {
           builder: (_, k) => MainScreen(
             myWinsToday: _wins,
             friendsList: _users,
-            isLoading: k.boolean(label: 'Is loading'),
+            isLoading: k.boolean(label: 'Is loading', initial: false),
             onCreateWinSubmit:
                 ({required bool isImportant, required String title}) => {},
           ),

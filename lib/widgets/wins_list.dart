@@ -4,6 +4,8 @@ import 'package:my_wins_today/entities/Win.dart';
 import 'animamted_list_placeholder.dart';
 import 'like_button.dart';
 
+final winsListGlobalKey = GlobalKey<AnimatedListState>();
+
 class WinsList extends StatelessWidget {
   final List<Win> wins;
   final bool isLoading;
@@ -24,6 +26,7 @@ class WinsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('isLoading: ${isLoading}');
     if (isLoading) {
       return AnimatedListPlaceHolder();
     }
@@ -32,10 +35,12 @@ class WinsList extends StatelessWidget {
       return _emptyStateWidget();
     }
 
-    return Column(
-      children: wins
-          .map((win) => _buildListItem(context, wins.indexOf(win)))
-          .toList(),
+    return AnimatedList(
+      primary: false,
+      shrinkWrap: true,
+      key: winsListGlobalKey,
+      itemBuilder: _buildListItem,
+      initialItemCount: wins.length,
     );
   }
 
@@ -48,7 +53,11 @@ class WinsList extends StatelessWidget {
     );
   }
 
-  Widget _buildListItem(BuildContext context, int index) {
+  Widget _buildListItem(
+    BuildContext context,
+    int index,
+    Animation<double> animation,
+  ) {
     final win = isReversed ? wins.reversed.toList()[index] : wins[index];
     final String textPrefix = (wins.indexOf(win) + 1).toString() + ') ';
 

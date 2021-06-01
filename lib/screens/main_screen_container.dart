@@ -46,11 +46,11 @@ class _MainScreenContainerState extends State<MainScreenContainer> {
         builder: (winsListState) {
           final isLoading = winsListState.isLoading || viewerState.isLoading;
 
-          if (_shouldVidwerSubscribeToFriends(viewerState)) {
+          if (_shouldViewerSubscribeToFriends(viewerState)) {
             log('About to subscribe to friends wins.');
             Future.microtask(() {
               setState(() => _isSubscrbeFunctionInitiated = true);
-              subscribeToMyOwnTodaysWins().listen((_) => {});
+              subscribeToMyOwnTodaysWins().listen((_) {});
             });
           }
 
@@ -67,7 +67,7 @@ class _MainScreenContainerState extends State<MainScreenContainer> {
     );
   }
 
-  bool _shouldVidwerSubscribeToFriends(ViewerState viewerState) {
+  bool _shouldViewerSubscribeToFriends(ViewerState viewerState) {
     return !_isSubscrbeFunctionInitiated &&
         viewerState.hasBeenRequested &&
         !viewerState.isLoading &&

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +22,7 @@ class FirebaseInitializer extends StatefulWidget {
 }
 
 class _FirebaseInitializerState extends State<FirebaseInitializer> {
-  late Future<FirebaseApp> _initialization;
+  late Future<FirebaseApp> _firebaseInitializationFuture;
 
   @override
   void initState() {
@@ -34,13 +32,13 @@ class _FirebaseInitializerState extends State<FirebaseInitializer> {
      avoid redirection during hot reload.
      https://github.com/flutter/flutter/issues/60709#issuecomment-749778081
     */
-    _initialization = Firebase.initializeApp();
+    _firebaseInitializationFuture = Firebase.initializeApp();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<FirebaseApp>(
-      future: _initialization,
+      future: _firebaseInitializationFuture,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return widget.onError(snapshot.error);
@@ -55,18 +53,15 @@ class _FirebaseInitializerState extends State<FirebaseInitializer> {
   }
 
   void _setupOrDisableFirebaseEmulator() async {
-    final firestore = FirebaseFirestore.instance;
+    final localHost = defaultTargetPlatform == TargetPlatform.android
+        ? '10.0.2.2:8080'
+        : 'localhost:8080';
 
-    if (widget.shouldEmulatorStart) {
-      log('Enabling firebase emulator.');
-      String host = defaultTargetPlatform == TargetPlatform.android
-          ? '10.0.2.2:8080'
-          : 'localhost:8080';
-
-      // https://firebase.flutter.dev/docs/firestore/usage#emulator-usage
-      firestore.settings = Settings(host: host, sslEnabled: false);
-    } else {
-      firestore.settings = Settings();
-    }
+    FirebaseFirestore.instance.settings = widget.shouldEmulatorStart
+        ? Settings(
+            host: localHost,
+            sslEnabled: false,
+          )
+        : Settings();
   }
 }

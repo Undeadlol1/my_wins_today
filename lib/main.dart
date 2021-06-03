@@ -31,6 +31,7 @@ class Application extends StatelessWidget {
     return FirebaseInitializer(
       onError: _logAndDisplayErrorText,
       onLoading: _buildLoadingIndicator,
+      shouldEmulatorStart: isFirebaseEmulatorEnabled,
       onDidInitilize: (_) {
         return GlobalDependencies(
           child: GetMaterialApp(
@@ -42,7 +43,6 @@ class Application extends StatelessWidget {
           ),
         );
       },
-      shouldEmulatorStart: isFirebaseEmulatorEnabled,
     );
   }
 

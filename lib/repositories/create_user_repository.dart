@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:my_wins_today/entities/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as Firebase;
+import 'package:my_wins_today/utilities/log_and_throw_on_error.dart';
 
 Future<User> createUserRepository(Firebase.User firebaseUser) async {
   log('createUserRepository() is called.');
@@ -21,12 +22,7 @@ Future<User> createUserRepository(Firebase.User firebaseUser) async {
       .collection('users')
       .doc(userId)
       .set(userToBeCreated.toMap())
-      .catchError(_logAndThrowError);
+      .catchError(logAndThrowOnError);
 
   return userToBeCreated;
-}
-
-_logAndThrowError(error) {
-  log("Failed to add a user: $error");
-  throw error;
 }

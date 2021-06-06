@@ -2,7 +2,7 @@ import 'package:my_wins_today/widgets/users_avatar_list.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
 import '../stories_list.dart';
-import '../entities/User.dart';
+import '../entities/user.dart';
 
 final Story friendsVatarsStory = Story(
   name: 'Friends Avatars',

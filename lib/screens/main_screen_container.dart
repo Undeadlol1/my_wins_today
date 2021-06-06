@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_wins_today/entities/User.dart';
+import 'package:my_wins_today/entities/user.dart';
 import 'package:my_wins_today/screens/main_screen.dart';
 import 'package:my_wins_today/states/viewer_state.dart';
 import 'package:my_wins_today/states/wins_list_state.dart';

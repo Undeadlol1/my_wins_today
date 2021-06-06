@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:my_wins_today/entities/User.dart';
+import 'package:my_wins_today/entities/user.dart';
 
 User firestoreDocumentToUserEntityTransformer(DocumentSnapshot document) {
   final data = document.data()!;

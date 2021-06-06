@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:my_wins_today/entities/User.dart';
+import 'package:my_wins_today/entities/user.dart';
 import 'package:my_wins_today/screens/user_screen.dart';
 
 class UsersAvatarList extends StatelessWidget {

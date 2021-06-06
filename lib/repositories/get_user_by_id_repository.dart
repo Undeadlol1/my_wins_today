@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:my_wins_today/entities/User.dart';
+import 'package:my_wins_today/entities/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_wins_today/transformers/firestore_document_to_user_entity_transformer.dart';
 

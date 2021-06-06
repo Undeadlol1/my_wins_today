@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
-import 'package:my_wins_today/entities/Win.dart';
+import 'package:my_wins_today/entities/win.dart';
 import 'package:my_wins_today/DTOs/win_create_dto.dart';
 import 'package:my_wins_today/repositories/create_win_repository.dart';
 import 'package:my_wins_today/states/viewer_state.dart';

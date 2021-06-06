@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:my_wins_today/entities/Win.dart';
+import 'package:my_wins_today/entities/win.dart';
 import 'package:my_wins_today/DTOs/win_create_dto.dart';
 import 'package:my_wins_today/utilities/generateId.dart';
 

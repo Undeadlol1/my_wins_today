@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:my_wins_today/entities/Win.dart';
+import 'package:my_wins_today/entities/win.dart';
 import 'package:my_wins_today/transformers/firebase_win_documents_to_win_entities_transformer.dart';
 
 Stream<List<Win>> subscribeToWinsRepository({required String userId}) {

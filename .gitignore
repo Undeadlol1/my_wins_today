@@ -826,7 +826,7 @@ tags
 !.vscode/extensions.json
 
 
-### https://raw.github.com/github/gitignore/340e2fe08a2356c2e3760ff58c3a9e1fddf08060/Global/Windows.gitignore
+### https://raw.github.com/github/gitignore/340e2fe08a2356c2e3760ff58c3a9e1fddf08060/Global/windows.gitignore
 
 # Windows thumbnail cache files
 Thumbs.db

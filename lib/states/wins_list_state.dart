@@ -1,5 +1,5 @@
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:my_wins_today/entities/Win.dart';
+import 'package:my_wins_today/entities/win.dart';
 
 class WinsListState extends GetxController {
   List<Win> myWins = [];

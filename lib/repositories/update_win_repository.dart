@@ -1,5 +1,5 @@
 import 'dart:developer' show log;
-import 'package:my_wins_today/entities/Win.dart';
+import 'package:my_wins_today/entities/win.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 final winsCollection = FirebaseFirestore.instance.collection('wins');

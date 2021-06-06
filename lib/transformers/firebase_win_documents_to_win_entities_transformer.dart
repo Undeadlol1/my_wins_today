@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:my_wins_today/entities/Win.dart';
+import 'package:my_wins_today/entities/win.dart';
 
 List<Win> firebaseWinDocumentsToWinEntities(QuerySnapshot snapshot) {
   log('Repository responded with ${snapshot.docs.length.toString()} documents.');

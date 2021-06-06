@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:my_wins_today/entities/Win.dart';
+import 'package:my_wins_today/entities/win.dart';
 import 'package:my_wins_today/widgets/wins_list.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 

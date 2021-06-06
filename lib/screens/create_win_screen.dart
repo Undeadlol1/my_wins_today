@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../entities/Win.dart';
+import '../entities/win.dart';
 import '../widgets/layout.dart';
 import '../widgets/create_win_form.dart';
 

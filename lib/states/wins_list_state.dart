@@ -6,13 +6,13 @@ class WinsListState extends GetxController {
   bool isLoading = false;
   List<Win> friendsWins = [];
 
-  void setFriendsWins(List<Win> payload) {
-    this.friendsWins = payload;
+  void setMyWins(List<Win> payload) {
+    this.myWins = payload;
     update();
   }
 
-  void setMyWins(List<Win> payload) {
-    this.myWins = payload;
+  void setFriendsWins(List<Win> payload) {
+    this.friendsWins = payload;
     update();
   }
 

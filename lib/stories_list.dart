@@ -135,18 +135,18 @@ class _StoriesListState extends State<StoriesList> {
       userId: '123',
       updatedAt: 123,
       createdAt: 123,
-      isImportant: Random().nextBool(),
-      title: 'Поздравил Деда',
       likedByUsers: [],
+      title: 'Поздравил Деда',
+      isImportant: Random().nextBool(),
     ),
     Win(
       id: '123',
       userId: '123',
       updatedAt: 123,
       createdAt: 123,
-      isImportant: Random().nextBool(),
-      title: 'Отправил документы',
       likedByUsers: [],
+      title: 'Отправил документы',
+      isImportant: Random().nextBool(),
     ),
   ];
 }

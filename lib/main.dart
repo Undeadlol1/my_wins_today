@@ -2,10 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:my_wins_today/screens/create_win_screen_container.dart';
 import 'package:my_wins_today/screens/main_screen.dart';
 import 'package:my_wins_today/screens/user_screen.dart';
 import 'package:my_wins_today/screens/user_screen_container.dart';
+import 'package:my_wins_today/screens/create_win_screen_container.dart';
 
 import 'firebase_initializer.dart';
 import 'global_dependencies.dart';
@@ -34,11 +34,11 @@ class Application extends StatelessWidget {
       onDidInitilize: (_) {
         return GlobalDependencies(
           child: GetMaterialApp(
-            getPages: _buildRoutes(),
-            initialRoute: MainScreen.path,
             theme: ThemeData.light(),
             themeMode: ThemeMode.dark,
             darkTheme: ThemeData.dark(),
+            getPages: _buildRoutes(),
+            initialRoute: MainScreen.path,
           ),
         );
       },

@@ -10,17 +10,17 @@ final Story friendsVatarsStory = Story(
   builder: (_, k) => UsersAvatarList(
     users: k.options(
       label: 'List values',
-      initial: _getSmallList(),
+      initial: _getShortList(),
       options: [
         Option('Empty', []),
         Option('Long list', _getLongList()),
-        Option('Small list', _getSmallList()),
+        Option('Short list', _getShortList()),
       ],
     ),
   ),
 );
 
-List<User> _getSmallList() {
+List<User> _getShortList() {
   return _users;
 }
 

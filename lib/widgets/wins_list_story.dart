@@ -15,7 +15,7 @@ final Story winsListStory = Story(
       initial: _wins,
       options: [
         Option('Empty', []),
-        Option('Small list', _getSmallList()),
+        Option('Short list', _getShortList()),
         Option('Long list', _getLongList()),
       ],
     ),
@@ -48,7 +48,7 @@ final Story winsListStory = Story(
 
 const _viewerId = '123';
 
-List<Win> _getSmallList() {
+List<Win> _getShortList() {
   return _wins;
 }
 

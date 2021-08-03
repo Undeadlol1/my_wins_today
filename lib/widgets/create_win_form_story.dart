@@ -17,13 +17,13 @@ final Story createWinFormStory = Story(
       options: [
         Option('Empty', []),
         Option('Long list', _getLongList()),
-        Option('Small list', _getSmallList()),
+        Option('Short list', _getShortList()),
       ],
     ),
   ),
 );
 
-List<Win> _getSmallList() {
+List<Win> _getShortList() {
   return _wins;
 }
 

@@ -11,5 +11,6 @@ Future logOut() async {
   winsListState.setMyWins([]);
   winsListState.setFriendsWins([]);
 
+  // TODO: use cases must not depend on libraries.
   return await FirebaseAuth.instance.signOut();
 }

@@ -1,26 +1,24 @@
+import 'dart:async';
 import 'dart:developer';
 
-import 'package:my_wins_today/entities/User.dart';
+import 'package:my_wins_today/entities/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_wins_today/transformers/firestore_document_to_user_entity_transformer.dart';
-
-final _users = FirebaseFirestore.instance.collection('users');
+import 'package:my_wins_today/utilities/log_and_throw_on_error.dart';
 
 Future<User?> getUserById(String userId) async {
   log('getUserById is called.');
 
-  return await _users
+  return FirebaseFirestore.instance
+      .collection('users')
       .doc(userId)
       .get()
-      .catchError(_logOnError)
-      .then((firebaseUserDocument) {
-    if (firebaseUserDocument.exists) {
-      return firestoreDocumentToUserEntityTransformer(firebaseUserDocument);
-    }
-  });
+      .then(_transformAndReturnDocument)
+      .catchError(logAndThrowOnError);
 }
 
-_logOnError(error) {
-  log("Failed to get a user: $error");
-  throw error;
+FutureOr<User?> _transformAndReturnDocument(firebaseUserDocument) {
+  if (firebaseUserDocument.exists) {
+    return firestoreDocumentToUserEntityTransformer(firebaseUserDocument);
+  }
 }

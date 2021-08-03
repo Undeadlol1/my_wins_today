@@ -9,8 +9,8 @@ import 'package:my_wins_today/widgets/users_avatar_list_story.dart';
 import 'package:my_wins_today/widgets/wins_list_story.dart';
 import 'package:storybook_flutter/storybook_flutter.dart';
 
-import 'entities/User.dart';
-import 'entities/Win.dart';
+import 'entities/user.dart';
+import 'entities/win.dart';
 import 'screens/create_win_screen.dart';
 import 'screens/main_screen.dart';
 import 'screens/sign_in_screen.dart';

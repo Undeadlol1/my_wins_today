@@ -1,18 +1,16 @@
 import 'dart:developer';
-
-import 'package:my_wins_today/entities/User.dart';
+import 'package:my_wins_today/entities/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as Firebase;
-
-final _users = FirebaseFirestore.instance.collection('users');
+import 'package:my_wins_today/utilities/log_and_throw_on_error.dart';
 
 Future<User> createUserRepository(Firebase.User firebaseUser) async {
   log('createUserRepository() is called.');
 
-  final String id = firebaseUser.uid;
+  final String userId = firebaseUser.uid;
   final currentTimeInMilliseconds = DateTime.now().millisecondsSinceEpoch;
   final userToBeCreated = User(
-    id: id,
+    id: userId,
     email: firebaseUser.email!,
     picture: firebaseUser.photoURL!,
     createdAt: currentTimeInMilliseconds,
@@ -20,10 +18,11 @@ Future<User> createUserRepository(Firebase.User firebaseUser) async {
     displayName: firebaseUser.displayName!,
   );
 
-  await _users.doc(id).set(userToBeCreated.toMap()).catchError((error) {
-    log("Failed to add a user: $error");
-    throw error;
-  });
+  await FirebaseFirestore.instance
+      .collection('users')
+      .doc(userId)
+      .set(userToBeCreated.toMap())
+      .catchError(logAndThrowOnError);
 
   return userToBeCreated;
 }

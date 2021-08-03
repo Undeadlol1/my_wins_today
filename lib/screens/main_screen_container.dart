@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_wins_today/entities/User.dart';
+import 'package:my_wins_today/entities/user.dart';
 import 'package:my_wins_today/screens/main_screen.dart';
 import 'package:my_wins_today/states/viewer_state.dart';
 import 'package:my_wins_today/states/wins_list_state.dart';
@@ -46,11 +46,11 @@ class _MainScreenContainerState extends State<MainScreenContainer> {
         builder: (winsListState) {
           final isLoading = winsListState.isLoading || viewerState.isLoading;
 
-          if (_shouldVidwerSubscribeToFriends(viewerState)) {
+          if (_shouldViewerSubscribeToFriends(viewerState)) {
             log('About to subscribe to friends wins.');
             Future.microtask(() {
               setState(() => _isSubscrbeFunctionInitiated = true);
-              subscribeToMyOwnTodaysWins().listen((_) => {});
+              subscribeToMyOwnTodaysWins().listen((_) {});
             });
           }
 
@@ -67,7 +67,7 @@ class _MainScreenContainerState extends State<MainScreenContainer> {
     );
   }
 
-  bool _shouldVidwerSubscribeToFriends(ViewerState viewerState) {
+  bool _shouldViewerSubscribeToFriends(ViewerState viewerState) {
     return !_isSubscrbeFunctionInitiated &&
         viewerState.hasBeenRequested &&
         !viewerState.isLoading &&

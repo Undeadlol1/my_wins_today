@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_wins_today/entities/Win.dart';
+import 'package:my_wins_today/entities/win.dart';
 import 'package:my_wins_today/screens/sign_in_screen.dart';
 import 'package:my_wins_today/states/viewer_state.dart';
 import 'package:my_wins_today/widgets/wins_list_container.dart';

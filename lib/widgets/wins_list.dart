@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_wins_today/entities/Win.dart';
+import 'package:my_wins_today/entities/win.dart';
 
 import 'animamted_list_placeholder.dart';
 import 'like_button.dart';

@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as FirebaseAuth;
-import 'package:my_wins_today/entities/User.dart';
+import 'package:my_wins_today/entities/user.dart';
 
 User firebaseUserToUserEntityTransformer(FirebaseAuth.User firebaseUser) {
   final currentTimeInMilliseconds = DateTime.now().millisecondsSinceEpoch;

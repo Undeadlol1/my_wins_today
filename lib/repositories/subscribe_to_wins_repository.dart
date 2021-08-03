@@ -8,11 +8,11 @@ Stream<List<Win>> subscribeToWinsRepository({required String userId}) {
   log('subscribeToWinsRepository is called.');
   log('Requested userId is: $userId');
 
-  final _firestore = FirebaseFirestore.instance;
+  final firestore = FirebaseFirestore.instance;
   final lastSixteenHours =
       DateTime.now().subtract(Duration(hours: 16)).millisecondsSinceEpoch;
 
-  return _firestore
+  return firestore
       .collection('wins')
       .where('userId', isEqualTo: userId)
       .where('createdAt', isGreaterThan: lastSixteenHours)
